@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * TODO
+ * TODO Lecture XML Baton ?
  *
  * @author Edouard JEANJEAN <edouard128@hotmail.com>
  * @version 0.1.0
