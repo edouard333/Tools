@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.Scanner;
 
 /**
- * Gère l'XML venant de Baton.
+ * Gère l'XML venant du logiciel Baton.
  *
  * @author Edouard JEANJEAN <edouard128@hotmail.com>
  * @version 1.0.0
