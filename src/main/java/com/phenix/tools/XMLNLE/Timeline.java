@@ -632,8 +632,8 @@ public class Timeline {
                             + "\t\t\t\t\t\t\t\t\t\t<fielddominance>" + ((MediaVideo) m).getTrame() + "</fielddominance>\n"
                             + "\t\t\t\t\t\t\t\t\t</samplecharacteristics>\n"
                             + "\t\t\t\t\t\t\t\t</video>\n";
-                    xml += "\t</media>\n"
-                            + "</file>";
+                    //xml += "\t</media>\n"
+                     //       + "</file>";
                 } // Cas de Resolve:
                 else {
                     xml += "<file id=\"file-" + m.getId() + "\">\n"
