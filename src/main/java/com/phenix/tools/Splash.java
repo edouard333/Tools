@@ -10,89 +10,98 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 
 /**
- * Fichier: Splash Version: 2.7 Info: Il sert � montrer une image au milieu de
- * l'�cran. Attention: Les fichiers '.gif' ne marche pas. Fichiers compatibles:
- * 'jpg'.
+ * Fichier: Splash Version: 2.7 Info: Il sert à montrer une image au milieu de
+ * l'écran.<br>
+ * Attention: Les fichiers '.gif' ne marche pas.<br>
+ * Fichiers compatibles: 'jpg'.
  *
- * @author Edouard JEANJEAN <edouard128@hotmail.com>
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
  */
 public class Splash extends JWindow {
 
-    private ImageIcon img;
-    private String image;
-    private int temps;
-    private boolean clickKill = false;
+  /**
+   * Image affiché.
+   */
+  private ImageIcon image;
 
-    public Splash() {
-    }
+  /**
+   * Fichier image.
+   */
+  private String nom_fichier_image;
 
-//'image' est le lieu de l'image:
-    public Splash(String image) {
-        JLabel jlabel;
+  /**
+   * Temps d'affichage de l'image.
+   */
+  private int temps;
 
-        add(jlabel = new JLabel(img = new ImageIcon(image)));
+  /**
+   * Si on ferme la fenêtre (image) quand on clique sur l'image.
+   */
+  private boolean clickKill = false;
 
-        jlabel.addMouseListener(
-                new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (clickKill) {
-                    dispose();
-                }
-            }
-        });
+  /**
+   * Affiche une image au centre de l'écran.
+   *
+   * @param nom_fichier_image Nom du fichier image.
+   */
+  public Splash(String nom_fichier_image) {
+    JLabel jlabel;
 
-        //Largeur, hauteur:
-        setSize(img.getIconWidth(), img.getIconHeight());
+    add(jlabel = new JLabel(this.image = new ImageIcon(nom_fichier_image)));
 
-        //Lieu de la fen�tre: Au centre.
-        setLocationRelativeTo(null);
-
-        setVisible(true);
-    }
-
-// Si l'option clickKill est true, c'est que quand on clique sur l'image, cela la ferme.
-    public Splash(String image, boolean clickKill) {
-        this(image);
-        this.clickKill = clickKill;
-    }
-
-    public Splash(String image, int temps) {
-        this(image);
-
-        try {
-            new Attend(temps);
-            setVisible(false);
-        } catch (Exception e) {
+    jlabel.addMouseListener(
+            new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
+        if (clickKill) {
+          dispose();
         }
+      }
+    });
+
+    //Largeur, hauteur:
+    super.setSize(this.image.getIconWidth(), this.image.getIconHeight());
+
+    //Lieu de la fenêtre: Au centre.
+    super.setLocationRelativeTo(null);
+
+    super.setVisible(true);
+  }
+
+  /**
+   * Si l'option clickKill est true, c'est que quand on clique sur l'image, cela
+   * la ferme.
+   *
+   * @param nom_fichier_image Nom du fichier image.
+   * @param clickKill
+   */
+  public Splash(String nom_fichier_image, boolean clickKill) {
+    this(nom_fichier_image);
+    this.clickKill = clickKill;
+  }
+
+  /**
+   * Affiche une image pendant un certain temps.
+   *
+   * @param nom_fichier_image Nom du fichier image.
+   * @param temps Temps en miliseconde.
+   */
+  public Splash(String nom_fichier_image, int temps) {
+    this(nom_fichier_image);
+
+    try {
+      new Attend(temps);
+      super.setVisible(false);
+    } catch (Exception exception) {
     }
+  }
 
-    public void SetVisible(boolean valeur) {
-        setVisible(valeur);
-    }
-
-    public void Temps(int temps) {
-        this.temps = temps;
-    }
-
-    public void Image(String image) {
-        this.image = image;
-    }
-
-}
-
-class Attend2 extends Thread {
-
-    public Attend2(int temps) throws IOException {
-
-        //On doit mettre un 'try' quand on veut utiliser le 'sleep'.
-        try {
-            //Ici, il y a un temps d'attende, le temps d'attende est en milliseconde:
-            sleep(temps);
-        } catch (Exception e) {
-            throw new IOException("Erreur:\n" + e);
-        }
-
-    }
-
+  /**
+   * Définit le temps qu'est affiché l'image.
+   *
+   * @param temps Temps en miliseconde.
+   */
+  public void setTemps(int temps) {
+    this.temps = temps;
+  }
 }

@@ -10,305 +10,307 @@ import javax.swing.filechooser.FileFilter;
  * Fenêtre premettant de choisir un fichier et renvoie le nom du fichier (sans
  * l'extension et ou le chemin) sélectionné.
  *
- * @author Edouard JEANJEAN <edouard128@hotmail.com>
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 3.9.0
  */
 public class JDialog extends JPanel {
 
-    /**
-     * Si on séléctionne un fichier ou un dossier ou encore les 2.
-     */
-    public static int selectionner_dossier = JFileChooser.FILES_ONLY;
+  /**
+   * Si on séléctionne un fichier ou un dossier ou encore les 2.
+   */
+  public static int selectionner_dossier = JFileChooser.FILES_ONLY;
 
-    /**
-     * TODO
-     */
-    private JFileChooser fc = new JFileChooser();
+  /**
+   * TODO
+   */
+  private JFileChooser fc = new JFileChooser();
 
-    /**
-     * TODO
-     */
-    private File fichier;
+  /**
+   * Le fichier.
+   */
+  private File fichier;
 
-    /**
-     * Les valeurs de 'JDialog'
-     */
-    private String valeur;
+  /**
+   * Les valeurs de 'JDialog'
+   */
+  private String valeur;
 
-    /**
-     * TODO
-     */
-    private String repertoire;
+  /**
+   * Nom du répertoire.
+   */
+  private String repertoire;
 
-    /**
-     * Montrer l'extension du fichier.
-     */
-    private boolean extension = true;
+  /**
+   * Montrer l'extension du fichier.
+   */
+  private boolean extension = true;
 
-    /**
-     * Montrer le chemin du fichier.
-     */
-    private boolean chemin = false;
+  /**
+   * Montrer le chemin du fichier.
+   */
+  private boolean chemin = false;
 
-    /**
-     * Renvoyera une valeur plus tard.
-     *
-     * @param repertoire ...
-     * @param extension ...
-     * @param chemin ...
-     */
-    public JDialog(String repertoire, boolean extension, boolean chemin) {
-        this.repertoire = repertoire;
-        this.extension = extension;
-        this.chemin = chemin;
+  /**
+   * Renverra une valeur plus tard.
+   */
+  public JDialog() {
+  }
+
+  /**
+   * Renverra une valeur plus tard.
+   *
+   * @param repertoire Répertoire.
+   */
+  public JDialog(String repertoire) {
+    this.repertoire = repertoire;
+  }
+
+  /**
+   * Renverra une valeur plus tard.
+   *
+   * @param extension Extension.
+   */
+  public JDialog(boolean extension) {
+    this.extension = extension;
+  }
+
+  /**
+   * Renverra une valeur plus tard.
+   *
+   * @param repertoire Répertoire.
+   * @param extension Extension.
+   */
+  public JDialog(String repertoire, boolean extension) {
+    this.repertoire = repertoire;
+    this.extension = extension;
+  }
+
+  /**
+   * Renverra une valeur plus tard.
+   *
+   * @param repertoire Répertoire.
+   * @param extension Extension.
+   * @param chemin Chemin d'accès.
+   */
+  public JDialog(String repertoire, boolean extension, boolean chemin) {
+    this.repertoire = repertoire;
+    this.extension = extension;
+    this.chemin = chemin;
+  }
+
+  /**
+   * TODO
+   *
+   * @param f TODO
+   */
+  public void addChoosableFileFilter(FileFilter f) {
+    fc.addChoosableFileFilter(f);
+  }
+
+  /**
+   * Indique si l'extension du fichier doit être gardé ou non.
+   *
+   * @return <code>true</code> si on conserve l'extension de fichier.
+   */
+  public boolean Extension() {
+    return extension;
+  }
+
+  /**
+   * Renvoie la valeur:
+   *
+   * @return La valeur.
+   */
+  public String JDialog() {
+    voidJDialog();
+
+    return getValeur();
+  }
+
+  /**
+   * Définit le répertoire actuel.
+   *
+   * @param repertoire Le répertoire.
+   */
+  public void setCurrentDirectory(File repertoire) {
+    fc.setCurrentDirectory(repertoire);
+  }
+
+  /**
+   * TODO
+   */
+  private void voidJDialog() {
+
+    //On met un try parce que parfois il y a des erreurs bizarres.
+    try {
+      if (fc.showDialog(JDialog.this, "OK") == JFileChooser.APPROVE_OPTION) {
+        fichier = fc.getSelectedFile();
+
+        valeur = getValeur();
+      }
+
+    } catch (HeadlessException exception) {
     }
 
-    /**
-     * TODO
-     *
-     * @param repertoire ...
-     * @param extension ...
-     */
-    public JDialog(String repertoire, boolean extension) {
-        this.repertoire = repertoire;
-        this.extension = extension;
+  }
+
+  /**
+   * Renvoie de la valeur.
+   *
+   * @return La valeur.
+   */
+  public String getValeur() {
+    if (chemin) {
+      if (extension) {
+        valeur = "" + fichier;
+      } else {
+        valeur = this.getExtension("" + fichier);
+      }
+    } else if (extension) {
+      valeur = fichier.getName();
+    } else {
+      valeur = this.getExtension(fichier.getName());
     }
 
-    /**
-     * TODO
-     *
-     * @param repertoire ...
-     */
-    public JDialog(String repertoire) {
-        this.repertoire = repertoire;
-    }
+    return valeur;
+  }
 
-    /**
-     * TODO
-     *
-     * @param extension ...
-     */
-    public JDialog(boolean extension) {
-        this.extension = extension;
-    }
+  //-- Il y a la même chose dans le fichier repertoire: --
+  /**
+   * Enleve l'extension.
+   *
+   * @param nom Nom du fichier.
+   *
+   * @return Nom du fichier sans l'extension.
+   */
+  public String getExtension(String nom) {
+    while (!"".equals(nom)) {
 
-    /**
-     * TODO
-     */
-    public JDialog() {
-    }
+      if (".".equals(nom.substring(nom.length() - 1))) {
+        return nom.substring(0, nom.length() - 1);
+      }
 
-    /**
-     * Renvoie la valeur:
-     *
-     * @return ...
-     */
-    public String JDialog() {
-        Void_JDialog();
-
-        return Valeur();
-    }
-
-    /**
-     * TODO
-     *
-     * @param repertoire ...
-     */
-    public void setCurrentDirectory(File repertoire) {
-        fc.setCurrentDirectory(repertoire);
-    }
-
-    /**
-     * TODO
-     */
-    private void Void_JDialog() {
-
-        //On met un try parce que parfois il y a des erreurs bizarres.
-        try {
-            if (fc.showDialog(JDialog.this, "OK") == JFileChooser.APPROVE_OPTION) {
-                fichier = fc.getSelectedFile();
-
-                valeur = Valeur();
-            }
-
-        } catch (HeadlessException e) {
-        }
+      //On remet le mot 'nom' dans un String mais sans son dernier caractère.
+      nom = nom.substring(0, nom.length() - 1);
 
     }
 
-    /**
-     * Renvoie de la valeur.
-     *
-     * @return ...
-     */
-    public String Valeur() {
-        if (chemin) {
-            if (extension) {
-                valeur = "" + fichier;
-            } else {
-                valeur = Extension("" + fichier);
-            }
-        } else if (extension) {
-            valeur = fichier.getName();
-        } else {
-            valeur = Extension(fichier.getName());
-        }
+    return nom;
+  }
 
-        return valeur;
-    }
+  /**
+   * Récupère le répertoire.
+   *
+   * @return Le répertoire.
+   */
+  public String getRepertoire() {
+    return repertoire;
+  }
 
-    //-- Il y a la même chose dans le fichier repertoire: --
-    /**
-     * Enleve l'extension.
-     *
-     * @param nom ...
-     * @return ...
-     */
-    public String Extension(String nom) {
-        while (!"".equals(nom)) {
+  /**
+   * Définit le répertoire.
+   *
+   * @param repertoire Le répertoire.
+   */
+  public void setRepertoire(String repertoire) {
+    this.repertoire = repertoire;
+  }
 
-            if (".".equals(nom.substring(nom.length() - 1))) {
-                return nom.substring(0, nom.length() - 1);
-            }
+  /**
+   * Définit le chemin.
+   *
+   * @param chemin Le chemin.
+   */
+  public void setChemin(boolean chemin) {
+    this.chemin = chemin;
+  }
 
-            //On remet le mot 'nom' dans un String mais sans son dernier caract�re.
-            nom = nom.substring(0, nom.length() - 1);
+  /**
+   * Définit l'extension de fichier..
+   *
+   * @param extension L'extension.
+   */
+  public void setExtension(boolean extension) {
+    this.extension = extension;
+  }
 
-        }
+  /**
+   * TODO
+   *
+   * @param option TODO
+   */
+  public void setFileSelectionMode(int option) {
+    fc.setFileSelectionMode(option);
+  }
 
-        return nom;
-    }
-
-    /**
-     * TODO
-     *
-     * @return ...
-     */
-    public String Repertoire() {
-        return repertoire;
-    }
-
-    /**
-     * TODO
-     *
-     * @return ...
-     */
-    public boolean Extension() {
-        return extension;
-    }
-
-    /**
-     * Définit des valeurs.
-     *
-     * @param repertoire ...
-     */
-    public void Repertoire(String repertoire) {
-        this.repertoire = repertoire;
-    }
-
-    /**
-     * TODO
-     *
-     * @param extension ...
-     */
-    public void Extension(boolean extension) {
-        this.extension = extension;
-    }
-
-    /**
-     * TODO
-     *
-     * @param chemin ...
-     */
-    public void Chemin(boolean chemin) {
-        this.chemin = chemin;
-    }
-
-    /**
-     * Réeniasaliter la valeur.
-     *
-     * @param t ...
-     */
-    public void Valeur(boolean t) {
-        this.valeur = null;
-        this.fichier = null;
-        fc = new JFileChooser();
-    }
-
-    /**
-     * TODO
-     *
-     * @param option ...
-     */
-    public void setFileSelectionMode(int option) {
-        fc.setFileSelectionMode(option);
-    }
-
-    /**
-     * TODO
-     *
-     * @param f ...
-     */
-    public void addChoosableFileFilter(FileFilter f) {
-        fc.addChoosableFileFilter(f);
-    }
+  /**
+   * Réinisalise la valeur.
+   *
+   * @param t Sert que pour faire la différence avec l'autre méthode.
+   */
+  public void valeur(boolean t) {
+    this.valeur = null;
+    this.fichier = null;
+    fc = new JFileChooser();
+  }
 
 }
 
 /**
- * Filtre des extensions
+ * Filtre des extensions.
  *
- * @author Edouard Jeanjean
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 class Filtre extends FileFilter {
 
-    /**
-     * Description et extension acceptée par le filtre.
-     */
-    private String description;
+  /**
+   * Description et extension acceptée par le filtre.
+   */
+  private String description;
 
-    /**
-     * Description et extension acceptée par le filtre.
-     */
-    private String extension;
+  /**
+   * Description et extension acceptée par le filtre.
+   */
+  private String extension;
 
-    /**
-     * Constructeur à partir de la description et de l'extension acceptée.
-     *
-     * @param description ...
-     * @param extension ...
-     */
-    public Filtre(String description, String extension) {
-        if (description == null || extension == null) {
-            throw new NullPointerException("La description (ou extension) ne peut �tre null.");
-        }
-        this.description = description;
-        this.extension = extension;
+  /**
+   * Constructeur à partir de la description et de l'extension acceptée.
+   *
+   * @param description Description.
+   * @param extension Extension.
+   */
+  public Filtre(String description, String extension) {
+    if (description == null || extension == null) {
+      throw new NullPointerException("La description (ou extension) ne peut être null.");
     }
+    this.description = description;
+    this.extension = extension;
+  }
 
-    /**
-     * Implémentation de FileFilter.
-     *
-     * @param file ...
-     * @return ...
-     */
-    @Override
-    public boolean accept(File file) {
-        if (file.isDirectory()) {
-            return true;
-        }
-        String nomFichier = file.getName().toLowerCase();
-
-        return nomFichier.endsWith(extension);
+  /**
+   * Implémentation de FileFilter.
+   *
+   * @param file TODO
+   *
+   * @return TODO
+   */
+  @Override
+  public boolean accept(File file) {
+    if (file.isDirectory()) {
+      return true;
     }
+    String nomFichier = file.getName().toLowerCase();
 
-    /**
-     * TODO
-     *
-     * @return ...
-     */
-    @Override
-    public String getDescription() {
-        return description;
-    }
+    return nomFichier.endsWith(extension);
+  }
+
+  /**
+   * Récupère la description.
+   *
+   * @return Description.
+   */
+  @Override
+  public String getDescription() {
+    return description;
+  }
 }

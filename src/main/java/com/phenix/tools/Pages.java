@@ -18,63 +18,97 @@ import java.io.IOException;
  * Sert à montrer des pages web.
  *
  * @version 2.5.0
- * @author Edouard JEANJEAN <edouard128@hotmail.com>
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 public class Pages extends JFrame implements ActionListener, HyperlinkListener {
 
-    private File file;
+  /**
+   *
+   */
+  private File file;
 
-    private Container contenu;
+  /**
+   *
+   */
+  private Container contenu;
 
-    private JEditorPane txt = new JEditorPane();
-    private JScrollPane barre;
+  /**
+   *
+   */
+  private JEditorPane txt = new JEditorPane();
 
-    private String page;
+  /**
+   *
+   */
+  private JScrollPane barre;
 
-    public Pages(String page) throws IOException {
-        this.page = page;
+  /**
+   *
+   */
+  private String page;
 
-        //Caract�ristiques de la fen�tre:
-        setTitle("Page web:");
+  /**
+   *
+   * @param page
+   * @throws IOException
+   */
+  public Pages(String page) throws IOException {
+    this.page = page;
 
-        //Largeur, hauteur:
-        setSize(600, 600);
+    //Caractéristiques de la fenêtre:
+    super.setTitle("Page web:");
 
-        //Modifiable: non
-        setResizable(false);
-        setLocationRelativeTo(null);
+    //Largeur, hauteur:
+    super.setSize(600, 600);
 
-        txt.setEditable(false);
-        txt.addHyperlinkListener(this);
+    //Modifiable: non
+    super.setResizable(false);
+    super.setLocationRelativeTo(null);
 
-        add(barre = new JScrollPane(txt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-        barre.setAutoscrolls(true);
+    txt.setEditable(false);
+    txt.addHyperlinkListener(this);
 
-        //Page par d�faut:
-        Charger_html(page);
+    super.add(barre = new JScrollPane(txt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+    barre.setAutoscrolls(true);
+
+    // Page par défaut:
+    chargerHTML(page);
+  }
+
+  /**
+   * S'il y a une action quelconque.
+   *
+   * @param e
+   */
+  public void actionPerformed(ActionEvent evt) {
+  }
+
+  /**
+   * Action à propos d'un hyperlien.
+   *
+   * @param e
+   */
+  public void hyperlinkUpdate(HyperlinkEvent evt) {
+    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+      try {
+        chargerHTML(evt.getDescription());
+        setTitle(page + ": " + evt.getDescription());
+      } catch (Exception exception) {
+        System.out.println("Erreur[hyperlien]:\n" + exception);
+      }
     }
+  }
 
-    //S'il y a une action quelconque:
-    public void actionPerformed(ActionEvent e) {
-    }
+  /**
+   *
+   * @param nom
+   * @throws IOException
+   */
+  private void chargerHTML(String nom) throws IOException {
+    file = new File(nom + ".htm");
 
-    //Action � propos d'un hyperlien:
-    public void hyperlinkUpdate(HyperlinkEvent e) {
-        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-            try {
-                Charger_html(e.getDescription());
-                setTitle(page + ": " + e.getDescription());
-            } catch (Exception ex) {
-                System.out.println("Erreur[hyperlien]:\n" + ex);
-            }
-        }
-    }
-
-    private void Charger_html(String nom) throws IOException {
-        file = new File(nom + ".htm");
-
-        txt.setEditorKit(new HTMLEditorKit());
-        txt.setPage(file.toURL());
-    }
+    txt.setEditorKit(new HTMLEditorKit());
+    txt.setPage(file.toURL());
+  }
 
 }

@@ -1,37 +1,38 @@
 package com.phenix.tools.XMLNLE;
 
 /**
- * TODO
+ * Média généré (dans le logiciel) et pas issu d'un fichier.
  *
- * @author Edouard JEANJEAN <edouard128@hotmail.com>
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
  */
 public class MediaVideoGenere extends MediaVideo {
 
-    /**
-     * TODO
-     */
-    public final static int VIDEO_NOIR = 0;
+  /**
+   * ID du média vidéo noire.
+   */
+  public final static int VIDEO_NOIRE = 0;
 
-    /**
-     * TODO
-     */
-    public final static int CALQUE_EFFET = 1;
+  /**
+   * ID du média calque d'effet.
+   */
+  public final static int CALQUE_EFFET = 1;
 
-    /**
-     * Qu'est-ce qui est généré.
-     */
-    private int element_genere;
+  /**
+   * Qu'est-ce qui est généré.
+   */
+  private int element_genere;
 
-    /**
-     * ...
-     *
-     * @param element_genere ...
-     * @param framerate      ...
-     */
-    public MediaVideoGenere(int element_genere, int framerate) {
-        super("Vidéo noire", framerate);
-        type_media = "genere";
-        this.element_genere = element_genere;
-    }
+  /**
+   * Définit un élément généré via son ID et un framerate.<br>
+   * Pour l'instant, ne gère que les "Vidéo noire".
+   *
+   * @param element_genere ID de l'élément généré.
+   * @param framerate Framerate.
+   */
+  public MediaVideoGenere(int element_genere, int framerate) {
+    super("Vidéo noire", framerate);
+    type_media = "genere";
+    this.element_genere = element_genere;
+  }
 }
