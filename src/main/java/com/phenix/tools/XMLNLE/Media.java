@@ -3,7 +3,7 @@ package com.phenix.tools.XMLNLE;
 import com.phenix.tools.tools.Timecode;
 
 /**
- * TODO
+ * Media dans une projet.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
@@ -92,7 +92,7 @@ public class Media {
   private int id;
 
   /**
-   * TODO
+   * Indique si le média a été utilisé dans une timeline.
    */
   private boolean utiliser;
 

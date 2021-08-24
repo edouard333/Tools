@@ -22,8 +22,9 @@ public class ErreurBatonDefectivePixel extends ErreurBaton {
    * @param duree Durée.
    * @param tcStart Timecode début.
    * @param tcEnd Timecode de fin.
-   * @param item TODO
-   * @param idCodec TODO
+   * @param item Type d'erreur Baton.
+   * @param idCodec ID du codec.
+   * @param liste_pixel Liste des pixels.
    */
   public ErreurBatonDefectivePixel(String description, int duree, String tcStart, String tcEnd, String item, int idCodec, ArrayList<Pixel> liste_pixel) {
     super(description, duree, tcStart, tcEnd, item, idCodec);

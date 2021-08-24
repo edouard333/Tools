@@ -73,7 +73,7 @@ public class Splash extends JWindow {
    * la ferme.
    *
    * @param nom_fichier_image Nom du fichier image.
-   * @param clickKill
+   * @param clickKill Indique si on ferme l'image en cliquant dessus.
    */
   public Splash(String nom_fichier_image, boolean clickKill) {
     this(nom_fichier_image);

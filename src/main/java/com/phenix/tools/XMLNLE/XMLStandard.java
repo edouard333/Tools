@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class XMLStandard {
 
   /**
-   * TODO
+   * Le fichier XML a créer ou lire.
    */
   private File fichier;
 
@@ -68,10 +68,11 @@ public class XMLStandard {
   public static final byte RESOLVE = 1;
 
   /**
-   * TODO
+   * Construit un <code>XMLStandard</code>.
    *
    * @param fichier Le chemin et nom du fichier.
    * @param mode Si on lit ou écrit l'XML.
+   * @param logiciel_destination Le XML est destiné à quel logiciel.
    */
   public XMLStandard(File fichier, String mode, byte logiciel_destination) {
     this.fichier = fichier;
@@ -101,7 +102,9 @@ public class XMLStandard {
   }
 
   /**
-   * Ajoute un média audio au projet. Si mode écriture (add).
+   * Ajoute un média audio au projet.Si mode écriture (add).
+   *
+   * @param audio Média audio.
    */
   public void addMediaAudio(MediaAudio audio) {
     this.listMedia.add(audio);
@@ -202,6 +205,9 @@ public class XMLStandard {
 
   /**
    * Suffixe donné aux fichiers générés.
+   *
+   * @param logiciel_destination En fonction du logiciel de destination le
+   * suffixe est différent.
    *
    * @return Suffixe du fichier.
    */

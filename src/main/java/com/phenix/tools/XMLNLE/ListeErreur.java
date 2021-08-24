@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * TODO
+ * Répertorie la liste des erreurs Baton dans le fichier XML Baton.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
@@ -20,22 +20,22 @@ import java.util.Scanner;
 public class ListeErreur {
 
   /**
-   * TODO
+   * Document XML.
    */
   private Document document;
 
   /**
-   * TODO
+   * Racine du document XML.
    */
   private Element racine;
 
   /**
-   * TODO
+   * Les noeuds dans la racine.
    */
   private NodeList racineNoeuds;
 
   /**
-   * TODO
+   * Les noeuds "streamnode".
    */
   private NodeList streamnode;
 
@@ -193,7 +193,7 @@ public class ListeErreur {
   /**
    * Retourne la liste d'erreur.
    *
-   * @return
+   * @return Liste d'erreur.
    */
   public ArrayList<ErreurBaton> getList() {
     return this.lErreur;
@@ -202,7 +202,7 @@ public class ListeErreur {
   /**
    * Retourne l'ensemble des types d'erreurs se trouvant dans le rapport.
    *
-   * @return
+   * @return Liste des types d'erreur.
    */
   public ArrayList<String> getListTypeErreur() {
     ArrayList<String> l = new ArrayList<String>();
@@ -220,6 +220,7 @@ public class ListeErreur {
    * Retourne la liste d'erreur avec un seule type d'erreur, reçu en paramètre.
    *
    * @param type Le filtre des erreurs qu'on souhaite retourner.
+   *
    * @return La liste d'erreur avec juste celle avec le type d'erreur reçu en
    * paramètre.
    */
@@ -238,7 +239,7 @@ public class ListeErreur {
   /**
    * Retourne un affichage de l'ensemble des types erreurs.
    *
-   * @return
+   * @return Types d'erreur.
    */
   public String getListTypeErreurA() {
     ArrayList<String> l = getListTypeErreur();

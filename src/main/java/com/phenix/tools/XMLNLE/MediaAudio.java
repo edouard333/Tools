@@ -1,7 +1,7 @@
 package com.phenix.tools.XMLNLE;
 
 /**
- * TODO
+ * Média de type audio.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
@@ -9,9 +9,9 @@ package com.phenix.tools.XMLNLE;
 public class MediaAudio extends Media {
 
   /**
-   * TODO
+   * Construit un média audio.
    *
-   * @param nom_fichier TODO
+   * @param nom_fichier Nom du fichier.
    */
   public MediaAudio(String nom_fichier) {
     super(nom_fichier);

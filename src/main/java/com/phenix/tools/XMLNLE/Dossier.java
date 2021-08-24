@@ -11,25 +11,28 @@ import java.util.ArrayList;
 public class Dossier {
 
   /**
-   *
+   * Liste des médias dans le dossier.
    */
   private ArrayList<Media> listeMedia = new ArrayList<Media>();
 
   /**
-   *
+   * Liste des timelines dans le dossier.
    */
   private ArrayList<Timeline> listeTimeline = new ArrayList<Timeline>();
 
   /**
-   *
+   * Liste des dossier dans le dossier.
    */
   private ArrayList<Dossier> listeDossier = new ArrayList<Dossier>();
 
   /**
-   *
+   * Nom du dossier.
    */
   private String nom;
 
+  /**
+   * La couleur du dossier.
+   */
   private String couleur;
 
   public static final String COULEUR_ORANGE = "Mango";
@@ -97,14 +100,18 @@ public class Dossier {
   }
 
   /**
-   * @param timeline
+   * Ajoute une timeline au dossier.
+   *
+   * @param timeline La timeline.
    */
   public void addTimeline(Timeline timeline) {
     this.listeTimeline.add(timeline);
   }
 
   /**
-   * @return
+   * Génère le XML XML pour créer un projet d'un NLE.
+   *
+   * @return Code XML.
    */
   @Override
   public String toString() {

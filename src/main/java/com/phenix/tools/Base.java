@@ -73,18 +73,4 @@ public class Base {
     this.base_arrive = base_arrive;
   }
 
-  /**
-   * TODO
-   *
-   * @param args Paramètres reçus.
-   */
-  public static void main(String[] args) {
-
-    Base b = new Base("10");
-    b.setConvertirBase(2);
-
-    System.out.println("Résultat (2 en base 10) vaut " + b.getValeur() + " en base 2");
-
-  }
-
 }

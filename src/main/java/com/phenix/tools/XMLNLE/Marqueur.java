@@ -3,7 +3,7 @@ package com.phenix.tools.XMLNLE;
 import com.phenix.tools.tools.Timecode;
 
 /**
- * TODO
+ * Marqueur dans un projet d'un NLE.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
@@ -11,37 +11,37 @@ import com.phenix.tools.tools.Timecode;
 public class Marqueur {
 
   /**
-   * TODO
+   * Nom du marqueur.
    */
   private String nom;
 
   /**
-   * TODO
+   * La description lié au marqueur.
    */
   private String note;
 
   /**
-   * TODO
+   * Timecode in.
    */
   private Timecode in;
 
   /**
-   * TODO
+   * Timecode out.
    */
   private Timecode out;
 
   /**
-   * TODO
+   * Couleur du marqueur.
    */
   private String couleur;
 
   /**
-   * TODO
+   * Framerate (lié au projet).
    */
   private int framerate;
 
   /**
-   * TODO
+   * Durée du marqueur.
    */
   private Timecode duree;
 
@@ -51,7 +51,7 @@ public class Marqueur {
   public static final String ROUGE = "4281740498";
 
   /**
-   * TODO
+   * Construit un marqueur au début.
    */
   public Marqueur() {
     this.note = "";
@@ -62,9 +62,9 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Construit un marqueur avec une description.
    *
-   * @param note TODO
+   * @param note Description.
    */
   public Marqueur(String note) {
     this.note = note;
@@ -75,10 +75,10 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Construit un marqueur.
    *
-   * @param note TODO
-   * @param framerate TODO
+   * @param note Description.
+   * @param framerate Framerate du projet.
    */
   public Marqueur(String note, int framerate) {
     this.note = note;
@@ -90,10 +90,10 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Construit un marqueur.
    *
-   * @param note TODO
-   * @param in TODO
+   * @param note Description.
+   * @param in Timecode in.
    */
   public Marqueur(String note, Timecode in) {
     this.note = note;
@@ -104,11 +104,11 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Construit un marqueur.
    *
-   * @param note TODO
-   * @param in TODO
-   * @param out TODO
+   * @param note Description.
+   * @param in Timecode in.
+   * @param out Timecode out.
    */
   public Marqueur(String note, Timecode in, Timecode out) {
     this.note = note;
@@ -119,12 +119,12 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Construit un marqueur.
    *
-   * @param note TODO
-   * @param in TODO
-   * @param out TODO
-   * @param couleur TODO
+   * @param note Description.
+   * @param in Timecode in.
+   * @param out Timecode out.
+   * @param couleur Couleur.
    */
   public Marqueur(String note, Timecode in, Timecode out, String couleur) {
     this.note = note;
@@ -135,52 +135,91 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Récupère la couleur.
    *
-   * @param couleur TODO
+   * @return couleur.
+   */
+  public String getCouleur() {
+    return this.couleur;
+  }
+
+  /**
+   * Récupère la durée du marqueur.
+   *
+   * @return Durée.
+   */
+  public Timecode getDuree() {
+    this.duree = new Timecode((out.toImage() - in.toImage() + 1), this.framerate);
+    return this.duree;
+  }
+
+  /**
+   * Récupère le framerate du marqueur.
+   *
+   * @return Framerate.
+   */
+  public int getFramerate() {
+    return this.framerate;
+  }
+
+  /**
+   * Récupère le timecode in.
+   *
+   * @return Timecode in.
+   */
+  public Timecode getIn() {
+    return this.in;
+  }
+
+  /**
+   * Récupère le nom du marqueur.
+   *
+   * @return Nom.
+   */
+  public String getNom() {
+    return this.nom;
+  }
+
+  /**
+   * Récupère la description du marqueur.
+   *
+   * @return Description.
+   */
+  public String getNote() {
+    return this.note;
+  }
+
+  /**
+   * Récupère le timecode out.
+   *
+   * @return Timecode out.
+   */
+  public Timecode getOut() {
+    return this.out;
+  }
+
+  /**
+   * Définit la couleur du marqueur.
+   *
+   * @param couleur Couleur.
    */
   public void setCouleur(String couleur) {
     this.couleur = couleur;
   }
 
   /**
-   * TODO
+   * Modifie le framerate.
    *
-   * @param note TODO
+   * @param framerate Framerate.
    */
-  public void setNote(String note) {
-    this.note = note;
+  public void setFramerate(int framerate) {
+    this.framerate = framerate;
   }
 
   /**
-   * TODO
+   * Modifie le timecode in.
    *
-   * @param nom TODO
-   */
-  public void setNom(String nom) {
-    this.nom = nom;
-  }
-
-  /**
-   * TODO
-   *
-   * @param out TODO
-   */
-  public void setOut(Timecode out) {
-    this.out = out;
-
-    if (this.framerate != 0) {
-      this.out.setFramerate(this.framerate);
-    } // Sinon, on affecte le framerate du timecode (s'il en a un) à média.
-    else {
-      this.framerate = (int) this.out.getFramerate();
-    }
-  }
-
-  /**
-   * TODO
-   *
-   * @param in TODO
+   * @param in Timecode in.
    */
   public void setIn(Timecode in) {
     this.in = in;
@@ -193,76 +232,37 @@ public class Marqueur {
   }
 
   /**
-   * TODO
+   * Modifie le nom du marqueur.
    *
-   * @param framerate TODO
+   * @param nom Nom.
    */
-  public void setFramerate(int framerate) {
-    this.framerate = framerate;
+  public void setNom(String nom) {
+    this.nom = nom;
   }
 
   /**
-   * TODO
+   * Modifie la description du marqueur.
    *
-   * @return TODO
+   * @param note Description.
    */
-  public Timecode getIn() {
-    return this.in;
+  public void setNote(String note) {
+    this.note = note;
   }
 
   /**
-   * TODO
+   * Modifie le timecode out.
    *
-   * @return TODO
+   * @param out Timecode out.
    */
-  public Timecode getOut() {
-    return this.out;
-  }
+  public void setOut(Timecode out) {
+    this.out = out;
 
-  /**
-   * TODO
-   *
-   * @return TODO
-   */
-  public String getNom() {
-    return this.nom;
-  }
-
-  /**
-   * TODO
-   *
-   * @return TODO
-   */
-  public String getNote() {
-    return this.note;
-  }
-
-  /**
-   * TODO
-   *
-   * @return TODO
-   */
-  public String getCouleur() {
-    return this.couleur;
-  }
-
-  /**
-   * TODO
-   *
-   * @return TODO
-   */
-  public int getFramerate() {
-    return this.framerate;
-  }
-
-  /**
-   * TODO
-   *
-   * @return TODO
-   */
-  public Timecode getDuree() {
-    this.duree = new Timecode((out.toImage() - in.toImage() + 1), this.framerate);
-    return this.duree;
+    if (this.framerate != 0) {
+      this.out.setFramerate(this.framerate);
+    } // Sinon, on affecte le framerate du timecode (s'il en a un) à média.
+    else {
+      this.framerate = (int) this.out.getFramerate();
+    }
   }
 
 }

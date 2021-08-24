@@ -3,7 +3,7 @@ package com.phenix.tools;
 /**
  * Objet servant a générer une "attente" dans un programme.
  *
- * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.18.0
  * @since Kit objet V1
  */

@@ -1,7 +1,7 @@
 package com.phenix.tools;
 
 /**
- * Il sert à calculer ce que dure un bout de code.
+ * Chronomètre la durée que prend l'exécution d'un bout de code.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.11.0
@@ -9,12 +9,12 @@ package com.phenix.tools;
 public class Timer {
 
   /**
-   * TODO
+   * Heure de début.
    */
   private double temps;
 
   /**
-   * TODO
+   * Temps entre le start et le stop.
    */
   private double temps_totale;
 
@@ -24,51 +24,52 @@ public class Timer {
   private boolean reinitaliser = false;
 
   /**
-   * TODO
+   * Construit un <code>Timer</code>.
    */
   public Timer() {
   }
 
   /**
-   * TODO
+   * Construit un <code>Timer</code>.
    *
-   * @param reinitaliser
+   * @param reinitaliser Indique si on réinitialise.
    */
   public Timer(boolean reinitaliser) {
     this.reinitaliser = reinitaliser;
   }
 
   /**
-   * TODO
+   * Lance le chronomètre.
    */
   public void start() {
-    temps = System.currentTimeMillis();
+    this.temps = System.currentTimeMillis();
   }
 
   /**
-   * TODO
+   * Arrête le temps.
    *
-   * @return
+   * @return Temps écoulé en miliseconde.
    */
   public double stop() {
     return stop(this.reinitaliser);
   }
 
   /**
-   * TODO
+   * Arrêt le chronomètre.
    *
-   * @param reinitaliser
-   * @return
+   * @param reinitaliser Si on réinitialise le temps apès le stop.
+   *
+   * @return Temps écoulé en miliseconde.
    */
   public double stop(boolean reinitaliser) {
-    temps_totale = System.currentTimeMillis() - temps;
-    System.out.println("Temps (Milliseconde):" + temps_totale);
+    this.temps_totale = System.currentTimeMillis() - this.temps;
+    System.out.println("Temps (Milliseconde):" + this.temps_totale);
 
     if (reinitaliser) {
-      temps = System.currentTimeMillis();
+      this.temps = System.currentTimeMillis();
     }
 
-    return temps_totale;
+    return this.temps_totale;
   }
 
 }

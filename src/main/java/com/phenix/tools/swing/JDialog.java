@@ -21,7 +21,7 @@ public class JDialog extends JPanel {
   public static int selectionner_dossier = JFileChooser.FILES_ONLY;
 
   /**
-   * TODO
+   * Cette classe se base sur un <code>{@link javax.swing.JFileChooser}</code>.
    */
   private JFileChooser fc = new JFileChooser();
 
@@ -99,12 +99,12 @@ public class JDialog extends JPanel {
   }
 
   /**
-   * TODO
+   * Définit le filtre à utiliser.
    *
-   * @param f TODO
+   * @param filtre Filtre dans la sélection d'élément.
    */
-  public void addChoosableFileFilter(FileFilter f) {
-    fc.addChoosableFileFilter(f);
+  public void addChoosableFileFilter(FileFilter filtre) {
+    fc.addChoosableFileFilter(filtre);
   }
 
   /**
@@ -235,9 +235,9 @@ public class JDialog extends JPanel {
   }
 
   /**
-   * TODO
+   * Modifie le mode de sélection des fichiers.
    *
-   * @param option TODO
+   * @param option Mode de sélection.
    */
   public void setFileSelectionMode(int option) {
     fc.setFileSelectionMode(option);

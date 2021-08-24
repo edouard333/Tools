@@ -1,7 +1,7 @@
 package com.phenix.tools.XMLNLE;
 
 /**
- * TODO
+ * Média de type vidéo (image + audio).
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
@@ -47,14 +47,14 @@ public class MediaVideo extends Media {
   /**
    * Information pour le média vidéo, mais qu'on ne peut renseigner qu'ici.<br>
    * Pour le cas de Resolve.<br>
-   * La valeur est celle pour de la HD/UHD 1.777
+   * La valeur est celle pour de la HD/UHD 1.777.
    */
   private float horizontal = 0.585365831851959F;
 
   /**
    * Information pour le média vidéo, mais qu'on ne peut renseigner qu'ici.<br>
    * Pour le cas de Resolve.<br>
-   * La valeur est celle pour de la HD/UHD 1.777
+   * La valeur est celle pour de la HD/UHD 1.777.
    */
   private float vertical = 0.5F;
 
@@ -127,21 +127,30 @@ public class MediaVideo extends Media {
   }
 
   /**
-   * TODO
+   * Rapport du zoom.
    *
-   * @return TODO
+   * @return 100 = 100%
    */
   public int getEchelle() {
     return this.echelle;
   }
 
   /**
-   * Position en X: 0 = centre, max: +/-7.80488 (1080p). 123F = 960/7.80488
-   * (FHD) 123F = 1920/15.6098 (UHD)
+   * Position en X :<br>
+   * 0 = centre, max: +/-7.80488 (1080p).<br>
+   * <br>
+   * Pour Adobe Premiere :<br>
+   * 2160 : 123F (1920/15.6098)<br>
+   * 1080 : 123F (960/7.80488)<br>
+   * <br>
+   * Pour Resolve: UHD :<br>
+   * +/- 0.585365831851959 (3840) - 1.777<br>
+   * 1920 : +/- 0.585365831851959 - 1.777<br>
+   * 1440 : +/- 0.5<br>
+   * 720 : +/- 0.585544347763062 - 1.777<br>
+   * 576 : +/- 0.585365831851959 (960) - 1.777
    *
-   * Pour Resolve: UHD : +/- 0.585365831851959 (3840) - 1.777 HD : +/-
-   * 0.585365831851959 (1920) - 1.777 1440 : +/- 0.5 720 : +/- 0.585544347763062
-   * - 1.777 "SD" : +/- 0.585365831851959 (960) - 1.777
+   * @param largeur_timeline Largeur de la timeline.
    *
    * @return Position X pour Premiere ou Resolve.
    */
@@ -156,11 +165,21 @@ public class MediaVideo extends Media {
   }
 
   /**
-   * Position en Y: 0 = centre, max: +/-6.66667 (1080p). 81F = 540/6.6667 (FHD)
-   * 81F = 1080/13.3333 (UHD)
+   * Position en Y :<br>
+   * 0 = centre, max: +/-6.66667 (1080p).<br>
+   * <br>
+   * Pour Adobe Premiere :<br>
+   * 2160 : 81F (1080/13.3333)<br>
+   * 1080 : 81F (540/6.6667)<br>
+   * <br>
+   * Pour Resolve :<br>
+   * 2160 : +/- 0.5 - 1.777<br>
+   * 1440 : 0/- 0.569620251655579<br>
+   * 1080 : +/- 0.5 - 1.777<br>
+   * 720p : +/- 0.5 - 1.777<br>
+   * 576 : +/- 0.5 (540) - 1.777
    *
-   * Pour Resolve: UHD : +/- 0.5 (2160) - 1.777 HD : +/- 0.5 (1080) - 1.777 1440
-   * : 0/- 0.569620251655579 720p : +/- 0.5 - 1.777 "SD" : +/- 0.5 (540) - 1.777
+   * @param hauteur_timeline Hauteur de la timeline.
    *
    * @return Position Y pour Premiere ou Resolve.
    */
@@ -197,9 +216,9 @@ public class MediaVideo extends Media {
   }
 
   /**
-   * TODO
+   * Modifie le rapport du zoom.
    *
-   * @param echelle TODO
+   * @param echelle 100 = 100%
    */
   public void setEchelle(int echelle) {
     this.echelle = echelle;
@@ -217,7 +236,7 @@ public class MediaVideo extends Media {
   /**
    * TODO
    *
-   * @param horizontal
+   * @param horizontal TODO
    */
   public void setHorizontal(float horizontal) {
     this.horizontal = horizontal;
@@ -237,7 +256,7 @@ public class MediaVideo extends Media {
   /**
    * TODO
    *
-   * @param vertical
+   * @param vertical TODO
    */
   public void setVertical(float vertical) {
     this.vertical = vertical;

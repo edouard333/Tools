@@ -19,9 +19,11 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 
 /**
- * Sert à gérer un fichier
+ * Sert à gérer un fichier.<br>
+ * Note : La classe a été épuré des méthodes qui aurait dû être static et des
+ * méthodes redondante ont été supprimées.
  *
- * @version 3.93.0
+ * @version 4.0.0
  * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 public class Fichier {
@@ -38,7 +40,7 @@ public class Fichier {
   private ArrayList contenu;
 
   /**
-   * TODO
+   * Le texte contenu dans le fichier.
    */
   private String contenu_string;
 
@@ -46,11 +48,6 @@ public class Fichier {
    * Si l'utilisateur veut l'extension du fichier.
    */
   private boolean extension;
-
-  /**
-   * TODO
-   */
-  private boolean valeur = false;
 
   /**
    * Le nom du fichier.
@@ -73,12 +70,6 @@ public class Fichier {
   private PrintWriter f;
 
   /**
-   * On donne la valeur du fichier.
-   */
-  public Fichier() {
-  }
-
-  /**
    * Construit un fichier sur base de son nom.
    *
    * @param nom Nom du fichier.
@@ -86,12 +77,10 @@ public class Fichier {
   public Fichier(String nom) {
     fichier = new File(this.nom = nom);
 
-    valeur = true;
-
     //Si le fichier existe:
     if (fichier.exists()) //Avoir le contenu dans un texte:
     {
-      Charger();
+      charger();
     }
 
     /*else
@@ -99,27 +88,21 @@ public class Fichier {
   }
 
   /**
-   * Créer le fichier.
+   * Ajoute un texte au fichier.
    *
-   * @return <code>true</code> si le fichier est créé.
+   * @param texte Texte à ajouter.
    */
-  public boolean Creer() {
-    try {
-      //System.out.println("nom: "+fichier.getAbsolutePath());
-      return Creer(fichier.getAbsolutePath());
-    } catch (Exception exception) {
-      return false;
-    }
+  public void append(String texte) {
+    contenu(texte, true);
   }
 
   /**
-   * Créé un fichier sur base de son nom.
-   *
-   * @param nom Nom du fichier.
+   * Créé le fichier.
    *
    * @return <code>true</code> si le fichier est créé.
    */
-  public boolean Creer(String nom) {
+  public boolean creer() {
+    String nom = fichier.getAbsolutePath();
     try {
       //On créé le fichier s'il y en a pas:
       if (!new File(nom).exists()) {
@@ -129,39 +112,6 @@ public class Fichier {
       }
     } catch (Exception exception) {
       System.out.println("Erreur:\n" + exception);
-      return false;
-    }
-  }
-
-  /**
-   * Supprimer le fichier.
-   *
-   * @return <code>true</code> si le fichier est supprimé sinon
-   * <code>false</code>.
-   */
-  public boolean Supprimer() {
-    try {
-      return Supprimer(fichier.getAbsolutePath());
-    } catch (Exception exception) {
-      return false;
-    }
-  }
-
-  /**
-   * Supprimer le fichier.
-   *
-   * @param nom Le nom du fichier.
-   *
-   * @return <code>true</code> si le fichier est supprimé sinon
-   * <code>false</code>.
-   */
-  public boolean Supprimer(String nom) {
-    try {
-      valeur = false;
-      System.out.println("nom f a supr: " + nom);
-      return new File(nom).delete();
-    } catch (Exception exception) {
-      valeur = true;
       return false;
     }
   }
@@ -186,11 +136,11 @@ public class Fichier {
   }
 
   /**
-   * TODO
+   * Récupère le texte contenu dans le fichier.
    *
-   * @return
+   * @return Indique si l'opération s'est bien passée.
    */
-  private boolean Charger() {
+  private boolean charger() {
     //System.out.println("On charge les données du fichier.");
 
     //Exception: Quand le fichier n'existe pas. 
@@ -223,53 +173,21 @@ public class Fichier {
   }
 
   /**
+   * Remplace le contenu du fichier.
    *
-   * @return
-   */
-  public boolean Load() {
-    return Charger();
-  }
-
-  /**
-   * Valeur qu'on donne.
-   *
-   * @param nom
-   */
-  public void Nom(String nom) {
-    fichier = new File(this.nom = nom);
-    valeur = true;
-
-    //Si le fichier existe:
-    if (fichier.exists()) //Avoir le contenu dans un texte:
-    {
-      Charger();
-    }
-    /*else
-         System.out.println("Le fichier: '"+fichier.getName()+", n'existe pas.");*/
-  }
-
-  /**
+   * @deprecated On va éviter ce genre de méthode.
    *
    * @param texte
    */
-  public void append(String texte) {
-    Contenu(texte, true);
+  public void contenu(String texte) {
+    contenu(texte, false);
   }
 
   /**
-   *
-   * @param texte
-   */
-  public void Contenu(String texte) {
-    Contenu(texte, false);
-  }
-
-  /**
-   *
-   * @param texte
+   * @deprecated @param texte
    */
   public void setContenu(String texte) {
-    Contenu(texte, false);
+    contenu(texte, false);
   }
 
   /**
@@ -279,7 +197,7 @@ public class Fichier {
    * @param contenu Si <code>false</code> alors on remplate le contenu par le
    * texte à ajouter.
    */
-  public void Contenu(String texte, boolean contenu) {
+  public void contenu(String texte, boolean contenu) {
     try {
       f = new PrintWriter(fichier);
 
@@ -301,7 +219,7 @@ public class Fichier {
       f.close();
 
       //On met à jour le contenu:
-      Charger();
+      charger();
     } catch (Exception exception) {
       //System.out.println("Erreur:\n"+e);
     }
@@ -315,7 +233,7 @@ public class Fichier {
    * texte à ajouter.
    */
   public void println(String texte, boolean contenu) {
-    Contenu(texte, contenu);
+    contenu(texte, contenu);
   }
 
   /**
@@ -323,8 +241,8 @@ public class Fichier {
    *
    * @return
    */
-  public String Nom() {
-    return Nom(true);
+  public String getNom() {
+    return getNom(true);
   }
 
   /**
@@ -334,9 +252,9 @@ public class Fichier {
    *
    * @return Nom du fichier avec ou sans extension.
    */
-  public String Nom(boolean extension) {
+  public String getNom(boolean extension) {
     if (!extension) {
-      return Extension(this.nom);
+      return getExtension(this.nom);
     } else {
       return this.nom;
     }
@@ -349,7 +267,7 @@ public class Fichier {
    * @param nom
    * @return
    */
-  public String Extension(String nom) {
+  public String getExtension(String nom) {
     while (!"".equals(nom)) {
 
       if (".".equals(nom.substring(nom.length() - 1))) {
@@ -378,98 +296,67 @@ public class Fichier {
    * @return
    */
   public String getText() {
-    return Contenu();
-  }
-
-  /**
-   * Avoir le contenu en <code>String</code>.
-   *
-   * @return Représentation du contenu en <code>String</code>.
-   */
-  public String Contenu() {
-    contenu_string = null;
-    for (int i = 0; i < this.contenu.size(); i++) {
-      if (contenu_string == null) {
-        contenu_string = "" + this.contenu.get(i);
-      } else {
-        contenu_string += this.contenu.get(i);
-      }
-    }
-
-    return contenu_string;
+    return contenu();
   }
 
   /**
    *
-   * @return
+   * @return Indique si cela s'est bien passé.
    */
-  public boolean Compresser() {
-    return Compresser(new String[]{this.nom}, this.nom, 0);
+  public boolean compresser() {
+    return compresser(new String[]{this.nom}, this.nom, 0);
   }
 
   /**
+   * Compresse le fichier à la destination.
    *
-   * @param nom
-   * @return
+   * @param destination Endroit où compresser.
+   *
+   * @return Indique si cela s'est bien passé.
    */
-  public boolean Compresser(String nom) {
+  public boolean compresser(String destination) {
     if (!"".equals(this.nom) && this.nom != null) {
-      return Compresser(new String[]{this.nom}, Zip(nom), 0);
+      return compresser(new String[]{this.nom}, zip(destination), 0);
     } else {
-      return Compresser(new String[]{nom}, Zip(nom), 0);
+      return compresser(new String[]{this.nom}, zip(destination), 0);
     }
   }
 
   /**
+   * Compresse dans un zip le fichier courant.
    *
    * @param taux_compression
-   * @return
+   *
+   * @return Indique si cela s'est bien passé.
    */
-  public boolean Compresser(int taux_compression) {
-    return Compresser(new String[]{this.nom}, Zip(this.nom), taux_compression);
+  public boolean compresser(int taux_compression) {
+    return compresser(new String[]{this.nom}, zip(this.nom), taux_compression);
   }
 
   /**
+   * Compresse un fichier.
    *
-   * @param nom
-   * @param taux_compression
-   * @return
+   * @param nom Fichier a compresser.
+   * @param taux_compression Taux de compression.
+   *
+   * @return Indique si cela s'est bien passé.
    */
-  public boolean Compresser(String nom, int taux_compression) {
+  public boolean compresser(String nom, int taux_compression) {
     if (!"".equals(this.nom) && this.nom != null) {
-      return Compresser(new String[]{this.nom}, Zip(nom), taux_compression);
+      return compresser(new String[]{this.nom}, zip(nom), taux_compression);
     } else {
-      return Compresser(new String[]{nom}, nom, taux_compression);
+      return compresser(new String[]{nom}, nom, taux_compression);
     }
   }
 
   /**
+   * Indique le contenu du zip.
    *
-   * @param nom
-   * @return
+   * @return Liste des éléments.
    */
-  public boolean Compresser(ArrayList nom) {
-    if (!"".equals(this.nom) && this.nom != null) {
-      return Compresser(Tableau(nom), Zip(this.nom), 0);
-    } else {
-      return Compresser(Tableau(nom), "" + nom.get(0), 0);
-    }
-  }
+  public String[] getContenuZip() {
+    String nom = getNom(false);
 
-  /**
-   *
-   * @return
-   */
-  public String[] Contenu_Zip() {
-    return Contenu_Zip(Nom(false));
-  }
-
-  /**
-   *
-   * @param nom
-   * @return
-   */
-  public String[] Contenu_Zip(String nom) {
     try {
       ZipFile zf = null;
 
@@ -496,74 +383,45 @@ public class Fichier {
   }
 
   /**
+   * Avoir le contenu en <code>String</code>.
    *
-   * @param list
-   * @return
+   * @return Représentation du contenu en <code>String</code>.
    */
-  private String[] Tableau(ArrayList list) {
-    String[] tableau = new String[list.size()];
-
-    for (int i = 0; i < list.size(); i++) {
-      tableau[i] = "" + list.get(i);
+  public String contenu() {
+    contenu_string = null;
+    for (int i = 0; i < this.contenu.size(); i++) {
+      if (contenu_string == null) {
+        contenu_string = "" + this.contenu.get(i);
+      } else {
+        contenu_string += this.contenu.get(i);
+      }
     }
 
-    return tableau;
-  }
-
-  /**
-   *
-   * @param nom
-   * @param zip
-   * @return
-   */
-  public boolean Compresser(ArrayList nom, String zip) {
-    return Compresser(Tableau(nom), Zip(zip), 0);
-  }
-
-  /**
-   *
-   * @param nom
-   * @param taux_compression
-   * @return
-   */
-  public boolean Compresser(ArrayList nom, int taux_compression) {
-    if (!"".equals(this.nom) && this.nom != null) {
-      return Compresser(Tableau(nom), Zip(this.nom), taux_compression);
-    } else {
-      return Compresser(Tableau(nom), "" + nom.get(0), taux_compression);
-    }
-  }
-
-  /**
-   *
-   * @param nom
-   * @param zip
-   * @param taux_compression
-   * @return
-   */
-  public boolean Compresser(ArrayList nom, String zip, int taux_compression) {
-    return Compresser(Tableau(nom), Zip(zip), taux_compression);
+    return contenu_string;
   }
 
   /**
    * Garder du texte.
    *
-   * @param txt
-   * @param nb
+   * @param texte
+   * @param nombre_caractere
+   *
    * @return
    */
-  public String Garder(String txt, int nb) {
-    return (txt.substring(nb - 1, nb));
+  public String garder(String texte, int nombre_caractere) {
+    return (texte.substring(nombre_caractere - 1, nombre_caractere));
   }
 
   /**
+   * Méthode qui compresse les fichiers dans un zip.
    *
-   * @param nom
-   * @param zip
-   * @param taux_compression
-   * @return
+   * @param nom La liste des fichiers a compresser.
+   * @param zip Le fichier contenant tous les fichiers.
+   * @param taux_compression Le taux de compression.
+   *
+   * @return Indique si la compression s'est bien passée.
    */
-  public boolean Compresser(String[] nom, String zip, int taux_compression) {
+  public boolean compresser(String[] nom, String zip, int taux_compression) {
     try {
       final int BUFFER = 2048;
       byte data[] = new byte[BUFFER];
@@ -572,7 +430,7 @@ public class Fichier {
         zip += "/" + new File(nom[0]).getName();
         System.out.println("Le chemin n'est qu'un chemin, alors on lui donne comme nom: " + zip);
       } else // Si 'zip' a déjà ".zip" dans son nom, on l'enlève:
-      if (Garder(zip, 3).equals("zip") ^ Garder(zip, 3).equals("Zip") ^ Garder(zip, 3).equals("ZIP")) {
+      if (garder(zip, 3).equals("zip") ^ garder(zip, 3).equals("Zip") ^ garder(zip, 3).equals("ZIP")) {
         zip = zip.substring(0, zip.length() - 4);
       } // Sinon, on vérifie si le dossier.
       else if (new File(zip + ".zip").exists()) {
@@ -622,175 +480,20 @@ public class Fichier {
   }
 
   /**
+   * Copie le fichier à la destination indiquée.
    *
-   * @return
+   * @param destination Chemin de destination.
+   *
+   * @return Indique si l'opération s'est bien déroulée.
    */
-  public boolean Decompresser() {
-    return Decompresser(new String[]{Nom(false)}, this.nom);
-  }
-
-  /**
-   *
-   * @param nom
-   * @return
-   */
-  public boolean Decompresser(ArrayList nom) {
-    if (!"".equals(this.nom) && this.nom != null) {
-      return Decompresser(Tableau(nom), this.nom);
-    } else {
-      return Decompresser(Tableau(nom), "");
-    }
-  }
-
-  /**
-   *
-   * @param nom
-   * @param lieu
-   * @return
-   */
-  public boolean Decompresser(ArrayList nom, String lieu) {
-    return Decompresser(Tableau(nom), Zip(lieu));
-  }
-
-  /**
-   *
-   * @param nom
-   * @return
-   */
-  public boolean Fichier(String nom) {
-    for (int i = 0; i < nom.length(); i++) {
-      if (".".equals(nom.substring(nom.length() - 1))) {
-        return true;
-      }
-
-      //On remet le mot 'nom' dans un String mais sans son dernier caractère.
-      System.out.println(nom = nom.substring(0, nom.length() - 1));
-    }
-
-    return false;
-  }
-
-  /**
-   *
-   * @param nom
-   * @param lieu
-   *
-   * @return
-   */
-  public boolean Decompresser(String[] nom, String lieu) {
-    try {
-
-      for (int i = 0; i < nom.length; i++) {
-        if (nom[i] != null && !"".equals(nom[i]) && new File((nom[i] = Zip(nom[i])) + ".zip").exists()) {
-          final int BUFFER = 2048;
-          byte data[] = new byte[BUFFER];
-
-          // Déclaration d'un fichier destination:
-          BufferedOutputStream dest = null;
-
-          System.out.println("");
-          System.out.println("");
-          System.out.println("Fichier a decompresser: " + nom[i] + ".zip.");
-
-          // Ouverture de l'archive Zip via ce buffer (Ouverture buffer sur ce fichier (Ouverture du fichier à décompresser (ou "Lieu on se trouve le zip"))):
-          ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(nom[i] + ".zip")));
-
-          // Lieu où on décompresse les fichiers du fichier 'zip':
-          String t = "";
-          // Si on a pas de lieu où décompresser on donne celui du fichier zip.
-          if ("".equals(lieu)) {
-            t = nom[i];
-          } else {
-            t = lieu;
-          }
-
-          for (; !"".equals(t); t = t.substring(0, t.length() - 1)) {
-            if ((new File("").separator).equals(t.substring(t.length() - 1)) ^ "/".equals(t.substring(t.length() - 1))) {
-              t = t.substring(0, t.length() - 1);
-              break;
-            }
-          }
-
-          System.out.println("Le lieu de destination: " + t);
-
-          // Parcours des entrées de l'archive (donc de c'est fichier):
-          ZipEntry entry;
-
-          while ((entry = zis.getNextEntry()) != null)
-                  try {
-            System.out.println(" -- Fichier dans '" + new File(nom[i] + ".zip").getName() + "': " + entry);
-
-            // Si c'est répertoire :
-            if (!Fichier(t + (new File("").separator) + entry.getName())) {
-              new File(t + new File("").separator + entry.getName()).mkdirs();
-            } else {
-              // Vérifie s'il n'y a pas de dossier parent:
-              {
-                File f = new File(t + (new File("").separator) + entry.getName());
-                if (!new File(f.getParent()).isDirectory()) {
-                  new File(f.getParent()).delete();
-                  new File(f.getParent()).mkdirs();
-                }
-              }
-
-              // Création du fichier de sortie (Où on décompresse le fichier):
-              // Affectation au buffer de sortie de ce flux vers fichier:
-              dest = new BufferedOutputStream(new FileOutputStream(t + (new File("").separator) + entry.getName()), BUFFER);
-
-              System.out.println("Nom complet de l'entre '" + entry + "': " + t + new File("").separator + entry.getName());
-
-              // Ecriture sur le disque:
-              int count;
-              while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                dest.write(data, 0, count);
-              }
-
-              dest.flush();
-              dest.close();
-            }
-          } catch (Exception e_2) {
-            System.out.println("Erreur:\n" + e_2);
-          }
-
-          //Fermeture de l'archive:
-          zis.close();
-        } else {
-          System.out.println("Le nom: '" + nom[i] + "(zip)', n'est pas correcte.");
-        }
-      }
-
-      return true;
-    } catch (Exception exception) {
-      System.out.println("Erreur:\n" + exception);
-      return false;
-    }
-  }
-
-  /**
-   * Copier un fichier (fichier source, lieu).
-   *
-   * @param lieu
-   *
-   * @return
-   */
-  public boolean Copier(String lieu) {
-    return Copier(this.nom, lieu);
-  }
-
-  /**
-   *
-   * @param source
-   * @param destination
-   *
-   * @return
-   */
-  public boolean Copier(String source, String destination) {
+  public boolean copier(String destination) {
+    String source = this.nom;
     try {
       // Déclaration et ouverture des flux
-      java.io.FileInputStream sourceFile = new java.io.FileInputStream(new File(source));
+      FileInputStream sourceFile = new FileInputStream(new File(source));
 
       try {
-        java.io.FileOutputStream destinationFile = null;
+        FileOutputStream destinationFile = null;
 
         try {
           destinationFile = new FileOutputStream(new File(destination));
@@ -818,24 +521,120 @@ public class Fichier {
   }
 
   /**
-   * Déplacer un fichier.
-   *
-   * @param destination
    *
    * @return
    */
-  public boolean Deplacer(String destination) {
-    return Deplacer(this.nom, destination);
+  public boolean decompresser() {
+    return decompresser(new String[]{getNom(false)}, this.nom);
   }
 
   /**
+   * Décompresse une série de fichier.
    *
-   * @param source
-   * @param destination
+   * @param nom Liste des fichiers à décompresser.
+   * @param lieu Endroit où les fichiers sont décompressé.
    *
-   * @return
+   * @return Indique si l'opération s'est bien passée.
    */
-  public boolean Deplacer(String source, String destination) {
+  public boolean decompresser(String[] nom, String lieu) {
+    try {
+
+      for (int i = 0; i < nom.length; i++) {
+        if (nom[i] != null && !"".equals(nom[i]) && new File((nom[i] = zip(nom[i])) + ".zip").exists()) {
+          final int BUFFER = 2048;
+          byte data[] = new byte[BUFFER];
+
+          // Déclaration d'un fichier destination:
+          BufferedOutputStream dest = null;
+
+          System.out.println("");
+          System.out.println("");
+          System.out.println("Fichier a decompresser: " + nom[i] + ".zip.");
+
+          // Ouverture de l'archive Zip via ce buffer (Ouverture buffer sur ce fichier (Ouverture du fichier à décompresser (ou "Lieu on se trouve le zip"))):
+          ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(nom[i] + ".zip")));
+
+          // Lieu où on décompresse les fichiers du fichier 'zip':
+          String t = "";
+          // Si on a pas de lieu où décompresser on donne celui du fichier zip.
+          if ("".equals(lieu)) {
+            t = nom[i];
+          } else {
+            t = lieu;
+          }
+
+          for (; !"".equals(t); t = t.substring(0, t.length() - 1)) {
+            if ((File.separator).equals(t.substring(t.length() - 1)) ^ "/".equals(t.substring(t.length() - 1))) {
+              t = t.substring(0, t.length() - 1);
+              break;
+            }
+          }
+
+          System.out.println("Le lieu de destination: " + t);
+
+          // Parcours des entrées de l'archive (donc de c'est fichier):
+          ZipEntry entry;
+
+          while ((entry = zis.getNextEntry()) != null)
+                  try {
+            System.out.println(" -- Fichier dans '" + new File(nom[i] + ".zip").getName() + "': " + entry);
+
+            // Si c'est répertoire :
+            if (!fichier(t + (File.separator) + entry.getName())) {
+              new File(t + File.separator + entry.getName()).mkdirs();
+            } else {
+              // Vérifie s'il n'y a pas de dossier parent:
+              {
+                File f = new File(t + (File.separator) + entry.getName());
+                if (!new File(f.getParent()).isDirectory()) {
+                  new File(f.getParent()).delete();
+                  new File(f.getParent()).mkdirs();
+                }
+              }
+
+              // Création du fichier de sortie (Où on décompresse le fichier):
+              // Affectation au buffer de sortie de ce flux vers fichier:
+              dest = new BufferedOutputStream(new FileOutputStream(t + (File.separator) + entry.getName()), BUFFER);
+
+              System.out.println("Nom complet de l'entre '" + entry + "': " + t + File.separator + entry.getName());
+
+              // Ecriture sur le disque:
+              int count;
+              while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                dest.write(data, 0, count);
+              }
+
+              dest.flush();
+              dest.close();
+            }
+          } catch (Exception exception2) {
+            System.out.println("Erreur:\n" + exception2);
+          }
+
+          //Fermeture de l'archive:
+          zis.close();
+        } else {
+          System.out.println("Le nom: '" + nom[i] + "(zip)', n'est pas correcte.");
+        }
+      }
+
+      return true;
+    } catch (Exception exception) {
+      System.out.println("Erreur:\n" + exception);
+      return false;
+    }
+  }
+
+  /**
+   * Déplacer le fichier.
+   *
+   * @param destination Chemin de destination.
+   *
+   * @return Indique si l'opération s'est bien passée.
+   */
+  public boolean deplacer(String destination) {
+    String source = this.nom;
+
     if (!new File(destination).exists()) {
 
       // On essaye avec renameTo
@@ -844,7 +643,7 @@ public class Fichier {
 
         // On essaye de copier
         result = true;
-        result &= Copier(source, destination);
+        result &= copier(destination);
 
         if (result) {
           result &= new File(source).delete();
@@ -860,11 +659,31 @@ public class Fichier {
 
   /**
    *
-   * @param nouveau_nom
+   * @param nom
+   *
+   * @return
+   */
+  public boolean fichier(String nom) {
+    for (int i = 0; i < nom.length(); i++) {
+      if (".".equals(nom.substring(nom.length() - 1))) {
+        return true;
+      }
+
+      //On remet le mot 'nom' dans un String mais sans son dernier caractère.
+      System.out.println(nom = nom.substring(0, nom.length() - 1));
+    }
+
+    return false;
+  }
+
+  /**
+   * Renomme le fichier.
+   *
+   * @param nouveau_nom Nouveau nom.
    *
    * @return <code>true</code> si tout s'est bien passé.
    */
-  public boolean Renomer(String nouveau_nom) {
+  public boolean renomer(String nouveau_nom) {
     try {
       fichier.renameTo(new File(nouveau_nom));
     } catch (Exception exception) {
@@ -875,13 +694,29 @@ public class Fichier {
   }
 
   /**
+   * Supprimer le fichier.
+   *
+   * @return <code>true</code> si le fichier est supprimé sinon
+   * <code>false</code>.
+   */
+  public boolean supprimer() {
+    try {
+      System.out.println("nom f a supr: " + nom);
+      return new File(nom).delete();
+    } catch (Exception exception) {
+      return false;
+    }
+  }
+
+  /**
    * Vérifier si c'est un fichier avec l'extension 'zip' et si c'est le cas,
    * alors on enlève le 'zip'.
    *
-   * @param nom
-   * @return
+   * @param nom Nom d'un zip.
+   *
+   * @return Nom d'un zip sans l'extension.
    */
-  public String Zip(String nom) {
+  public String zip(String nom) {
     try {
       // On remet le mot 'nom' dans un String mais sans ses 4 derniers caractères.
       String new_nom = nom.substring(nom.length() - 4);
@@ -892,5 +727,4 @@ public class Fichier {
     }
     return nom;
   }
-
 }

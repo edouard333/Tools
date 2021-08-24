@@ -23,34 +23,36 @@ import java.io.IOException;
 public class Pages extends JFrame implements ActionListener, HyperlinkListener {
 
   /**
-   *
+   * Le fichier HTML de travail.
    */
   private File file;
 
   /**
-   *
+   * TODO
    */
   private Container contenu;
 
   /**
-   *
+   * TODO
    */
   private JEditorPane txt = new JEditorPane();
 
   /**
-   *
+   * TODO
    */
   private JScrollPane barre;
 
   /**
-   *
+   * La page web a charger.
    */
   private String page;
 
   /**
+   * Construit une page web.
    *
-   * @param page
-   * @throws IOException
+   * @param page La page web a charger.
+   *
+   * @throws IOException Erreur lors de la définition de la page.
    */
   public Pages(String page) throws IOException {
     this.page = page;
@@ -78,16 +80,18 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
   /**
    * S'il y a une action quelconque.
    *
-   * @param e
+   * @param evt L'évènement.
    */
+  @Override
   public void actionPerformed(ActionEvent evt) {
   }
 
   /**
    * Action à propos d'un hyperlien.
    *
-   * @param e
+   * @param evt L'évènement.
    */
+  @Override
   public void hyperlinkUpdate(HyperlinkEvent evt) {
     if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
       try {
@@ -100,15 +104,17 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
   }
 
   /**
+   * Charge une page HTML.
    *
-   * @param nom
-   * @throws IOException
+   * @param nom Le nom du fichier HTML.
+   *
+   * @throws IOException Erreur lors de la définition de la page.
    */
   private void chargerHTML(String nom) throws IOException {
-    file = new File(nom + ".htm");
+    this.file = new File(nom);
 
-    txt.setEditorKit(new HTMLEditorKit());
-    txt.setPage(file.toURL());
+    this.txt.setEditorKit(new HTMLEditorKit());
+    this.txt.setPage(file.toURL());
   }
 
 }
