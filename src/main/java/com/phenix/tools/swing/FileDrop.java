@@ -812,16 +812,19 @@ public class FileDrop {
     }   // end getTransferDataFlavors
 
     /**
-     * Returns the data encapsulated in this {@link TransferableObject}. If the
+     * Returns the data encapsulated in this {@link TransferableObject}.If the
      * {@link Fetcher} constructor was used, then this is when the
-     * {@link Fetcher#getObject getObject()} method will be called. If the
+     * {@link Fetcher#getObject getObject()} method will be called.If the
      * requested data flavor is not supported, then the
      * {@link Fetcher#getObject getObject()} method will not be called.
      *
      * @param flavor The data flavor for the data to return
      * @return The dropped data
+     * @throws java.awt.datatransfer.UnsupportedFlavorException
+     * @throws java.io.IOException
      * @since 1.1
      */
+    @Override
     public Object getTransferData(java.awt.datatransfer.DataFlavor flavor)
             throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
       // Native object

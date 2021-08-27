@@ -35,20 +35,44 @@ public class Dossier {
    */
   private String couleur;
 
+  /**
+   * Couleur orange pour Adobe.
+   */
   public static final String COULEUR_ORANGE = "Mango";
 
+  /**
+   * Couleur rose pour Adobe.
+   */
   public static final String COULEUR_ROSE = "Rose";
 
+  /**
+   * Couleur vert pour Adobe.
+   */
   public static final String COULEUR_FORET = "Forest";
 
+  /**
+   * Couleur bleu pour Adobe.
+   */
   public static final String COULEUR_CERULEEN = "Cerulean";
 
+  /**
+   * Couleur mauve pour Adobe.
+   */
   public static final String COULEUR_LAVANDE = "Lavender";
 
+  /**
+   * Couleur XXX pour Adobe.
+   */
   public static final String COULEUR_CARAIBE = "Caribbean";
 
+  /**
+   * Couleur XXX pour Adobe.
+   */
   public static final String COULEUR_IRIS = "Iris";
 
+  /**
+   * Couleur violet pour Adobe.
+   */
   public static final String COULEUR_VIOLET = "Violet";
 
   /**

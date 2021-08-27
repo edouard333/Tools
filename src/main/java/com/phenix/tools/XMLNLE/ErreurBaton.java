@@ -39,12 +39,28 @@ public class ErreurBaton {
   public static final int CODEC_DPX_HD = 0;
 
   /**
-   * ID pour le codec "Apple Pro Res 4444 XQ"
+   * ID pour le codec "Apple Pro Res 4444 XQ".
    */
   public static final int CODEC_PR4444XQ = 1;
+
+  /**
+   * ID pour le codec/résolution "Apple Pro Res 4444" UHD.
+   */
   public static final int CODEC_PR4444_UHD = 2;
+
+  /**
+   * ID pour le codec "Apple Pro Res 4444".
+   */
   public static final int CODEC_PR4444 = 3;
+
+  /**
+   * ID pour le codec "Apple Pro Res 422 HQ".
+   */
   public static final int CODEC_PR422HQ = 4;
+
+  /**
+   * ID pour le codec "Apple Pro Res Proxy".
+   */
   public static final int CODEC_PR422PROXY = 5;
 
   /**
