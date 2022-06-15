@@ -12,12 +12,12 @@ public class Pixel {
   /**
    * Coordonnée x.
    */
-  private int x;
+  private final int x;
 
   /**
    * Coordonnée y.
    */
-  private int y;
+  private final int y;
 
   /**
    * .Construit un pixel sur base de ses coordonnées x, y.

@@ -122,7 +122,7 @@ public class XMLBaton {
           }
         }
       }
-    } catch (final Exception exception) {
+    } catch (Exception exception) {
       exception.printStackTrace();
     }
 
@@ -140,7 +140,6 @@ public class XMLBaton {
           // Quand on tient une des erreurs, on l'ajoute à la liste:
           case "field":
 
-            //System.out.println(((Element) field.item(i)).getAttribute("name"));
             if (((Element) field.item(i)).getAttribute("name").equals("Resolution")) {
               // Récupérer la résolution (hauteur x largeur):
               String a = ((Element) field.item(i)).getAttribute("value");
@@ -150,8 +149,6 @@ public class XMLBaton {
               this.hauteur = sc.nextInt();
               sc.close();
             } else if (((Element) field.item(i)).getAttribute("name").equals("Frame Rate")) {
-              //System.out.println("Framerate/XMLBaton: " + Integer.parseInt(((Element) field.item(i)).getAttribute("value")));
-
               this.framerate = Integer.parseInt(((Element) field.item(i)).getAttribute("value"));
 
               // Seulement maintenant on peut définir le TC start (car il faut connaitre le framerate):
@@ -164,7 +161,6 @@ public class XMLBaton {
                 this.duree = new Timecode(((Element) duree).getAttribute("value"));
               } else {
                 this.duree = new Timecode(1);
-                System.out.println("Aucune durée n'a été trouvée! On a mis 1 image. :/");
               }
             }
 
@@ -177,11 +173,11 @@ public class XMLBaton {
   }
 
   /**
-   * Transforme sur 2 digit.
+   * Transforme la valeur sur 2 digit.
    *
    * @param valeur La valeur.
    *
-   * @return La valeur son forme de 2 digits.
+   * @return La valeur sous forme de 2 digits.
    */
   private String digit(int valeur) {
     return (valeur > 9) ? "" + valeur : "0" + valeur;
@@ -242,6 +238,15 @@ public class XMLBaton {
     return this.largeur;
   }
 
+  /**
+   * Récupère la liste de toutes les erreurs selon un type.
+   *
+   * @return Liste d'erreur de Baton
+   */
+  public ListeErreur getListeErreur() {
+    return this.liste_erreur;
+  }
+  
   /**
    * Récupère la liste de toutes les erreurs selon un type.
    *

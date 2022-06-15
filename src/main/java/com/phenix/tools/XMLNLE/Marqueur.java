@@ -46,7 +46,7 @@ public class Marqueur {
   private Timecode duree;
 
   /**
-   * TODO
+   * Pour avoir une couleur rouge du marqueur.
    */
   public static final String ROUGE = "4281740498";
 
@@ -181,9 +181,9 @@ public class Marqueur {
   }
 
   /**
-   * Récupère la description du marqueur.
+   * Récupère la note du marqueur.
    *
-   * @return Description.
+   * @return La note du marqueur.
    */
   public String getNote() {
     return this.note;
@@ -210,7 +210,7 @@ public class Marqueur {
   /**
    * Modifie le framerate.
    *
-   * @param framerate Framerate.
+   * @param framerate Nouveau framerate.
    */
   public void setFramerate(int framerate) {
     this.framerate = framerate;
@@ -241,9 +241,9 @@ public class Marqueur {
   }
 
   /**
-   * Modifie la description du marqueur.
+   * Modifie la note du marqueur.
    *
-   * @param note Description.
+   * @param note Note.
    */
   public void setNote(String note) {
     this.note = note;

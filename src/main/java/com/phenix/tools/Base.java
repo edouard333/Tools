@@ -11,7 +11,7 @@ public class Base {
 
   /**
    * Base de départ.<br>
-   * Par-défaut c'est celle de 10.
+   * Par défaut c'est celle de 10.
    */
   private int base_depart = 10;
 
@@ -60,7 +60,6 @@ public class Base {
    * @return Résultat en base finale.
    */
   public String getValeur() {
-    System.out.println("val depart: " + this.valeur_depart_decimal);
     return Integer.toString(this.valeur_depart_decimal, this.base_arrive);
   }
 

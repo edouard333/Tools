@@ -30,17 +30,17 @@ public class XMLStandard {
   /**
    * Liste des médias.
    */
-  private ArrayList<Media> listMedia = new ArrayList<Media>();
+  private ArrayList<Media> liste_media = new ArrayList<Media>();
 
   /**
    * Liste des timelines.
    */
-  private ArrayList<Timeline> listTimeline = new ArrayList<Timeline>();
+  private ArrayList<Timeline> liste_timeline = new ArrayList<Timeline>();
 
   /**
    * Liste des dossiers.
    */
-  private ArrayList<Dossier> listDossier = new ArrayList<Dossier>();
+  private ArrayList<Dossier> liste_dossier = new ArrayList<Dossier>();
 
   /**
    * Si on lit l'XML.
@@ -53,7 +53,7 @@ public class XMLStandard {
   public static final String ECRITURE = "w";
 
   /**
-   * L'XML est destiné à quel logiciel (par-défaut Adobe Premiere).
+   * L'XML est destiné à quel logiciel.
    */
   private byte logiciel_destination;
 
@@ -72,6 +72,16 @@ public class XMLStandard {
    *
    * @param fichier Le chemin et nom du fichier.
    * @param mode Si on lit ou écrit l'XML.
+   */
+  public XMLStandard(File fichier, String mode) {
+    this(fichier, mode, PREMIERE);
+  }
+  
+  /**
+   * Construit un <code>XMLStandard</code>.
+   *
+   * @param fichier Le chemin et nom du fichier.
+   * @param mode Si on lit ou écrit l'XML.
    * @param logiciel_destination Le XML est destiné à quel logiciel.
    */
   public XMLStandard(File fichier, String mode, byte logiciel_destination) {
@@ -81,33 +91,12 @@ public class XMLStandard {
   }
 
   /**
-   * TODO
-   *
-   * @param fichier Le chemin et nom du fichier.
-   * @param mode Si on lit ou écrit l'XML.
-   */
-  public XMLStandard(File fichier, String mode) {
-    this.fichier = fichier;
-    this.mode = mode;
-    this.logiciel_destination = PREMIERE;
-  }
-
-  /**
-   * Modifie le nom du projet.
-   *
-   * @param nom Le nouveau nom du projet.
-   */
-  public void setNom(String nom) {
-    this.nom = nom;
-  }
-
-  /**
    * Ajoute un média audio au projet.Si mode écriture (add).
    *
    * @param audio Média audio.
    */
   public void addMediaAudio(MediaAudio audio) {
-    this.listMedia.add(audio);
+    this.liste_media.add(audio);
   }
 
   /**
@@ -116,7 +105,7 @@ public class XMLStandard {
    * @param video La vidéo à ajouter.
    */
   public void addMediaVideo(MediaVideo video) {
-    this.listMedia.add(video);
+    this.liste_media.add(video);
   }
 
   /**
@@ -125,7 +114,7 @@ public class XMLStandard {
    * @param image L'image a ajouter.
    */
   public void addMediaImage(MediaImage image) {
-    this.listMedia.add(image);
+    this.liste_media.add(image);
   }
 
   /**
@@ -134,8 +123,8 @@ public class XMLStandard {
    * @param timeline La timeline à ajouter.
    */
   public void addTimeline(Timeline timeline) {
-    timeline.setLogicielDestination(logiciel_destination);
-    this.listTimeline.add(timeline);
+    timeline.setLogicielDestination(this.logiciel_destination);
+    this.liste_timeline.add(timeline);
   }
 
   /**
@@ -144,7 +133,7 @@ public class XMLStandard {
    * @param dossier Le dossier.
    */
   public void addDossier(Dossier dossier) {
-    this.listDossier.add(dossier);
+    this.liste_dossier.add(dossier);
   }
 
   /*public void addMediaTimeline(Timeline timeline, Media media) {
@@ -166,19 +155,19 @@ public class XMLStandard {
         file.append("\t\t<name>" + this.nom + "</name>\n");
         file.append("\t\t<children>\n");
 
-        // Liste des dossiers:
-        for (int i = 0; i < listDossier.size(); i++) {
-          file.append(listDossier.get(i).toString());
+        // Liste des dossiers :
+        for (int i = 0; i < this.liste_dossier.size(); i++) {
+          file.append(this.liste_dossier.get(i).toString());
         }
 
-        // Liste timeline
-        for (int i = 0; i < listTimeline.size(); i++) {
-          file.append(listTimeline.get(i).toString());
+        // Liste timeline :
+        for (int i = 0; i < this.liste_timeline.size(); i++) {
+          file.append(this.liste_timeline.get(i).toString());
         }
 
-        // Liste des médias:
-        for (int i = 0; i < listMedia.size(); i++) {
-          file.append(listMedia.get(i).toString());
+        // Liste des médias :
+        for (int i = 0; i < this.liste_media.size(); i++) {
+          file.append(this.liste_media.get(i).toString());
         }
 
         file.append("\t\t</children>\n");
@@ -215,4 +204,12 @@ public class XMLStandard {
     return (logiciel_destination == PREMIERE) ? "PRE" : "RESOLVE";
   }
 
+  /**
+   * Modifie le nom du projet.
+   *
+   * @param nom Le nouveau nom du projet.
+   */
+  public void setNom(String nom) {
+    this.nom = nom;
+  }
 }

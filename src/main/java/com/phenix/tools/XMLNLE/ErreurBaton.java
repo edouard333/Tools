@@ -190,6 +190,11 @@ public class ErreurBaton {
     return this.tcStart;
   }
 
+  /**
+   * Représentation de l'Erreur Baton.
+   * 
+   * @return Représentation de l'objet '<code>ErreurBaton</code>' en <code>String</code>.
+   */
   @Override
   public String toString() {
     return this.description + " " + this.duree + " " + this.tcStart + " " + this.item;

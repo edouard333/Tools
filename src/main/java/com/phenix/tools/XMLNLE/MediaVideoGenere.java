@@ -32,7 +32,7 @@ public class MediaVideoGenere extends MediaVideo {
    */
   public MediaVideoGenere(int element_genere, int framerate) {
     super("Vidéo noire", framerate);
-    type_media = "genere";
+    super.type_media = "genere";
     this.element_genere = element_genere;
   }
 }

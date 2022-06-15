@@ -63,7 +63,6 @@ public class Timer {
    */
   public double stop(boolean reinitaliser) {
     this.temps_totale = System.currentTimeMillis() - this.temps;
-    System.out.println("Temps (Milliseconde):" + this.temps_totale);
 
     if (reinitaliser) {
       this.temps = System.currentTimeMillis();

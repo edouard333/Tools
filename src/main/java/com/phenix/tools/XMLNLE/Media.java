@@ -82,7 +82,7 @@ public class Media {
   public static final String TRAME_AUCUNE = "none";
 
   /**
-   * TODO
+   * Id du média. (?)
    */
   private static int id_actuelle = 1;
 
@@ -98,7 +98,7 @@ public class Media {
 
   /**
    * Savoir ce qu'est le fichier: un fichier audio, vidéo, image, etc élément
-   * qui existe (png, mov, wav, etc) ou un élément généré (mir, décompte, etc).
+   * qui existe (png, mov, wav, etc) ou un élément généré (mire, décompte, etc).
    */
   protected String type_media = "media";
 
@@ -113,7 +113,7 @@ public class Media {
   public static final String COULEUR_IRIS = "Iris";
 
   /**
-   * Couleur "mango"/orange dans Adobe Premiere.
+   * Couleur "mango" (orange) dans Adobe Premiere.
    */
   public static final String COULEUR_MANGO = "Mango";
 

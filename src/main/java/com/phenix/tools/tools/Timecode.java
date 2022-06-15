@@ -241,8 +241,6 @@ public class Timecode {
     if (this.drop_frame) {
       int minute_ = (int) Math.floor((nombre_image - 1) / 29.97D / 60D);
 
-      System.out.println("nb minute: " + ((nombre_image - 1) / 29.97D / 60D));
-
       // Compense la valeur pour avoir le drop frame au bon endroit.
       if (minute_ >= 5 && minute_ <= 39) {
         minute_ = (int) Math.floor((nombre_image) / 29.97D / 60D);
@@ -254,8 +252,6 @@ public class Timecode {
       }
 
       image_tmp += ((minute_) * 2);
-
-      System.out.print("(+" + ((minute_)) + ") // 10min x" + (minute_ / 10) + " (" + ((int) Math.floor(minute_ / 10D)) * 2 + ") * ");
 
       image_tmp -= ((int) Math.floor(minute_ / 10D)) * 2;
 
@@ -338,8 +334,6 @@ public class Timecode {
     // Nombre minute:
     if (this.drop_frame) {
       int nombre_minute = ((nombre_image % (60 * 60 * framerate_tmp)) / (60 * framerate_tmp));
-
-      System.out.println("nb minute: " + nombre_minute);
     }
 
     // Heure:

@@ -20,6 +20,36 @@ import java.util.Scanner;
 public class ListeErreur {
 
   /**
+   * Nom générique de l'erreur de conformance (drop render).
+   */
+  public static final String CONFORMANCE_ERROR = "Conformance";
+  
+  /**
+   * Nom de l'erreur pour un defective pixel.
+   */
+  public static final String DEFECTIVE_PIXEL_ERROR = "Defective Pixel";
+  
+  /**
+   * Nom de l'erreur pour les blacks bars.
+   */
+  public static final String BLACK_BARS_ERROR = "Black Bars";
+  
+  /**
+   * Nom de l'erreur pour les dropouts.
+   */
+  public static final String VIDEO_DROPOUTERROR = "Video Dropout";
+  
+  /**
+   * Nom de l'erreur pour les duplicate frame.
+   */
+  public static final String DUPLICATE_FRAMES_ERROR = "Duplicate Frames";
+  
+  /**
+   * Nom de l'erreur pour les freeze frame.
+   */
+  public static final String FREEZE_FRAMES_ERROR = "Freeze Frames";
+  
+  /**
    * Document XML.
    */
   private Document document;
@@ -42,12 +72,12 @@ public class ListeErreur {
   /**
    * La liste d'erreur.
    */
-  private ArrayList<ErreurBaton> lErreur;
+  private ArrayList<ErreurBaton> liste_erreur_baton;
 
   /**
    * Le codec de la vidéo utilisé pour la vérification Baton.
    */
-  private int codec; // Codec analysé.
+  private int codec;
 
   /**
    * Construit une liste d'erreur à partir d'une URL d'un rapport XML Baton et
@@ -60,12 +90,21 @@ public class ListeErreur {
     this.codec = codec;
     init(fichier);
 
-    lErreur = new ArrayList<ErreurBaton>();
+    this.liste_erreur_baton = new ArrayList<ErreurBaton>();
 
-    NodeList customchecks = findNodeListByName(findNodeListByName(streamnode, "errors"), "customchecks");
-    // Ici se trouve la liste des erreurs!!
-    NodeList decodedvideochecks = findNodeListByName(customchecks, "decodedvideochecks");
-    addList(decodedvideochecks);
+    NodeList errors = findNodeListByName(streamnode, "errors");
+    {
+        NodeList customchecks = findNodeListByName(errors, "customchecks");
+        // Ici se trouve la liste des erreurs!!
+        NodeList decodedvideochecks = findNodeListByName(customchecks, "decodedvideochecks");
+        addList(decodedvideochecks);
+    }
+    // Erreur type conformance :
+    {
+      NodeList customchecks = findNodeListByName(errors, "conformancechecks");
+      addListConformance(customchecks);
+    }
+    
   }
 
   /**
@@ -124,6 +163,23 @@ public class ListeErreur {
   /**
    * Ajouter les erreurs se trouvant dans ce node (du rapport XML Baton) à la
    * liste d'erreur.
+   * 
+   * @param nodeList Le node contenant la liste des erreurs à ajoute aux
+   * erreurs.
+   */
+  private void addListConformance(NodeList nodeList){
+    for (int i = 0; i < nodeList.getLength(); i++) {
+        if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE && nodeList.item(i).getNodeName().equals("error")) {
+            String description = ((Element) nodeList.item(i)).getAttribute("description");
+            String smptetimecode = ((Element) nodeList.item(i)).getAttribute("smptetimecode");
+            this.liste_erreur_baton.add(new ErreurBaton(description, 1, smptetimecode, smptetimecode, CONFORMANCE_ERROR, this.codec));
+        }
+    }
+  }
+  
+  /**
+   * Ajouter les erreurs se trouvant dans ce node (du rapport XML Baton) à la
+   * liste d'erreur.
    *
    * @param nodeList Le node contenant la liste des erreurs à ajoute aux
    * erreurs.
@@ -151,7 +207,6 @@ public class ListeErreur {
               String coordonnees = ((Element) param).getAttribute("Value"); // Récupère le 1er car il n'y en a qu'un.
 
               String liste[] = coordonnees.split("\\D");
-              //sSystem.out.println("Coo pixel: " + coordonnees);
 
               String liste_nombre = "";
 
@@ -160,7 +215,6 @@ public class ListeErreur {
               }
 
               int nb_pixel = (liste_nombre.split("\\s+").length - 1) / 2;
-              //System.out.println("> Nombre pixel: " + nb_pixel);
 
               Scanner sc = new Scanner(liste_nombre);
 
@@ -169,10 +223,9 @@ public class ListeErreur {
               }
 
               sc.close();
-              //System.out.println("XML/erreur def: " + smptetimecode + " to " + endsmptetimecode + " (" + FrameDuration + ")");
-              lErreur.add(new ErreurBatonDefectivePixel(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec, liste_pixel));
+              this.liste_erreur_baton.add(new ErreurBatonDefectivePixel(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec, liste_pixel));
             } else {
-              lErreur.add(new ErreurBaton(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec));
+              this.liste_erreur_baton.add(new ErreurBaton(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec));
             }
 
             break;
@@ -196,7 +249,7 @@ public class ListeErreur {
    * @return Liste d'erreur.
    */
   public ArrayList<ErreurBaton> getList() {
-    return this.lErreur;
+    return this.liste_erreur_baton;
   }
 
   /**
@@ -207,9 +260,9 @@ public class ListeErreur {
   public ArrayList<String> getListTypeErreur() {
     ArrayList<String> l = new ArrayList<String>();
 
-    for (int i = 0; i < lErreur.size(); i++) {
-      if (!l.contains(lErreur.get(i).getItem())) {
-        l.add(lErreur.get(i).getItem());
+    for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
+      if (!l.contains(this.liste_erreur_baton.get(i).getItem())) {
+        l.add(this.liste_erreur_baton.get(i).getItem());
       }
     }
 
@@ -227,9 +280,9 @@ public class ListeErreur {
   public ArrayList<ErreurBaton> getList(String type) {
     ArrayList<ErreurBaton> l = new ArrayList<ErreurBaton>();
 
-    for (int i = 0; i < lErreur.size(); i++) {
-      if (lErreur.get(i).getItem().equals(type)) {
-        l.add(lErreur.get(i));
+    for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
+      if (this.liste_erreur_baton.get(i).getItem().equals(type)) {
+        l.add(this.liste_erreur_baton.get(i));
       }
     }
 
@@ -256,8 +309,8 @@ public class ListeErreur {
    * Afficher l'ensemble des types d'erreurs rencontré dans le rapport.
    */
   public void AfficheErreur() {
-    for (int i = 0; i < lErreur.size(); i++) {
-      System.out.println(lErreur.get(i));
+    for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
+      System.out.println(this.liste_erreur_baton.get(i));
     }
   }
 

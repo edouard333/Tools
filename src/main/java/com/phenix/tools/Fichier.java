@@ -82,9 +82,6 @@ public class Fichier {
     {
       charger();
     }
-
-    /*else
-   System.out.println("Le fichier '"+nom+"', n'existe pas.");*/
   }
 
   /**
@@ -141,15 +138,12 @@ public class Fichier {
    * @return Indique si l'opération s'est bien passée.
    */
   private boolean charger() {
-    //System.out.println("On charge les données du fichier.");
-
     //Exception: Quand le fichier n'existe pas. 
     try {
       lire = new Scanner(fichier);
 
       this.contenu = new ArrayList();
 
-      //System.out.println("-- Contenu: --");
       //Lecture entière du fichier.
       while (lire.hasNext()) {
         this.contenu.add(lire.nextLine());
@@ -162,12 +156,10 @@ public class Fichier {
       } catch (Exception exception) {
       }
 
-      //System.out.println("-- Fin contenu --");
       lire.close();
 
       return true;
     } catch (Exception exception) {
-      //System.out.println("Erreur:\n"+e);
       return false;
     }
   }
@@ -428,14 +420,11 @@ public class Fichier {
 
       if (new File(zip).isDirectory()) {
         zip += "/" + new File(nom[0]).getName();
-        System.out.println("Le chemin n'est qu'un chemin, alors on lui donne comme nom: " + zip);
       } else // Si 'zip' a déjà ".zip" dans son nom, on l'enlève:
       if (garder(zip, 3).equals("zip") ^ garder(zip, 3).equals("Zip") ^ garder(zip, 3).equals("ZIP")) {
         zip = zip.substring(0, zip.length() - 4);
       } // Sinon, on vérifie si le dossier.
       else if (new File(zip + ".zip").exists()) {
-        System.out.println("Le zip: '" + zip + ".zip' existe deja, on va l'appelle: '" + zip + " (2).zip'.");
-
         zip += "/" + new File(nom[0]).getName() + " (2)";
       }
 
@@ -459,7 +448,6 @@ public class Fichier {
           out.closeEntry();
           buffi.close();
         } else {
-          System.out.println("Le fichier: " + nom[i] + ", n'existe pas.");
           // Peut-être un dossier:
           try {
 
@@ -474,7 +462,6 @@ public class Fichier {
 
       return true;
     } catch (Exception exception) {
-      System.out.println("Erreur:\n" + exception);
       return false;
     }
   }
@@ -547,10 +534,6 @@ public class Fichier {
           // Déclaration d'un fichier destination:
           BufferedOutputStream dest = null;
 
-          System.out.println("");
-          System.out.println("");
-          System.out.println("Fichier a decompresser: " + nom[i] + ".zip.");
-
           // Ouverture de l'archive Zip via ce buffer (Ouverture buffer sur ce fichier (Ouverture du fichier à décompresser (ou "Lieu on se trouve le zip"))):
           ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(nom[i] + ".zip")));
 
@@ -570,14 +553,11 @@ public class Fichier {
             }
           }
 
-          System.out.println("Le lieu de destination: " + t);
-
           // Parcours des entrées de l'archive (donc de c'est fichier):
           ZipEntry entry;
 
           while ((entry = zis.getNextEntry()) != null)
                   try {
-            System.out.println(" -- Fichier dans '" + new File(nom[i] + ".zip").getName() + "': " + entry);
 
             // Si c'est répertoire :
             if (!fichier(t + (File.separator) + entry.getName())) {
@@ -620,7 +600,6 @@ public class Fichier {
 
       return true;
     } catch (Exception exception) {
-      System.out.println("Erreur:\n" + exception);
       return false;
     }
   }
@@ -670,7 +649,7 @@ public class Fichier {
       }
 
       //On remet le mot 'nom' dans un String mais sans son dernier caractère.
-      System.out.println(nom = nom.substring(0, nom.length() - 1));
+      nom = nom.substring(0, nom.length() - 1);
     }
 
     return false;
@@ -701,7 +680,6 @@ public class Fichier {
    */
   public boolean supprimer() {
     try {
-      System.out.println("nom f a supr: " + nom);
       return new File(nom).delete();
     } catch (Exception exception) {
       return false;

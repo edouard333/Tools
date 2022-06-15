@@ -212,7 +212,6 @@ public class Nomenclature_SEQ {
    * Retrouve la valeur de la clef.
    */
   private String getKey(Map<String, String> map, String value) {
-    System.out.println(map);
     for (Entry<String, String> entry : map.entrySet()) {
       String cle = entry.getKey();
       String valeur = entry.getValue();
@@ -328,10 +327,6 @@ public class Nomenclature_SEQ {
    */
   public static void main(String[] args) {
     Nomenclature_SEQ n = new Nomenclature_SEQ(/*"XXX_FTR_PR444_1080-239_50i_.mov"*/);
-    /*System.out.println(n.getTitre());
-      System.out.println(n.getType());
-      System.out.println(n.getCodec());*/
-
     n.setTitre("Moi-moche");
 
     n.setResolution("1920x1080");
@@ -346,7 +341,5 @@ public class Nomenclature_SEQ {
     n.addAudio(new Nomenclature_audio("VO", "R128", "LtRt"));
     n.addAudio(new Nomenclature_audio("VO", "R128", "LtRt"));
     System.out.println(n.getNomFichier());
-    //System.out.println(n.getAudio());
-
   }
 }

@@ -39,7 +39,8 @@ public class MediaVideo extends Media {
   private int echelle = 100;
 
   /**
-   * A quel logiciel est destiné ce média vidéo. Par-défaut c'est Adobe
+   * A quel logiciel est destiné ce média vidéo.<br>
+   * Par défaut c'est Adobe
    * Premiere.
    */
   private byte logiciel_destination = XMLStandard.PREMIERE;
@@ -161,7 +162,6 @@ public class MediaVideo extends Media {
     } else { // Pour Resolve:
       return (this.x - (largeur_timeline / 2F)) / (((float) largeur_timeline / 2F) / this.horizontal);
     }
-
   }
 
   /**
@@ -234,9 +234,9 @@ public class MediaVideo extends Media {
   }
 
   /**
-   * TODO
+   * Modifie la position horizontale.
    *
-   * @param horizontal TODO
+   * @param horizontal Position horizontale.
    */
   public void setHorizontal(float horizontal) {
     this.horizontal = horizontal;
@@ -254,9 +254,9 @@ public class MediaVideo extends Media {
   }
 
   /**
-   * TODO
+   * Modifie la position verticale de la vidéo.
    *
-   * @param vertical TODO
+   * @param vertical Position verticale.
    */
   public void setVertical(float vertical) {
     this.vertical = vertical;
