@@ -8,13 +8,13 @@ package com.phenix.tools.XMLNLE;
  */
 public class MediaImage extends Media {
 
-  /**
-   * Construit un média image.
-   *
-   * @param nom_fichier Nom du fichier.
-   */
-  public MediaImage(String nom_fichier) {
-    super(nom_fichier);
-    type_media = "image";
-  }
+    /**
+     * Construit un média image.
+     *
+     * @param nom_fichier Nom du fichier.
+     */
+    public MediaImage(String nom_fichier) {
+        super(nom_fichier);
+        type_media = "image";
+    }
 }

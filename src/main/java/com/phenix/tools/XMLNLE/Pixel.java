@@ -9,42 +9,42 @@ package com.phenix.tools.XMLNLE;
  */
 public class Pixel {
 
-  /**
-   * Coordonnée x.
-   */
-  private final int x;
+    /**
+     * Coordonnée x.
+     */
+    private final int x;
 
-  /**
-   * Coordonnée y.
-   */
-  private final int y;
+    /**
+     * Coordonnée y.
+     */
+    private final int y;
 
-  /**
-   * .Construit un pixel sur base de ses coordonnées x, y.
-   *
-   * @param x Coordonnée x.
-   * @param y Coordonnée y.
-   */
-  public Pixel(int x, int y) {
-    this.x = x;
-    this.y = y;
-  }
+    /**
+     * .Construit un pixel sur base de ses coordonnées x, y.
+     *
+     * @param x Coordonnée x.
+     * @param y Coordonnée y.
+     */
+    public Pixel(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-  /**
-   * Récupère la coordonnée x.
-   *
-   * @return Coordonnée x.
-   */
-  public int getX() {
-    return this.x;
-  }
+    /**
+     * Retourne la coordonnée x.
+     *
+     * @return Coordonnée x.
+     */
+    public int getX() {
+        return this.x;
+    }
 
-  /**
-   * Récupère la coordonnée y.
-   *
-   * @return Coordonnée y.
-   */
-  public int getY() {
-    return this.y;
-  }
+    /**
+     * Retourne la coordonnée y.
+     *
+     * @return Coordonnée y.
+     */
+    public int getY() {
+        return this.y;
+    }
 }

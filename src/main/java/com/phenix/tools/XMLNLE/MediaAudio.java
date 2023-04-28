@@ -8,13 +8,13 @@ package com.phenix.tools.XMLNLE;
  */
 public class MediaAudio extends Media {
 
-  /**
-   * Construit un média audio.
-   *
-   * @param nom_fichier Nom du fichier.
-   */
-  public MediaAudio(String nom_fichier) {
-    super(nom_fichier);
-    type_media = "audio";
-  }
+    /**
+     * Construit un média audio.
+     *
+     * @param nom_fichier Nom du fichier.
+     */
+    public MediaAudio(String nom_fichier) {
+        super(nom_fichier);
+        type_media = "audio";
+    }
 }
