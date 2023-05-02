@@ -11,6 +11,11 @@ import com.phenix.tools.Timecode;
 public class Marqueur {
 
     /**
+     * Pour avoir une couleur rouge du marqueur.
+     */
+    public static final String ROUGE = "4281740498";
+
+    /**
      * Nom du marqueur.
      */
     private String nom;
@@ -44,11 +49,6 @@ public class Marqueur {
      * Durée du marqueur.
      */
     private Timecode duree;
-
-    /**
-     * Pour avoir une couleur rouge du marqueur.
-     */
-    public static final String ROUGE = "4281740498";
 
     /**
      * Construit un marqueur au début.

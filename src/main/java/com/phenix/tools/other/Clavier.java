@@ -35,7 +35,7 @@ public class Clavier {
     /**
      * Null besoin d'instancer l'objet "Clavier", chaque fonction sont "static".
      */
-    public Clavier() {
+    private Clavier() {
     }
 
     /**

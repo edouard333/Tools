@@ -17,11 +17,6 @@ import java.util.Scanner;
 public class Nomenclature_SEQ {
 
     /**
-     * Nom du fichier.
-     */
-    private String nom_fichier;
-
-    /**
      * Liste des propriétés.
      */
     public static final String CODEC = "codec";
@@ -31,6 +26,14 @@ public class Nomenclature_SEQ {
     public static final String CADENCE = "cadence";
     public static final String STUDIO = "studio";
 
+    /**
+     * Nom du fichier.
+     */
+    private String nom_fichier;
+
+    /**
+     *
+     */
     private String titre;
 
     /**
@@ -143,7 +146,7 @@ public class Nomenclature_SEQ {
      */
     private void DecodeNomFichier() {
         try {
-            Scanner sc = new Scanner(this.nom_fichier).useDelimiter("\\s*_\\s*");;
+            Scanner sc = new Scanner(this.nom_fichier).useDelimiter("\\s*_\\s*");
 
             this.titre = sc.next();
 

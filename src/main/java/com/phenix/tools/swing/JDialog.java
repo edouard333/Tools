@@ -280,7 +280,7 @@ class Filtre extends FileFilter {
      * @param description Description.
      * @param extension Extension.
      */
-    public Filtre(String description, String extension) {
+    Filtre(String description, String extension) {
         if (description == null || extension == null) {
             throw new NullPointerException("La description (ou extension) ne peut être null.");
         }

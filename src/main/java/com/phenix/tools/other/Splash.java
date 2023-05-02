@@ -49,6 +49,7 @@ public class Splash extends JWindow {
 
         jlabel.addMouseListener(
                 new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 if (clickKill) {
                     dispose();

@@ -14,6 +14,26 @@ import java.util.ArrayList;
 public class XMLStandard {
 
     /**
+     * Si on lit l'XML.
+     */
+    public static final String LECTURE = "r";
+
+    /**
+     * Si on écrit l'XML.
+     */
+    public static final String ECRITURE = "w";
+
+    /**
+     * Si l'XML est pour Adobe Premiere Pro CC2017
+     */
+    public static final byte PREMIERE = 0;
+
+    /**
+     * Si l'XML est pour DaVinci Resolve 16.2.5.015.
+     */
+    public static final byte RESOLVE = 1;
+
+    /**
      * Le fichier XML a créer ou lire.
      */
     private File fichier;
@@ -44,29 +64,9 @@ public class XMLStandard {
     private ArrayList<Dossier> liste_dossier = new ArrayList<Dossier>();
 
     /**
-     * Si on lit l'XML.
-     */
-    public static final String LECTURE = "r";
-
-    /**
-     * Si on écrit l'XML.
-     */
-    public static final String ECRITURE = "w";
-
-    /**
      * L'XML est destiné à quel logiciel.
      */
     private byte logiciel_destination;
-
-    /**
-     * Si l'XML est pour Adobe Premiere Pro CC2017
-     */
-    public static final byte PREMIERE = 0;
-
-    /**
-     * Si l'XML est pour DaVinci Resolve 16.2.5.015.
-     */
-    public static final byte RESOLVE = 1;
 
     /**
      * Construit un <code>XMLStandard</code>.

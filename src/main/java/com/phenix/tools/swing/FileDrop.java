@@ -293,10 +293,12 @@ public class FileDrop {
                     }   // end else: drag not ok
                 }   // end dragEnter
 
+                @Override
                 public void dragOver(java.awt.dnd.DropTargetDragEvent evt) {   // This is called continually as long as the mouse is
                     // over the drag target.
                 }   // end dragOver
 
+                @Override
                 public void drop(java.awt.dnd.DropTargetDropEvent evt) {
                     log(out, "FileDrop: drop event.");
                     try {   // Get whatever was dropped
@@ -382,6 +384,7 @@ public class FileDrop {
                     }   // end finally
                 }   // end drop
 
+                @Override
                 public void dragExit(java.awt.dnd.DropTargetEvent evt) {
                     log(out, "FileDrop: dragExit event.");
                     // If it's a Swing component, reset its border
@@ -392,6 +395,7 @@ public class FileDrop {
                     }   // end if: JComponent
                 }   // end dragExit
 
+                @Override
                 public void dropActionChanged(java.awt.dnd.DropTargetDragEvent evt) {
                     log(out, "FileDrop: dropActionChanged event.");
                     // Is this an acceptable drag event?
@@ -802,6 +806,7 @@ public class FileDrop {
          * @return An array of supported data flavors
          * @since 1.1
          */
+        @Override
         public java.awt.datatransfer.DataFlavor[] getTransferDataFlavors() {
             if (customFlavor != null) {
                 return new java.awt.datatransfer.DataFlavor[]{customFlavor,
