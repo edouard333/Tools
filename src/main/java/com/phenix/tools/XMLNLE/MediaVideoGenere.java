@@ -11,12 +11,12 @@ public class MediaVideoGenere extends MediaVideo {
     /**
      * ID du média vidéo noire.
      */
-    public final static int VIDEO_NOIRE = 0;
+    public static final int VIDEO_NOIRE = 0;
 
     /**
      * ID du média calque d'effet.
      */
-    public final static int CALQUE_EFFET = 1;
+    public static final int CALQUE_EFFET = 1;
 
     /**
      * Qu'est-ce qui est généré.
