@@ -1,13 +1,11 @@
 package com.phenix.tools.businesslayer;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.Scanner;
-import java.util.Map.Entry;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
 
 /**
  * Note 1: Voir pour qu'une API pour avoir les données! Note 2: est lié au

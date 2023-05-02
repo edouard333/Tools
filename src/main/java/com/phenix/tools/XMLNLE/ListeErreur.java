@@ -1,15 +1,13 @@
 package com.phenix.tools.XMLNLE;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Répertorie la liste des erreurs Baton dans le fichier XML Baton.
