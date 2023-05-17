@@ -42,7 +42,7 @@ public class MediaVideo extends Media {
      * A quel logiciel est destiné ce média vidéo.<br>
      * Par défaut c'est Adobe Premiere.
      */
-    private byte logiciel_destination = XMLStandard.PREMIERE;
+    private byte logiciel_destination = XMLFCP7.PREMIERE;
 
     /**
      * Information pour le média vidéo, mais qu'on ne peut renseigner
@@ -158,7 +158,7 @@ public class MediaVideo extends Media {
      */
     public float getPositionHorizontale(int largeur_timeline) {
         //On divise la largeur en 2 pour avoir la partie positive ou négative.
-        if (logiciel_destination == XMLStandard.PREMIERE) {
+        if (logiciel_destination == XMLFCP7.PREMIERE) {
             return (this.x - (largeur_timeline / 2F)) / 123F;
         } else { // Pour Resolve:
             return (this.x - (largeur_timeline / 2F)) / (((float) largeur_timeline / 2F) / this.horizontal);
@@ -186,7 +186,7 @@ public class MediaVideo extends Media {
      */
     public float getPositionVerticale(int hauteur_timeline) {
         //On divise la hauteur en 2 pour avoir la partie positive ou négative.
-        if (logiciel_destination == XMLStandard.PREMIERE) {
+        if (logiciel_destination == XMLFCP7.PREMIERE) {
             return (this.y - (hauteur_timeline / 2F)) / 81F;
         } else // Pour Resolve:
         {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
  */
-public class XMLStandard {
+public class XMLFCP7 {
 
     /**
      * Si on lit l'XML.
@@ -74,7 +74,7 @@ public class XMLStandard {
      * @param fichier Le chemin et nom du fichier.
      * @param mode Si on lit ou écrit l'XML.
      */
-    public XMLStandard(File fichier, String mode) {
+    public XMLFCP7(File fichier, String mode) {
         this(fichier, mode, PREMIERE);
     }
 
@@ -85,7 +85,7 @@ public class XMLStandard {
      * @param mode Si on lit ou écrit l'XML.
      * @param logiciel_destination Le XML est destiné à quel logiciel.
      */
-    public XMLStandard(File fichier, String mode, byte logiciel_destination) {
+    public XMLFCP7(File fichier, String mode, byte logiciel_destination) {
         this.fichier = fichier;
         this.mode = mode;
         this.logiciel_destination = logiciel_destination;

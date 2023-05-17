@@ -170,7 +170,7 @@ public class Timeline {
         this.canaux = 2;
 
         // Par défaut c'est pour Adobe Premiere.
-        this.logiciel_destination = XMLStandard.PREMIERE;
+        this.logiciel_destination = XMLFCP7.PREMIERE;
 
         this.numero_timeline = timeline;
         timeline++;
@@ -335,7 +335,7 @@ public class Timeline {
             if (!m.dejaUtilise()) {
 
                 // Si le logiciel est Adobe Premiere :
-                if (this.logiciel_destination == XMLStandard.PREMIERE) {
+                if (this.logiciel_destination == XMLFCP7.PREMIERE) {
                     xml += "\t\t\t\t\t\t<file id=\"file-" + m.getId() + "\">\n"
                             + "\t\t\t\t\t\t\t<name>" + new File(m.getNomFichier().replace("\\", "/")).getName() + "</name>\n"
                             + "\t\t\t\t\t\t\t<pathurl>" + m.getLocalisation() + "</pathurl>\n"
