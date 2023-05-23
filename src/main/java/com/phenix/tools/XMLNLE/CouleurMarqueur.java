@@ -13,12 +13,12 @@ public enum CouleurMarqueur {
     /**
      * On ne connait pas la valeur de la couleur Premiere.
      */
-    VERT("0000000000", 0, 48, 191, 72),
+    VERT(null, 0, 48, 191, 72),
     /**
      * On ne connait pas la valeur de la couleur Premiere.
      */
-    BLEU("0000000000", 0, 0, 0, 255),
-    ORANGE("0000000000", 0, 255, 127, 0);
+    BLEU("4294741314", 0, 0, 0, 255),
+    ORANGE("4280578025", 0, 255, 127, 0);
 
     /**
      * ID de couleur pour Adobe Premiere.

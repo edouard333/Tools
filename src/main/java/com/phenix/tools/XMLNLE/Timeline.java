@@ -202,14 +202,20 @@ public class Timeline {
         xml += "\t\t\t\t<out>" + ((marqueur.getOut() == null || marqueur.getIn().toString().equals(marqueur.getOut().toString())) ? "-1" : (marqueur.getOut().toImage() - this.start_tc.toImage() + 1)) + "</out>\n";
 
         if (marqueur.getCouleur() != null) {
-            xml += "\t\t\t\t<pproColor>" + marqueur.getCouleur().getCouleurPremiere() + "</pproColor>\n";
 
-            xml += "\t\t\t\t<color>\n";
-            xml += "\t\t\t\t\t<alpha>" + marqueur.getCouleur().getCanalApha() + "</alpha>\n";
-            xml += "\t\t\t\t\t<red>" + marqueur.getCouleur().getCanalRouge() + "</red>\n";
-            xml += "\t\t\t\t\t<green>" + marqueur.getCouleur().getCanalVert() + "</green>\n";
-            xml += "\t\t\t\t\t<blue>" + marqueur.getCouleur().getCanalBleu() + "</blue>\n";
-            xml += "\t\t\t\t</color>\n";
+            if (this.logiciel_destination == XMLFCP7.PREMIERE) {
+                // Le vert étant le par défaut, on l'affiche pas.
+                if (marqueur.getCouleur() != CouleurMarqueur.VERT) {
+                    xml += "\t\t\t\t<pproColor>" + marqueur.getCouleur().getCouleurPremiere() + "</pproColor>\n";
+                }
+            } else {
+                xml += "\t\t\t\t<color>\n";
+                xml += "\t\t\t\t\t<alpha>" + marqueur.getCouleur().getCanalApha() + "</alpha>\n";
+                xml += "\t\t\t\t\t<red>" + marqueur.getCouleur().getCanalRouge() + "</red>\n";
+                xml += "\t\t\t\t\t<green>" + marqueur.getCouleur().getCanalVert() + "</green>\n";
+                xml += "\t\t\t\t\t<blue>" + marqueur.getCouleur().getCanalBleu() + "</blue>\n";
+                xml += "\t\t\t\t</color>\n";
+            }
         }
 
         xml += "\t\t\t</marker>\n";
@@ -347,7 +353,7 @@ public class Timeline {
                 // Si le logiciel est Adobe Premiere :
                 if (this.logiciel_destination == XMLFCP7.PREMIERE) {
                     xml += "\t\t\t\t\t\t<file id=\"file-" + m.getId() + "\">\n"
-                            + "\t\t\t\t\t\t\t<name>" + new File(m.getNomFichier().replace("\\", "/")).getName() + "</name>\n"
+                            + "\t\t\t\t\t\t\t<name>" + nom_fichier + "</name>\n"
                             + "\t\t\t\t\t\t\t<pathurl>" + m.getLocalisation() + "</pathurl>\n"
                             + // Où se trouve le fichier.
                             "\t\t\t\t\t\t\t<rate>\n"
@@ -393,30 +399,30 @@ public class Timeline {
                     //       + "</file>";
                 } // Cas de Resolve:
                 else {
-                    xml += "<file id=\"file-" + m.getId() + "\">\n"
-                            + "\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
-                            + "\t<rate>\n"
-                            + "\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
-                            + "\t\t<ntsc>false</ntsc>\n"
-                            + "\t</rate>\n"
-                            + "\t<name>" + new File(m.getNomFichier().replace("\\", "/")).getName() + "</name>\n"
-                            + "\t<pathurl>" + new File(m.getLocalisation().replace("\\", "/")).getName() + "</pathurl>\n"
-                            + "\t<timecode>\n"
-                            + "\t\t<string>" + m.getStart() + "</string>\n"
-                            + "\t\t<displayformat>NDF</displayformat>\n"
-                            + "\t\t<rate>\n"
-                            + "\t\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
-                            + "\t\t\t<ntsc>false</ntsc>\n"
-                            + "\t\t</rate>\n"
-                            + "\t</timecode>\n"
-                            + "\t<media>\n"
-                            + "\t\t<video>\n"
-                            + "\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
-                            + "\t\t\t<samplecharacteristics>\n"
-                            + "\t\t\t\t<width>" + m.getLargeur() + "</width>\n"
-                            + "\t\t\t\t<height>" + m.getHauteur() + "</height>\n"
-                            + "\t\t\t</samplecharacteristics>\n"
-                            + "\t\t</video>\n";
+                    xml += "\t\t\t\t\t\t<file id=\"file-" + m.getId() + "\">\n"
+                            + "\t\t\t\t\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
+                            + "\t\t\t\t\t\t\t<rate>\n"
+                            + "\t\t\t\t\t\t\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
+                            + "\t\t\t\t\t\t\t\t<ntsc>false</ntsc>\n"
+                            + "\t\t\t\t\t\t\t</rate>\n"
+                            + "\t\t\t\t\t\t\t<name>" + nom_fichier + "</name>\n"
+                            + "\t\t\t\t\t\t\t<pathurl>" + new File(m.getLocalisation().replace("\\", "/")).getName() + "</pathurl>\n"
+                            + "\t\t\t\t\t\t\t<timecode>\n"
+                            + "\t\t\t\t\t\t\t\t<string>" + m.getStart() + "</string>\n"
+                            + "\t\t\t\t\t\t\t\t<displayformat>NDF</displayformat>\n"
+                            + "\t\t\t\t\t\t\t\t<rate>\n"
+                            + "\t\t\t\t\t\t\t\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
+                            + "\t\t\t\t\t\t\t\t\t<ntsc>false</ntsc>\n"
+                            + "\t\t\t\t\t\t\t\t</rate>\n"
+                            + "\t\t\t\t\t\t\t</timecode>\n"
+                            + "\t\t\t\t\t\t\t<media>\n"
+                            + "\t\t\t\t\t\t\t\t<video>\n"
+                            + "\t\t\t\t\t\t\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
+                            + "\t\t\t\t\t\t\t\t\t<samplecharacteristics>\n"
+                            + "\t\t\t\t\t\t\t\t\t\t<width>" + m.getLargeur() + "</width>\n"
+                            + "\t\t\t\t\t\t\t\t\t\t<height>" + m.getHauteur() + "</height>\n"
+                            + "\t\t\t\t\t\t\t\t\t</samplecharacteristics>\n"
+                            + "\t\t\t\t\t\t\t\t</video>\n";
 
                     /* S'il y a des pistes audios.
                     if()
