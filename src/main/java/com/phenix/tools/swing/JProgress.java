@@ -81,11 +81,8 @@ public class JProgress extends JFrame {
             progress.setValue(value);
 
             try {
-                SwingUtilities.invokeAndWait(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.setValue(value);
-                    }
+                SwingUtilities.invokeAndWait(() -> {
+                    progress.setValue(value);
                 });
             } catch (InterruptedException | InvocationTargetException exception) {
                 exception.printStackTrace();

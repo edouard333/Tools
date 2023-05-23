@@ -95,8 +95,8 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
             try {
                 chargerHTML(evt.getDescription());
                 setTitle(page + ": " + evt.getDescription());
-            } catch (Exception exception) {
-                System.out.println("Erreur[hyperlien]:\n" + exception);
+            } catch (IOException exception) {
+                System.out.println("Erreur[hyperlien]:\n" + exception.getMessage());
             }
         }
     }

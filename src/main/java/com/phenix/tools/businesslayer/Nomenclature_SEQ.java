@@ -176,7 +176,7 @@ public class Nomenclature_SEQ {
 
             sc.close();
         } catch (Exception exception) {
-            System.out.println("Une erreur est survenue: " + exception);
+            System.out.println("Une erreur est survenue: " + exception.getMessage());
         }
     }
 
