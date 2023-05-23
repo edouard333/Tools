@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Dossier du projet.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class Dossier {
 

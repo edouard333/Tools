@@ -4,7 +4,6 @@ package com.phenix.tools.XMLNLE;
  * Média de type audio.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class MediaAudio extends Media {
 
@@ -15,6 +14,6 @@ public class MediaAudio extends Media {
      */
     public MediaAudio(String nom_fichier) {
         super(nom_fichier);
-        type_media = "audio";
+        super.type_media = "audio";
     }
 }

@@ -4,7 +4,6 @@ package com.phenix.tools.XMLNLE;
  * Média généré (dans le logiciel) et pas issu d'un fichier.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class MediaVideoGenere extends MediaVideo {
 

@@ -9,7 +9,6 @@ import java.util.HashMap;
  * Timeline dans un projet d'un NLE.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class Timeline {
 
@@ -51,7 +50,7 @@ public class Timeline {
     /**
      * Cette variable sert à savoir combien de timeline ont été faite.
      */
-    public static int timeline = 0;
+    public static int nombre_timeline = 0;
 
     /**
      * Liste des UUID pour rendre unique une timeline.<br>
@@ -77,7 +76,7 @@ public class Timeline {
     /**
      * Nombre de canaux audio.
      */
-    private int canaux;
+    private int nombre_canaux;
 
     /**
      * Liste des pistes dans la timeline.
@@ -127,12 +126,12 @@ public class Timeline {
     /**
      * Quand on veut verrouiller toutes les pistes vidéos.
      */
-    private boolean verrouiller_piste_video = false;
+    private boolean verrouiller_piste_video;
 
     /**
      * Quand on veut verrouiller toutes les pistes audio.
      */
-    private boolean verrouiller_piste_audio = false;
+    private boolean verrouiller_piste_audio;
 
     /**
      * Définit la timeline est pour quel logiciel.
@@ -167,13 +166,16 @@ public class Timeline {
         this.framerate = framerate;
         this.start_tc = start_tc;
 
-        this.canaux = 2;
+        this.nombre_canaux = 2;
+
+        this.verrouiller_piste_video = false;
+        this.verrouiller_piste_audio = false;
 
         // Par défaut c'est pour Adobe Premiere.
         this.logiciel_destination = XMLFCP7.PREMIERE;
 
-        this.numero_timeline = timeline;
-        timeline++;
+        this.numero_timeline = nombre_timeline;
+        nombre_timeline++;
     }
 
     /**
@@ -190,18 +192,24 @@ public class Timeline {
      * Premiere.
      *
      * @param marqueur Le marqueur.
-     *
      * @return Code XML.
      */
     private String addMarqueurTimeline(Marqueur marqueur) {
         String xml = "\t\t\t<marker>\n";
-        xml += "\t\t\t\t<comment>" + marqueur.getNote() + "</comment>\n";
         xml += "\t\t\t\t<name>" + marqueur.getNom() + "</name>\n";
+        xml += "\t\t\t\t<comment>" + marqueur.getNote() + "</comment>\n";
         xml += "\t\t\t\t<in>" + (marqueur.getIn().toImage() - this.start_tc.toImage()) + "</in>\n";
         xml += "\t\t\t\t<out>" + ((marqueur.getOut() == null || marqueur.getIn().toString().equals(marqueur.getOut().toString())) ? "-1" : (marqueur.getOut().toImage() - this.start_tc.toImage() + 1)) + "</out>\n";
 
-        if (!marqueur.getCouleur().equals("")) {
-            xml += "\t\t\t\t<pproColor>" + marqueur.getCouleur() + "</pproColor>\n";
+        if (marqueur.getCouleur() != null) {
+            xml += "\t\t\t\t<pproColor>" + marqueur.getCouleur().getCouleurPremiere() + "</pproColor>\n";
+
+            xml += "\t\t\t\t<color>\n";
+            xml += "\t\t\t\t\t<alpha>" + marqueur.getCouleur().getCanalApha() + "</alpha>\n";
+            xml += "\t\t\t\t\t<red>" + marqueur.getCouleur().getCanalRouge() + "</red>\n";
+            xml += "\t\t\t\t\t<green>" + marqueur.getCouleur().getCanalVert() + "</green>\n";
+            xml += "\t\t\t\t\t<blue>" + marqueur.getCouleur().getCanalBleu() + "</blue>\n";
+            xml += "\t\t\t\t</color>\n";
         }
 
         xml += "\t\t\t</marker>\n";
@@ -214,7 +222,7 @@ public class Timeline {
      * @param media Le média.
      */
     public void addMedia(Media media) {
-        addMedia(1, media, this.start_tc, new Timecode(this.start_tc.toImage() + media.getDuree().toImage(), media.getFramerate()), true);
+        this.addMedia(1, media, this.start_tc, new Timecode(this.start_tc.toImage() + media.getDuree().toImage(), media.getFramerate()), true);
     }
 
     /**
@@ -224,7 +232,7 @@ public class Timeline {
      * @param media Le média.
      */
     public void addMedia(int piste, Media media) {
-        addMedia(piste, media, media.getIn(), media.getOut(), true);
+        this.addMedia(piste, media, media.getIn(), media.getOut(), true);
     }
 
     /**
@@ -238,7 +246,7 @@ public class Timeline {
      */
     public void addMedia(int piste, Media media, Timecode in, Timecode out) {
         // Média activé pardéfaut.
-        addMedia(piste, media, in, out, true);
+        this.addMedia(piste, media, in, out, true);
     }
 
     /**
@@ -308,9 +316,11 @@ public class Timeline {
         // On définit à quel logiciel est destiné ce média vidéo.
         m.setLogicielDestination(logiciel_destination);
 
+        String nom_fichier = new File(m.getNomFichier().replace("\\", "/")).getName();
+
         String xml = "\t\t\t\t\t<clipitem id=\"clipitem-" + clipitem + "\">\n"
                 + "\t\t\t\t\t\t<masterclipid>masterclip-" + m.getId() + "</masterclipid>\n"
-                + "\t\t\t\t\t\t<name>" + new File(m.getNomFichier().replace("\\", "/")).getName() + "</name>\n"
+                + "\t\t\t\t\t\t<name>" + (m.getNom() != null ? m.getNom() : nom_fichier) + "</name>\n"
                 + "\t\t\t\t\t\t<enabled>" + ((active) ? "TRUE" : "FALSE") + "</enabled>\n"
                 + "\t\t\t\t\t\t<duration>" + m.getDuree().toImage() + "</duration>\n"
                 + "\t\t\t\t\t\t<rate>\n"
@@ -345,7 +355,7 @@ public class Timeline {
                             + // Framerate du média.
                             "\t\t\t\t\t\t\t\t<ntsc>FALSE</ntsc>\n"
                             + "\t\t\t\t\t\t\t</rate>\n"
-                            + "\t\t\t\t\t\t\t<duration>" + m.getDuree().toImage() + "</duration>\n"
+                            + "\t\t\t\t\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
                             + // Durée du média.
                             "\t\t\t\t\t\t\t<timecode>\n"
                             + "\t\t\t\t\t\t\t\t<rate>\n"
@@ -384,7 +394,7 @@ public class Timeline {
                 } // Cas de Resolve:
                 else {
                     xml += "<file id=\"file-" + m.getId() + "\">\n"
-                            + "\t<duration>" + m.getDuree().toImage() + "</duration>\n"
+                            + "\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
                             + "\t<rate>\n"
                             + "\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
                             + "\t\t<ntsc>false</ntsc>\n"
@@ -401,7 +411,7 @@ public class Timeline {
                             + "\t</timecode>\n"
                             + "\t<media>\n"
                             + "\t\t<video>\n"
-                            + "\t\t\t<duration>" + m.getDuree().toImage() + "</duration>\n"
+                            + "\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
                             + "\t\t\t<samplecharacteristics>\n"
                             + "\t\t\t\t<width>" + m.getLargeur() + "</width>\n"
                             + "\t\t\t\t<height>" + m.getHauteur() + "</height>\n"
@@ -469,10 +479,23 @@ public class Timeline {
                     + "\t\t\t\t\t\t\t<mediatype>video</mediatype>\n"
                     + "\t\t\t\t\t\t\t<trackindex>1</trackindex>\n"
                     + "\t\t\t\t\t\t\t<clipindex>1</clipindex>\n"
-                    + "\t\t\t\t\t\t</link>\n"
-                    + // Cas quand il y un déplacement:
-                    "\t\t\t\t\t\t<filter>\n"
-                    + "\t\t\t\t\t\t\t<effect>\n"
+                    + "\t\t\t\t\t\t</link>\n";
+
+            // DaVinci Resolve indique le mode composition.
+            if (this.logiciel_destination == XMLFCP7.RESOLVE) {
+                xml += "\t\t\t\t\t\t<compositemode>normal</compositemode>\n";
+            }
+
+            // Cas quand il y un déplacement:
+            xml += "\t\t\t\t\t\t<filter>\n";
+
+            if (this.logiciel_destination == XMLFCP7.RESOLVE) {
+                xml += "\t\t\t\t\t\t\t<enabled>TRUE</enabled>\n"
+                        + "\t\t\t\t\t\t\t<start>" + m.getStart().toImage() + "</start>\n"
+                        + "\t\t\t\t\t\t\t<end>" + m.getStart().toImage() + m.getDuree().toImage() + "</end>\n";
+            }
+
+            xml += "\t\t\t\t\t\t\t<effect>\n"
                     + "\t\t\t\t\t\t\t\t<name>Basic Motion</name>\n"
                     + "\t\t\t\t\t\t\t\t<effectid>basic</effectid>\n"
                     + "\t\t\t\t\t\t\t\t<effectcategory>motion</effectcategory>\n"
@@ -483,9 +506,8 @@ public class Timeline {
                     + "\t\t\t\t\t\t\t\t\t<parameterid>scale</parameterid>\n"
                     + "\t\t\t\t\t\t\t\t\t<name>Scale</name>\n"
                     + "\t\t\t\t\t\t\t\t\t<valuemin>0</valuemin>\n"
-                    + "\t\t\t\t\t\t\t\t\t<valuemax>1000</valuemax>\n";
-
-            xml += "\t\t\t\t\t\t\t\t\t<value>" + m.getEchelle() + "</value>\n"
+                    + "\t\t\t\t\t\t\t\t\t<valuemax>1000</valuemax>\n"
+                    + "\t\t\t\t\t\t\t\t\t<value>" + m.getEchelle() + "</value>\n"
                     + "\t\t\t\t\t\t\t\t</parameter>\n"
                     + "\t\t\t\t\t\t\t\t<parameter authoringApp=\"PremierePro\">\n"
                     + "\t\t\t\t\t\t\t\t\t<parameterid>rotation</parameterid>\n"
@@ -521,6 +543,79 @@ public class Timeline {
                     + canauxClip2(((MediaVideo) m).getCanaux());
         }
 
+        // Il se peut que cela soit une image et non une vidéo qu'on doit freezer.
+        if (this.logiciel_destination == XMLFCP7.RESOLVE && m.isFreeze()) {
+            xml += "\t\t\t\t\t\t<filter>\n";
+            xml += "\t\t\t\t\t\t\t<enabled>TRUE</enabled>\n";
+            xml += "\t\t\t\t\t\t\t<start>-1</start>\n";
+            xml += "\t\t\t\t\t\t\t<end>-1</end>\n";
+            xml += "\t\t\t\t\t\t\t<effect>\n";
+            xml += "\t\t\t\t\t\t\t<name>Time Remap</name>\n";
+            xml += "\t\t\t\t\t\t\t<effectid>timeremap</effectid>\n";
+            xml += "\t\t\t\t\t\t\t<effecttype>motion</effecttype>\n";
+            xml += "\t\t\t\t\t\t\t<mediatype>video</mediatype>\n";
+            xml += "\t\t\t\t\t\t\t<effectcategory>motion</effectcategory>\n";
+            xml += "\t\t\t\t\t\t\t<parameter>\n";
+            xml += "\t\t\t\t\t\t\t<name>speed</name>\n";
+            xml += "\t\t\t\t\t\t\t<parameterid>speed</parameterid>\n";
+            xml += "\t\t\t\t\t\t\t<value>0</value>\n";
+            xml += "\t\t\t\t\t\t\t<valuemin>-10000</valuemin>\n";
+            xml += "\t\t\t\t\t\t\t<valuemax>10000</valuemax>\n";
+            xml += "\t\t\t\t\t\t\t</parameter>\n";
+            xml += "\t\t\t\t\t\t\t<parameter>\n";
+            xml += "\t\t\t\t\t\t\t<name>reverse</name>\n";
+            xml += "\t\t\t\t\t\t\t<parameterid>reverse</parameterid>\n";
+            xml += "\t\t\t\t\t\t\t<value>FALSE</value>\n";
+            xml += "\t\t\t\t\t\t\t</parameter>\n";
+            xml += "\t\t\t\t\t\t\t<parameter>\n";
+            xml += "\t\t\t\t\t\t\t<name>frameblending</name>\n";
+            xml += "\t\t\t\t\t\t\t<parameterid>frameblending</parameterid>\n";
+            xml += "\t\t\t\t\t\t\t<value>FALSE</value>\n";
+            xml += "\t\t\t\t\t\t\t</parameter>\n";
+            xml += "\t\t\t\t\t\t\t<parameter>\n";
+            xml += "\t\t\t\t\t\t\t<name>variablespeed</name>\n";
+            xml += "\t\t\t\t\t\t\t<parameterid>variablespeed</parameterid>\n";
+            xml += "\t\t\t\t\t\t\t<value>0</value>\n";
+            xml += "\t\t\t\t\t\t\t<valuemin>0</valuemin>\n";
+            xml += "\t\t\t\t\t\t\t<valuemax>1</valuemax>\n";
+            xml += "\t\t\t\t\t\t\t</parameter>\n";
+            xml += "\t\t\t\t\t\t\t<parameter>\n";
+            xml += "\t\t\t\t\t\t\t<name>graphdict</name>\n";
+            xml += "\t\t\t\t\t\t\t<parameterid>graphdict</parameterid>\n";
+            xml += "\t\t\t\t\t\t\t<keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<when>0</when>\n";
+            xml += "\t\t\t\t\t\t\t<value>0</value>\n";
+            xml += "\t\t\t\t\t\t\t<speedvirtualkf>TRUE</speedvirtualkf>\n";
+            xml += "\t\t\t\t\t\t\t<speedkfstart>TRUE</speedkfstart>\n";
+            xml += "\t\t\t\t\t\t\t</keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<when>86400</when>\n";
+            xml += "\t\t\t\t\t\t\t<value>0</value>\n";
+            xml += "\t\t\t\t\t\t\t<speedvirtualkf>TRUE</speedvirtualkf>\n";
+            xml += "\t\t\t\t\t\t\t<speedkfin>TRUE</speedkfin>\n";
+            xml += "\t\t\t\t\t\t\t</keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<when>86520</when>\n";
+            xml += "\t\t\t\t\t\t\t<value>0</value>\n";
+            xml += "\t\t\t\t\t\t\t<speedvirtualkf>TRUE</speedvirtualkf>\n";
+            xml += "\t\t\t\t\t\t\t<speedkfout>TRUE</speedkfout>\n";
+            xml += "\t\t\t\t\t\t\t</keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<when>1440001</when>\n";
+            xml += "\t\t\t\t\t\t\t<value>1</value>\n";
+            xml += "\t\t\t\t\t\t\t<speedvirtualkf>TRUE</speedvirtualkf>\n";
+            xml += "\t\t\t\t\t\t\t<speedkfend>TRUE</speedkfend>\n";
+            xml += "\t\t\t\t\t\t\t</keyframe>\n";
+            xml += "\t\t\t\t\t\t\t<valuemin>0</valuemin>\n";
+            xml += "\t\t\t\t\t\t\t<valuemax>0</valuemax>\n";
+            xml += "\t\t\t\t\t\t\t<interpolation>\n";
+            xml += "\t\t\t\t\t\t\t<name>FCPCurve</name>\n";
+            xml += "\t\t\t\t\t\t\t</interpolation>\n";
+            xml += "\t\t\t\t\t\t\t</parameter>\n";
+            xml += "\t\t\t\t\t\t\t</effect>\n";
+            xml += "\t\t\t\t\t\t</filter>\n";
+        }
+
         xml += "\t\t\t\t\t\t<logginginfo>\n"
                 + "\t\t\t\t\t\t\t<description></description>\n"
                 + "\t\t\t\t\t\t\t<scene></scene>\n"
@@ -528,7 +623,8 @@ public class Timeline {
                 + "\t\t\t\t\t\t\t<lognote></lognote>\n"
                 + "\t\t\t\t\t\t</logginginfo>\n"
                 + "\t\t\t\t\t\t<labels>\n"
-                + "\t\t\t\t\t\t\t<label2>" + m.getCouleur() + "</label2>\n"
+                //+ "\t\t\t\t\t\t\t<label>Meilleure prise</label>\n"
+                + "\t\t\t\t\t\t\t<label2>" + m.getCouleur().getCouleurAdobe() + "</label2>\n"
                 + "\t\t\t\t\t\t</labels>\n"
                 + "\t\t\t\t\t</clipitem>\n";
         return xml;
@@ -789,7 +885,7 @@ public class Timeline {
             for (int j = 0; j < this.liste_piste.size(); j++) {
                 // Piste actuelle:
                 if (this.liste_piste.get(j) == i) {
-                    xml += addItemClipVideo((MediaVideo) this.liste_media.get(j), this.liste_tc_start.get(j), this.liste_active.get(j));
+                    xml += this.addItemClipVideo((MediaVideo) this.liste_media.get(j), this.liste_tc_start.get(j), this.liste_active.get(j));
                 }
             }
 
@@ -810,7 +906,7 @@ public class Timeline {
                 + "\t\t\t\t\t</samplecharacteristics>\n"
                 + "\t\t\t\t</format>\n"
                 + "\t\t\t\t<outputs>\n"
-                + outputGroupe(this.canaux, 48000, 16)
+                + this.outputGroupe(this.nombre_canaux)
                 + "\t\t\t\t</outputs>\n"
                 + "\t\t\t\t<track monotrack=\"TRUE\" TL.SQTrackAudioKeyframeStyle=\"0\" TL.SQTrackShy=\"0\" TL.SQTrackExpandedHeight=\"25\" TL.SQTrackExpanded=\"0\" MZ.TrackTargeted=\"1\" PannerCurrentValue=\"0\" PannerIsInverted=\"true\" PannerStartKeyframe=\"-91445760000000000,0.,0,0,0,0,0,0\" PannerName=\"Pan\" currentExplodedTrackIndex=\"0\" totalExplodedTrackCount=\"1\" premiereTrackType=\"Mono\">\n"
                 + // Si le fichier vidéo a une piste audio, on l'ajoute:
@@ -857,7 +953,7 @@ public class Timeline {
 
         // Les marques:
         for (int i = 0; i < this.liste_marqueur.size(); i++) {
-            xml += addMarqueurTimeline(this.liste_marqueur.get(i));
+            xml += this.addMarqueurTimeline(this.liste_marqueur.get(i));
         }
 
         xml += "\t\t<labels>\n";
@@ -871,11 +967,9 @@ public class Timeline {
     /**
      *
      * @param nb
-     * @param echantillion
-     * @param bite
      * @return
      */
-    private String outputGroupe(int nb, int echantillion, int bite) {
+    private String outputGroupe(int nb) {
 
         String xml = "";
 
@@ -896,10 +990,10 @@ public class Timeline {
     /**
      * Modifie le nombre de canaux audios.
      *
-     * @param canaux Nombre de canaux audio.
+     * @param nombre_canaux Nombre de canaux audio.
      */
-    public void setCanaux(int canaux) {
-        this.canaux = canaux;
+    public void setCanaux(int nombre_canaux) {
+        this.nombre_canaux = nombre_canaux;
     }
 
     /**

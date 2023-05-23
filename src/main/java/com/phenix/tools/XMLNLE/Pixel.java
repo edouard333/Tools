@@ -5,7 +5,6 @@ package com.phenix.tools.XMLNLE;
  * l'image.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class Pixel {
 

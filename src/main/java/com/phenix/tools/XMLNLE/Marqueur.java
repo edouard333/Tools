@@ -6,14 +6,8 @@ import com.phenix.tools.Timecode;
  * Marqueur dans un projet d'un NLE.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class Marqueur {
-
-    /**
-     * Pour avoir une couleur rouge du marqueur.
-     */
-    public static final String ROUGE = "4281740498";
 
     /**
      * Nom du marqueur.
@@ -38,7 +32,7 @@ public class Marqueur {
     /**
      * Couleur du marqueur.
      */
-    private String couleur;
+    private CouleurMarqueur couleur;
 
     /**
      * Framerate (lié au projet).
@@ -54,11 +48,7 @@ public class Marqueur {
      * Construit un marqueur au début.
      */
     public Marqueur() {
-        this.note = "";
-        this.in = new Timecode("00:00:00:00");
-        this.out = new Timecode();
-        this.couleur = "";
-        this.nom = "";
+        this("", new Timecode("00:00:00:00"), new Timecode(), null, "");
     }
 
     /**
@@ -67,11 +57,7 @@ public class Marqueur {
      * @param note Description.
      */
     public Marqueur(String note) {
-        this.note = note;
-        this.in = new Timecode("00:00:00:00");
-        this.out = new Timecode();
-        this.couleur = "";
-        this.nom = "";
+        this(note, new Timecode("00:00:00:00"), new Timecode(), null, "");
     }
 
     /**
@@ -84,7 +70,7 @@ public class Marqueur {
         this.note = note;
         this.in = new Timecode("00:00:00:00");
         this.out = new Timecode();
-        this.couleur = "";
+        this.couleur = null;
         this.nom = "";
         this.framerate = framerate;
     }
@@ -96,11 +82,7 @@ public class Marqueur {
      * @param in Timecode in.
      */
     public Marqueur(String note, Timecode in) {
-        this.note = note;
-        this.in = in;
-        this.out = new Timecode();
-        this.couleur = "";
-        this.nom = "";
+        this(note, in, new Timecode(), null, "");
     }
 
     /**
@@ -111,11 +93,7 @@ public class Marqueur {
      * @param out Timecode out.
      */
     public Marqueur(String note, Timecode in, Timecode out) {
-        this.note = note;
-        this.in = in;
-        this.out = out;
-        this.couleur = "";
-        this.nom = "";
+        this(note, in, out, null, "");
     }
 
     /**
@@ -126,12 +104,25 @@ public class Marqueur {
      * @param out Timecode out.
      * @param couleur Couleur.
      */
-    public Marqueur(String note, Timecode in, Timecode out, String couleur) {
+    public Marqueur(String note, Timecode in, Timecode out, CouleurMarqueur couleur) {
+        this(note, in, out, couleur, "");
+    }
+
+    /**
+     * Construit un marqueur.
+     *
+     * @param note Description.
+     * @param in Timecode in.
+     * @param out Timecode out.
+     * @param couleur Couleur.
+     * @param nom Nom du marqueur.
+     */
+    public Marqueur(String note, Timecode in, Timecode out, CouleurMarqueur couleur, String nom) {
         this.note = note;
         this.in = in;
         this.out = out;
         this.couleur = couleur;
-        this.nom = "";
+        this.nom = nom;
     }
 
     /**
@@ -139,7 +130,7 @@ public class Marqueur {
      *
      * @return couleur.
      */
-    public String getCouleur() {
+    public CouleurMarqueur getCouleur() {
         return this.couleur;
     }
 
@@ -203,7 +194,7 @@ public class Marqueur {
      *
      * @param couleur Couleur.
      */
-    public void setCouleur(String couleur) {
+    public void setCouleur(CouleurMarqueur couleur) {
         this.couleur = couleur;
     }
 

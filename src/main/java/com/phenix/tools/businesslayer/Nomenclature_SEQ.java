@@ -12,18 +12,37 @@ import java.util.Scanner;
  * projet "Name Convention".
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 0.1.0
  */
 public class Nomenclature_SEQ {
 
     /**
-     * Liste des propriétés.
+     * Codec.
      */
     public static final String CODEC = "codec";
+
+    /**
+     * Type.
+     */
     public static final String TYPE = "type";
+
+    /**
+     * Résolution.
+     */
     public static final String RESOLUTION = "resolution";
+
+    /**
+     * Ratio.
+     */
     public static final String RATIO = "ratio";
+
+    /**
+     * Cadence.
+     */
     public static final String CADENCE = "cadence";
+
+    /**
+     * Studio.
+     */
     public static final String STUDIO = "studio";
 
     /**
@@ -32,7 +51,7 @@ public class Nomenclature_SEQ {
     private String nom_fichier;
 
     /**
-     *
+     * Titre du programme.
      */
     private String titre;
 
@@ -57,12 +76,12 @@ public class Nomenclature_SEQ {
     private String resolution;
 
     /**
-     *
+     * Liste des audios.
      */
     private List<Nomenclature_audio> audio = new ArrayList<Nomenclature_audio>();
 
     /**
-     *
+     * Liste de propriétés.
      */
     private Map<String, Map<String, String>> proprietes = new HashMap<String, Map<String, String>>();
 
@@ -134,8 +153,9 @@ public class Nomenclature_SEQ {
     }
 
     /**
+     * Ajoute un audio.
      *
-     * @param audio
+     * @param audio L'audio à ajouter.
      */
     public void addAudio(Nomenclature_audio audio) {
         this.audio.add(audio);
@@ -173,17 +193,19 @@ public class Nomenclature_SEQ {
     }
 
     /**
+     * Retourne une propriété selon son nom.
      *
-     * @param propriete
-     * @return
+     * @param propriete Nom de la propriété.
+     * @return La propriété.
      */
     public String get(String propriete) {
         return ((Entry<String, String>) (this.proprietes.get(propriete))).getValue();
     }
 
     /**
+     * Retourne la partie audio.
      *
-     * @return
+     * @return Texte audio.
      */
     public String getAudio() {
         String piste = "";
@@ -208,7 +230,7 @@ public class Nomenclature_SEQ {
     /**
      * Retrouve la valeur de la clef.
      *
-     * @param map
+     * @param map La map.
      * @param value La valeur.
      * @return La clef ou <code>null</code> si aucune valeur trouvée.
      */
@@ -234,9 +256,10 @@ public class Nomenclature_SEQ {
     }
 
     /**
+     * Récupère la liste d'une propriété selon son nom.
      *
-     * @param propriete
-     * @return
+     * @param propriete Nom de la propriété.
+     * @return Liste.
      */
     public Map<String, String> getListe(String propriete) {
         switch (propriete) {
@@ -257,8 +280,9 @@ public class Nomenclature_SEQ {
     }
 
     /**
+     * Retourne le type.
      *
-     * @return
+     * @return Le type.
      */
     public String getType() {
         return this.type;

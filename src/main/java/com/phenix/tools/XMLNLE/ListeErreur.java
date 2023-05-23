@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
  * Répertorie la liste des erreurs Baton dans le fichier XML Baton.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class ListeErreur {
 
@@ -35,7 +34,7 @@ public class ListeErreur {
     /**
      * Nom de l'erreur pour les dropouts.
      */
-    public static final String VIDEO_DROPOUTERROR = "Video Dropout";
+    public static final String VIDEO_DROPOUT_ERROR = "Video Dropout";
 
     /**
      * Nom de l'erreur pour les duplicate frame.
@@ -84,9 +83,9 @@ public class ListeErreur {
      * @param fichier URL du fichier XML Baton.
      * @param codec Codec du fichier vidéo utilisé pour la vérification Baton.
      */
-    public ListeErreur(String fichier, int codec) {
+    public ListeErreur(File fichier, int codec) {
         this.codec = codec;
-        init(fichier);
+        this.init(fichier);
 
         this.liste_erreur_baton = new ArrayList<ErreurBaton>();
 
@@ -95,12 +94,12 @@ public class ListeErreur {
             NodeList customchecks = findNodeListByName(errors, "customchecks");
             // Ici se trouve la liste des erreurs!!
             NodeList decodedvideochecks = findNodeListByName(customchecks, "decodedvideochecks");
-            addList(decodedvideochecks);
+            this.addList(decodedvideochecks);
         }
         // Erreur type conformance :
         {
             NodeList customchecks = findNodeListByName(errors, "conformancechecks");
-            addListConformance(customchecks);
+            this.addListConformance(customchecks);
         }
 
     }
@@ -110,10 +109,10 @@ public class ListeErreur {
      *
      * @param fichier Le fichier XML Baton.
      */
-    private void init(String fichier) {
+    private void init(File fichier) {
 
         try {
-            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(fichier));
+            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(fichier);
 
             racine = document.getDocumentElement();
             racineNoeuds = racine.getChildNodes();
@@ -130,7 +129,6 @@ public class ListeErreur {
                                 streamnode = (NodeList) racineNoeuds.item(i).getChildNodes();
                             }
                             break;
-
                     }
                 }
             }
@@ -256,61 +254,38 @@ public class ListeErreur {
      * @return Liste des types d'erreur.
      */
     public ArrayList<String> getListTypeErreur() {
-        ArrayList<String> l = new ArrayList<String>();
+        ArrayList<String> liste_erreur = new ArrayList<String>();
 
         for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
-            if (!l.contains(this.liste_erreur_baton.get(i).getItem())) {
-                l.add(this.liste_erreur_baton.get(i).getItem());
+            if (!liste_erreur.contains(this.liste_erreur_baton.get(i).getItem())) {
+                liste_erreur.add(this.liste_erreur_baton.get(i).getItem());
             }
         }
 
-        return l;
+        return liste_erreur;
     }
 
     /**
      * Retourne la liste d'erreur avec un seule type d'erreur, reçu en
      * paramètre.
      *
-     * @param type Le filtre des erreurs qu'on souhaite retourner.
-     *
-     * @return La liste d'erreur avec juste celle avec le type d'erreur reçu en
-     * paramètre.
+     * @param type_erreur Type d'erreur qu'on veut.
+     * @return La liste d'erreur.
      */
-    public ArrayList<ErreurBaton> getList(String type) {
-        ArrayList<ErreurBaton> l = new ArrayList<ErreurBaton>();
+    public ArrayList<ErreurBaton> getList(String type_erreur) {
+        ArrayList<ErreurBaton> liste_erreur = new ArrayList<ErreurBaton>();
 
         for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
-            if (this.liste_erreur_baton.get(i).getItem().equals(type)) {
-                l.add(this.liste_erreur_baton.get(i));
+            if (this.liste_erreur_baton.get(i).getItem().equals(type_erreur)) {
+                liste_erreur.add(this.liste_erreur_baton.get(i));
             }
         }
 
-        return l;
+        // On tri la liste avant de la retourner.
+        liste_erreur.sort((erreur1, erreur12) -> {
+            return erreur1.getTcStart().compareTo(erreur12.getTcStart());
+        });
+
+        return liste_erreur;
     }
-
-    /**
-     * Retourne un affichage de l'ensemble des types erreurs.
-     *
-     * @return Types d'erreur.
-     */
-    public String getListTypeErreurA() {
-        ArrayList<String> l = getListTypeErreur();
-        String a = "";
-
-        for (int i = 0; i < l.size(); i++) {
-            a += l.get(i) + ", ";
-        }
-
-        return a;
-    }
-
-    /**
-     * Afficher l'ensemble des types d'erreurs rencontré dans le rapport.
-     */
-    public void AfficheErreur() {
-        for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
-            System.out.println(this.liste_erreur_baton.get(i));
-        }
-    }
-
 }

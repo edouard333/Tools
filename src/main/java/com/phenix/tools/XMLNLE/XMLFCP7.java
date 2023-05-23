@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * XML Final Cut Pro 7.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class XMLFCP7 {
 
@@ -24,7 +23,7 @@ public class XMLFCP7 {
     public static final String ECRITURE = "w";
 
     /**
-     * Si l'XML est pour Adobe Premiere Pro CC2017
+     * Si l'XML est pour Adobe Premiere Pro CC2017.
      */
     public static final byte PREMIERE = 0;
 
@@ -39,14 +38,14 @@ public class XMLFCP7 {
     private File fichier;
 
     /**
-     *
+     * Si écriture ou lecture.
      */
     private String mode;
 
     /**
      * Nom du projet.
      */
-    private String nom;
+    private String titre_projet;
 
     /**
      * Liste des médias.
@@ -69,7 +68,7 @@ public class XMLFCP7 {
     private byte logiciel_destination;
 
     /**
-     * Construit un <code>XMLStandard</code>.
+     * Construit un <code>XMLFCP7</code>.
      *
      * @param fichier Le chemin et nom du fichier.
      * @param mode Si on lit ou écrit l'XML.
@@ -89,6 +88,9 @@ public class XMLFCP7 {
         this.fichier = fichier;
         this.mode = mode;
         this.logiciel_destination = logiciel_destination;
+
+        // Si on créé un nouvel XML FCP7, alors le nombre de timeline est de 0.
+        Timeline.nombre_timeline = 0;
     }
 
     /**
@@ -137,9 +139,6 @@ public class XMLFCP7 {
         this.liste_dossier.add(dossier);
     }
 
-    /*public void addMediaTimeline(Timeline timeline, Media media) {
-        this.listTimeline.get(this.listTimeline.indexOf(timeline)).addMedia(media);
-    }*/
     /**
      * On clot le fichier dans soit sa lecture soit dans son écriture.
      */
@@ -153,7 +152,7 @@ public class XMLFCP7 {
                 file.append("<xmeml version=\"4\">\n");
 
                 file.append("\t<project>\n");
-                file.append("\t\t<name>" + this.nom + "</name>\n");
+                file.append("\t\t<name>" + this.titre_projet + "</name>\n");
                 file.append("\t\t<children>\n");
 
                 // Liste des dossiers :
@@ -208,9 +207,9 @@ public class XMLFCP7 {
     /**
      * Modifie le nom du projet.
      *
-     * @param nom Le nouveau nom du projet.
+     * @param titre_projet Le nouveau titre du projet.
      */
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setTitreProjet(String titre_projet) {
+        this.titre_projet = titre_projet;
     }
 }

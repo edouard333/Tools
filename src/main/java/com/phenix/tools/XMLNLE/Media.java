@@ -6,19 +6,13 @@ import com.phenix.tools.Timecode;
  * Media dans une projet.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class Media {
 
     /**
-     * Nom du fichier.
+     * Durée du fichier qui peut être différent du média dans la timeline.
      */
-    private String nom_fichier;
-
-    /**
-     * Durée du média.
-     */
-    private Timecode duree;
+    private Timecode duree_fichier;
 
     /**
      * Framerate du média.
@@ -31,6 +25,21 @@ public class Media {
     private Timecode in;
 
     /**
+     * Où se trouve le fichier.
+     */
+    private String localisation;
+
+    /**
+     * Nom du média qui peut être différent du fichier qu'il fait référence.
+     */
+    private String nom;
+
+    /**
+     * Nom du fichier.
+     */
+    private String nom_fichier;
+
+    /**
      * Timecode out.
      */
     private Timecode out;
@@ -39,11 +48,6 @@ public class Media {
      * Timecode début du média.
      */
     private Timecode start;
-
-    /**
-     * Où se trouve le fichier.
-     */
-    private String localisation;
 
     /**
      * Balayage.
@@ -105,24 +109,9 @@ public class Media {
     protected String type_media = "media";
 
     /**
-     * La couleur du média: Iris par défaut.
+     * La couleur du média: bleu par défaut.
      */
-    private String couleur = "Iris";
-
-    /**
-     * Couleur "iris"/bleu dans Adobe Premiere.
-     */
-    public static final String COULEUR_IRIS = "Iris";
-
-    /**
-     * Couleur "mango" (orange) dans Adobe Premiere.
-     */
-    public static final String COULEUR_MANGO = "Mango";
-
-    /**
-     * Couleur "rose" dans Adobe Premiere.
-     */
-    public static final String COULEUR_ROSE = "Rose";
+    private CouleurMedia couleur = CouleurMedia.BLEU;
 
     /**
      * Définit un média sur base de son nom de fichier.
@@ -172,7 +161,7 @@ public class Media {
      *
      * @return La couleur.
      */
-    public String getCouleur() {
+    public CouleurMedia getCouleur() {
         return this.couleur;
     }
 
@@ -182,8 +171,21 @@ public class Media {
      * @return Durée.
      */
     public Timecode getDuree() {
-        this.duree = new Timecode((this.out.toImage() - this.in.toImage() + 1), this.framerate);
-        return this.duree;
+        return new Timecode((this.out.toImage() - this.in.toImage() + 1), this.framerate);
+    }
+
+    /**
+     * Retourne la durée du fichier (peut être différente du média dans la
+     * timeline).
+     *
+     * @return Durée du fichier.
+     */
+    public Timecode getDureeFichier() {
+        if (this.duree_fichier != null) {
+            return this.duree_fichier;
+        } else {
+            return this.getDuree();
+        }
     }
 
     /**
@@ -232,6 +234,15 @@ public class Media {
     }
 
     /**
+     * Retourne le nom qu'on donne au média, il peut être différent du fichier.
+     *
+     * @return Le nom du média.
+     */
+    public String getNom() {
+        return this.nom;
+    }
+
+    /**
      * Retourne le point out.
      *
      * @return Point out.
@@ -259,8 +270,9 @@ public class Media {
     }
 
     /**
+     * Retourne le type de média.
      *
-     * @return
+     * @return Le type.
      */
     public String getTypeMedia() {
         return this.type_media;
@@ -283,8 +295,17 @@ public class Media {
      *
      * @param couleur La nouvelle couleur.
      */
-    public void setCouleur(String couleur) {
+    public void setCouleur(CouleurMedia couleur) {
         this.couleur = couleur;
+    }
+
+    /**
+     * Définit la durée du fichier.
+     *
+     * @param duree_fichier Durée du fichier.
+     */
+    public void setDureeFichier(Timecode duree_fichier) {
+        this.duree_fichier = duree_fichier;
     }
 
     /**
@@ -319,6 +340,24 @@ public class Media {
      */
     public void setLocalisation(String localisation) {
         this.localisation = localisation;
+    }
+
+    /**
+     * Définit le nom du média.
+     *
+     * @param nom Nom du média.
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    /**
+     * Définit le nom du média fichier.
+     *
+     * @param nom_fichier Nom du média fichier.
+     */
+    public void setNomFichier(String nom_fichier) {
+        this.nom_fichier = nom_fichier;
     }
 
     /**

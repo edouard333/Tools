@@ -4,7 +4,6 @@ package com.phenix.tools.XMLNLE;
  * Contient les informations sur une erreur Baton.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class ErreurBaton {
 

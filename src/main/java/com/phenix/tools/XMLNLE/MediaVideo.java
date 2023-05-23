@@ -4,7 +4,6 @@ package com.phenix.tools.XMLNLE;
  * Média de type vidéo (image + audio).
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class MediaVideo extends Media {
 
@@ -37,6 +36,8 @@ public class MediaVideo extends Media {
      * Rapport de zoom du média. 100% = normal, par défaut.
      */
     private int echelle = 100;
+
+    private boolean est_freeze = false;
 
     /**
      * A quel logiciel est destiné ce média vidéo.<br>
@@ -158,7 +159,7 @@ public class MediaVideo extends Media {
      */
     public float getPositionHorizontale(int largeur_timeline) {
         //On divise la largeur en 2 pour avoir la partie positive ou négative.
-        if (logiciel_destination == XMLFCP7.PREMIERE) {
+        if (this.logiciel_destination == XMLFCP7.PREMIERE) {
             return (this.x - (largeur_timeline / 2F)) / 123F;
         } else { // Pour Resolve:
             return (this.x - (largeur_timeline / 2F)) / (((float) largeur_timeline / 2F) / this.horizontal);
@@ -195,6 +196,15 @@ public class MediaVideo extends Media {
     }
 
     /**
+     * Retourne si l'image est freeze ou non.
+     *
+     * @return <code>true</code> si l'image est freezé sinon <code>false</code>.
+     */
+    public boolean isFreeze() {
+        return this.est_freeze;
+    }
+
+    /**
      * Définit le nombre de canaux audio qu'à le média vidéo.
      *
      * @param canaux Nombre de canaux audio.
@@ -223,6 +233,15 @@ public class MediaVideo extends Media {
      */
     public void setEchelle(int echelle) {
         this.echelle = echelle;
+    }
+
+    /**
+     * Définit si l'image est freezé.
+     *
+     * @param est_freeze <code>true</code> si l'image est freezé.
+     */
+    public void setFreeze(boolean est_freeze) {
+        this.est_freeze = est_freeze;
     }
 
     /**

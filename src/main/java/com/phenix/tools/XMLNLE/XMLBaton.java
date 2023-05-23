@@ -1,9 +1,9 @@
 package com.phenix.tools.XMLNLE;
 
 import com.phenix.tools.Timecode;
+import com.phenix.tools.XMLNLE.exception.NotCompatibleFileException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
  * Gère l'XML venant du logiciel Baton.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class XMLBaton {
 
@@ -74,17 +73,25 @@ public class XMLBaton {
     /**
      * Contient la liste des erreurs du rapport Baton.
      */
-    private ListeErreur liste_erreur;
+    private final ListeErreur liste_erreur;
+
+    /**
+     * L'extension du fichier XML Baton.
+     */
+    public static final String EXTENSION = ".xml";
 
     /**
      * Récupérer des informations d'un rapport Baton formaté en XML.
      *
      * @param fichier Le fichier Baton à traiter.
+     *
+     * @throws NotCompatibleFileException Le fichier donnée n'est pas
+     * comptabile.
      */
-    public XMLBaton(String fichier) {
+    public XMLBaton(File fichier) throws NotCompatibleFileException {
         try {
             // Le fichier a analyser.
-            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(fichier));
+            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(fichier);
 
             // La racine du document (taskReport).
             racine = document.getDocumentElement();
@@ -114,7 +121,7 @@ public class XMLBaton {
                             if ((nl + "").equals("id=\"1\"")) {
 
                                 // Récupérer le timecode de début:
-                                int b = (Integer.parseInt(((Element) racineNoeuds.item(i)).getAttribute("StartTimecode")) / 1000)/* * 24*/;
+                                int b = (Integer.parseInt(((Element) racineNoeuds.item(i)).getAttribute("StartTimecode")));
 
                                 this.tcstart = b + "";
 
@@ -125,7 +132,12 @@ public class XMLBaton {
                 }
             }
         } catch (IOException | NumberFormatException | ParserConfigurationException | SAXException exception) {
-            exception.printStackTrace();
+            throw new NotCompatibleFileException(fichier.getName());
+        }
+
+        // S'il est null c'est qu'on peut pas parser le fichier.
+        if (streamnode == null) {
+            throw new NotCompatibleFileException(fichier.getName());
         }
 
         // On cherche le node "info":
@@ -154,7 +166,7 @@ public class XMLBaton {
                             this.framerate = Integer.parseInt(((Element) field.item(i)).getAttribute("value"));
 
                             // Seulement maintenant on peut définir le TC start (car il faut connaitre le framerate):
-                            this.tcstart = new Timecode((Integer.parseInt(this.tcstart) * this.framerate), this.framerate).toString();
+                            this.tcstart = new Timecode((int) (Integer.parseInt(this.tcstart) / 1000D * this.framerate), this.framerate).toString();
                         } else if (((Element) field.item(i)).getAttribute("name").equals("Duration")) {
                             NodeList duree = findNodeListByName(field.item(i).getChildNodes(), "DurationSMPTE");
 
@@ -239,22 +251,12 @@ public class XMLBaton {
     }
 
     /**
-     * Retourne la liste de toutes les erreurs selon un type.
+     * Retourne la liste de toutes les erreurs.
      *
      * @return Liste d'erreur de Baton
      */
     public ListeErreur getListeErreur() {
         return this.liste_erreur;
-    }
-
-    /**
-     * Retourne la liste de toutes les erreurs selon un type.
-     *
-     * @param type_erreur Le type d'erreur.
-     * @return Liste d'erreur selon un type.
-     */
-    public ArrayList<ErreurBaton> getListeErreur(String type_erreur) {
-        return this.liste_erreur.getList(type_erreur);
     }
 
     /**

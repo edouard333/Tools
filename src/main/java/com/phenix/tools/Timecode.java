@@ -12,26 +12,6 @@ import java.util.Scanner;
 public class Timecode {
 
     /**
-     * Framerate 23,976is.
-     */
-    public static double FRAMERATE_23976 = 23976D;
-
-    /**
-     * Framerate 24is (cinéma/Bluray).
-     */
-    public static double FRAMERATE_24 = 24D;
-
-    /**
-     * Framerate 25is (PAL TV).
-     */
-    public static double FRAMERATE_25 = 25D;
-
-    /**
-     * Framerate 29,97 (NTSC TV).
-     */
-    public static double FRAMERATE_2997 = 2997D;
-
-    /**
      * Heure du timecode.
      */
     private int heure;
@@ -98,12 +78,12 @@ public class Timecode {
         Scanner sc = new Scanner(timecode);
         sc.useDelimiter(":");
 
-        this.heure = extractNombre(sc.next());
-        this.minute = extractNombre(sc.next());
-        this.seconde = extractNombre(sc.next());
-        this.image = extractNombre(sc.next());
+        this.heure = this.extractNombre(sc.next());
+        this.minute = this.extractNombre(sc.next());
+        this.seconde = this.extractNombre(sc.next());
+        this.image = this.extractNombre(sc.next());
 
-        isNull = "";
+        this.isNull = "";
 
         sc.close();
     }
@@ -127,7 +107,7 @@ public class Timecode {
 
             this.framerate = framerate;
 
-            isNull = "";
+            this.isNull = "";
 
             sc.close();
         } catch (InputMismatchException exception) {
@@ -158,7 +138,7 @@ public class Timecode {
         this.nombre_image = nombre_image;
         this.framerate = framerate;
 
-        nombreImageToInt();
+        this.nombreImageToInt();
 
         this.isNull = "";
     }
@@ -199,6 +179,16 @@ public class Timecode {
     }
 
     /**
+     * Ajoute un certain nombre d'image.
+     *
+     * @param nombre_image Nombre d'image.
+     */
+    public void addFrame(int nombre_image) {
+        this.nombre_image = this.toImage() + nombre_image;
+        this.doitEtreCalcule = true;
+    }
+
+    /**
      * Change d'un framerate à l'autre.
      *
      * @param framerate Le nouveau framerate.
@@ -212,14 +202,13 @@ public class Timecode {
         int image_utile = toImage() - new Timecode(this.timecode_debut, this.framerate).toImage();
         this.framerate = framerate;
         this.nombre_image = image_utile + new Timecode(this.timecode_debut, this.framerate).toImage();
-        doitEtreCalcule = true;
+        this.doitEtreCalcule = true;
     }
 
     /**
      * Représente un nombre en "digite".
      *
      * @param valeur La valeur a convertir en digit (0-9).
-     *
      * @return String
      */
     private String digit(int valeur) {
@@ -286,33 +275,33 @@ public class Timecode {
     }
 
     /**
-     * Retourne le framerate pour faire des calcules.
-     *
-     * @return Retourne la valeur du framerate pour calculer le timecode.
-     */
-    private int framerateCalcule() {
-        // Si c'est du 24is
-        if (this.framerate == FRAMERATE_24) {
-            return 24;
-        } // Si c'est du 25is
-        else if (this.framerate == FRAMERATE_25) {
-            return 25;
-        } // Si c'est du 23,976
-        else if (this.framerate == FRAMERATE_23976) {
-            return 24;
-        } // Sinon, c'est du 29,97 (en NDF).
-        else {
-            return 30;
-        }
-    }
-
-    /**
      * Retourne le framerate.
      *
      * @return Le framerate actuel.
      */
     public double getFramerate() {
         return this.framerate;
+    }
+
+    /**
+     * Retourne le framerate pour faire des calcules.
+     *
+     * @return Retourne la valeur du framerate pour calculer le timecode.
+     */
+    private int getFramerateCalcule() {
+        // Si c'est du 24is
+        if (this.framerate == Framerate.F24.getValeur()) {
+            return 24;
+        } // Si c'est du 25is
+        else if (this.framerate == Framerate.F25.getValeur()) {
+            return 25;
+        } // Si c'est du 23,976
+        else if (this.framerate == Framerate.F23976.getValeur()) {
+            return 24;
+        } // Sinon, c'est du 29,97 (en NDF).
+        else {
+            return 30;
+        }
     }
 
     /**
@@ -329,7 +318,7 @@ public class Timecode {
      */
     private void nombreImageToInt() {
 
-        int framerate_tmp = framerateCalcule();
+        int framerate_tmp = this.getFramerateCalcule();
 
         // Nombre minute:
         if (this.drop_frame) {
@@ -391,7 +380,7 @@ public class Timecode {
      * @return Retourne le nombre d'image que représente un timecode.
      */
     public int toImage() {
-        return toImage(false);
+        return this.toImage(false);
     }
 
     /**
@@ -404,13 +393,13 @@ public class Timecode {
      * @return Retourne le nombre d'image que représente le timecode.
      */
     public int toImage(boolean image_utile) {
-        if (doitEtreCalcule) {
-            nombreImageToInt();
-            doitEtreCalcule = false;
+        if (this.doitEtreCalcule) {
+            this.nombreImageToInt();
+            this.doitEtreCalcule = false;
         }
 
-        if (isNull.equals("")) {
-            return (this.heure * 60 * 60 * framerateCalcule()) + (this.minute * 60 * framerateCalcule()) + (this.seconde * framerateCalcule()) + (this.image)
+        if (this.isNull.equals("")) {
+            return (this.heure * 60 * 60 * this.getFramerateCalcule()) + (this.minute * 60 * this.getFramerateCalcule()) + (this.seconde * this.getFramerateCalcule()) + (this.image)
                     - ((image_utile) ? new Timecode(this.timecode_debut, this.framerate).toImage() : 0);
         } else {
             return -1;

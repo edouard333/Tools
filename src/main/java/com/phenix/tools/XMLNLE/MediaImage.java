@@ -4,7 +4,6 @@ package com.phenix.tools.XMLNLE;
  * Média de type image.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public class MediaImage extends Media {
 
@@ -15,6 +14,6 @@ public class MediaImage extends Media {
      */
     public MediaImage(String nom_fichier) {
         super(nom_fichier);
-        type_media = "image";
+        super.type_media = "image";
     }
 }
