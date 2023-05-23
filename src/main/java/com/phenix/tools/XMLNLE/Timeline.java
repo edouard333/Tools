@@ -406,7 +406,7 @@ public class Timeline {
                             + "\t\t\t\t\t\t\t\t<ntsc>false</ntsc>\n"
                             + "\t\t\t\t\t\t\t</rate>\n"
                             + "\t\t\t\t\t\t\t<name>" + nom_fichier + "</name>\n"
-                            + "\t\t\t\t\t\t\t<pathurl>" + new File(m.getLocalisation().replace("\\", "/")).getName() + "</pathurl>\n"
+                            + "\t\t\t\t\t\t\t<pathurl>" + /*new File(m.getLocalisation().replace("\\", "/")).getName()*/ m.getLocalisation()+ "</pathurl>\n"
                             + "\t\t\t\t\t\t\t<timecode>\n"
                             + "\t\t\t\t\t\t\t\t<string>" + m.getStart() + "</string>\n"
                             + "\t\t\t\t\t\t\t\t<displayformat>NDF</displayformat>\n"
