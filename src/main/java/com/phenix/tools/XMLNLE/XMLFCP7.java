@@ -2,7 +2,11 @@ package com.phenix.tools.XMLNLE;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -146,7 +150,10 @@ public class XMLFCP7 {
         // En écriture, on écrit tout.
         if (this.mode.equals(ECRITURE)) {
             try {
-                PrintWriter file = new PrintWriter(this.fichier);
+                // Si on veut faire de l'UTF8 mais alors on doit vérifier que les String reçu sont en UTF8.
+                OutputStream os = new FileOutputStream(this.fichier);
+                PrintWriter file = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
+                //PrintWriter file = new PrintWriter(this.fichier);
                 file.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
                 file.append("<!DOCTYPE xmeml>\n");
                 file.append("<xmeml version=\"4\">\n");
@@ -175,7 +182,7 @@ public class XMLFCP7 {
 
                 file.append("</xmeml>");
                 file.close();
-            } catch (FileNotFoundException exception) {
+            } catch (UnsupportedEncodingException | FileNotFoundException exception) {
                 exception.printStackTrace();
             }
         } // En lecture, on ne fait que lire.
