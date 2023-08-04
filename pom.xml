@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>tools</artifactId>
     <name>Tools</name>
-    <version>1.0.0</version>
+    <version>1.1.1</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Tools</url>
     

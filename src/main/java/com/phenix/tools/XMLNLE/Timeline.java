@@ -304,7 +304,9 @@ public class Timeline {
         this.liste_tc_start.add(in);
         this.liste_tc_end.add(out);
 
-        conformiteMedia((MediaVideo) media);
+        if (media instanceof MediaVideo) {
+            conformiteMedia((MediaVideo) media);
+        }
     }
 
     /**
@@ -375,7 +377,7 @@ public class Timeline {
                             + // Début du média en nombre d'image.
                             "\t\t\t\t\t\t\t\t<displayformat>NDF</displayformat>\n"
                             + "\t\t\t\t\t\t\t\t<reel>\n"
-                            + "\t\t\t\t\t\t\t\t\t<name></name>\n"
+                            + "\t\t\t\t\t\t\t\t\t<name>" + m.getNomBobine() + "</name>\n"
                             + "\t\t\t\t\t\t\t\t</reel>\n"
                             + "\t\t\t\t\t\t\t</timecode>\n"
                             + "\t\t\t\t\t\t\t<media>\n"
@@ -406,7 +408,7 @@ public class Timeline {
                             + "\t\t\t\t\t\t\t\t<ntsc>false</ntsc>\n"
                             + "\t\t\t\t\t\t\t</rate>\n"
                             + "\t\t\t\t\t\t\t<name>" + nom_fichier + "</name>\n"
-                            + "\t\t\t\t\t\t\t<pathurl>" + /*new File(m.getLocalisation().replace("\\", "/")).getName()*/ m.getLocalisation()+ "</pathurl>\n"
+                            + "\t\t\t\t\t\t\t<pathurl>" + /*new File(m.getLocalisation().replace("\\", "/")).getName()*/ m.getLocalisation() + "</pathurl>\n"
                             + "\t\t\t\t\t\t\t<timecode>\n"
                             + "\t\t\t\t\t\t\t\t<string>" + m.getStart() + "</string>\n"
                             + "\t\t\t\t\t\t\t\t<displayformat>NDF</displayformat>\n"
@@ -414,6 +416,9 @@ public class Timeline {
                             + "\t\t\t\t\t\t\t\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
                             + "\t\t\t\t\t\t\t\t\t<ntsc>false</ntsc>\n"
                             + "\t\t\t\t\t\t\t\t</rate>\n"
+                            + "\t\t\t\t\t\t\t\t<reel>\n"
+                            + "\t\t\t\t\t\t\t\t\t<name>" + m.getNomBobine() + "</name>\n"
+                            + "\t\t\t\t\t\t\t\t</reel>\n"
                             + "\t\t\t\t\t\t\t</timecode>\n"
                             + "\t\t\t\t\t\t\t<media>\n"
                             + "\t\t\t\t\t\t\t\t<video>\n"
@@ -891,7 +896,9 @@ public class Timeline {
             for (int j = 0; j < this.liste_piste.size(); j++) {
                 // Piste actuelle:
                 if (this.liste_piste.get(j) == i) {
-                    xml += this.addItemClipVideo((MediaVideo) this.liste_media.get(j), this.liste_tc_start.get(j), this.liste_active.get(j));
+                    if (this.liste_media.get(j) instanceof MediaVideo) {
+                        xml += this.addItemClipVideo((MediaVideo) this.liste_media.get(j), this.liste_tc_start.get(j), this.liste_active.get(j));
+                    }
                 }
             }
 

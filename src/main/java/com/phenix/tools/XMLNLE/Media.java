@@ -35,6 +35,11 @@ public class Media {
     private String nom;
 
     /**
+     * Nom de la bobine (<em>reel name</em>).
+     */
+    private String nom_bobine;
+
+    /**
      * Nom du fichier.
      */
     private String nom_fichier;
@@ -225,6 +230,15 @@ public class Media {
     }
 
     /**
+     * Retourne le nom de la bobine.
+     *
+     * @return Nom de la bobine.
+     */
+    public String getNomBobine() {
+        return this.nom_bobine;
+    }
+
+    /**
      * Retourne le nom du fichier.
      *
      * @return Nom du fichier.
@@ -349,6 +363,16 @@ public class Media {
      */
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    /**
+     * Définit le nom de la bobine fichier.<br>
+     * C'est le "<em>reel name</em>".
+     *
+     * @param nom_bobine Nom de la bobine.
+     */
+    public void setNomBobine(String nom_bobine) {
+        this.nom_bobine = nom_bobine;
     }
 
     /**
