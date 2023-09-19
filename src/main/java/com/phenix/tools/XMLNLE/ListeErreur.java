@@ -69,12 +69,12 @@ public class ListeErreur {
     /**
      * La liste d'erreur.
      */
-    private ArrayList<ErreurBaton> liste_erreur_baton;
+    private final ArrayList<ErreurBaton> liste_erreur_baton;
 
     /**
      * Le codec de la vidéo utilisé pour la vérification Baton.
      */
-    private int codec;
+    private final int codec;
 
     /**
      * Construit une liste d'erreur à partir d'une URL d'un rapport XML Baton et
@@ -249,23 +249,6 @@ public class ListeErreur {
     }
 
     /**
-     * Retourne l'ensemble des types d'erreurs se trouvant dans le rapport.
-     *
-     * @return Liste des types d'erreur.
-     */
-    public ArrayList<String> getListTypeErreur() {
-        ArrayList<String> liste_erreur = new ArrayList<String>();
-
-        for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
-            if (!liste_erreur.contains(this.liste_erreur_baton.get(i).getItem())) {
-                liste_erreur.add(this.liste_erreur_baton.get(i).getItem());
-            }
-        }
-
-        return liste_erreur;
-    }
-
-    /**
      * Retourne la liste d'erreur avec un seule type d'erreur, reçu en
      * paramètre.
      *
@@ -285,6 +268,23 @@ public class ListeErreur {
         liste_erreur.sort((erreur1, erreur12) -> {
             return erreur1.getTcStart().compareTo(erreur12.getTcStart());
         });
+
+        return liste_erreur;
+    }
+
+    /**
+     * Retourne l'ensemble des types d'erreurs se trouvant dans le rapport.
+     *
+     * @return Liste des types d'erreur.
+     */
+    public ArrayList<String> getListTypeErreur() {
+        ArrayList<String> liste_erreur = new ArrayList<String>();
+
+        for (int i = 0; i < this.liste_erreur_baton.size(); i++) {
+            if (!liste_erreur.contains(this.liste_erreur_baton.get(i).getItem())) {
+                liste_erreur.add(this.liste_erreur_baton.get(i).getItem());
+            }
+        }
 
         return liste_erreur;
     }

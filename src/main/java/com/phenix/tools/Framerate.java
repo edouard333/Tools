@@ -35,9 +35,10 @@ public enum Framerate {
     private boolean drop_frame;
 
     /**
+     * Définit un frame rate.
      *
-     * @param framerate
-     * @param drop_frame
+     * @param framerate Le framerate.
+     * @param drop_frame Si on est en dropframe ou non.
      */
     private Framerate(double framerate, boolean drop_frame) {
         this.framerate = framerate;
@@ -45,8 +46,9 @@ public enum Framerate {
     }
 
     /**
+     * Retourne le framerate.
      *
-     * @return
+     * @return Le framerate.
      */
     public double getValeur() {
         return this.framerate;

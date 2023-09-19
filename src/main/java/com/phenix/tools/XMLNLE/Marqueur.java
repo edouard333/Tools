@@ -255,5 +255,4 @@ public class Marqueur {
             this.framerate = (int) this.out.getFramerate();
         }
     }
-
 }

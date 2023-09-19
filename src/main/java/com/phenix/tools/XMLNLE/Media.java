@@ -230,6 +230,15 @@ public class Media {
     }
 
     /**
+     * Retourne le nom qu'on donne au média, il peut être différent du fichier.
+     *
+     * @return Le nom du média.
+     */
+    public String getNom() {
+        return this.nom;
+    }
+
+    /**
      * Retourne le nom de la bobine.
      *
      * @return Nom de la bobine.
@@ -245,15 +254,6 @@ public class Media {
      */
     public String getNomFichier() {
         return this.nom_fichier;
-    }
-
-    /**
-     * Retourne le nom qu'on donne au média, il peut être différent du fichier.
-     *
-     * @return Le nom du média.
-     */
-    public String getNom() {
-        return this.nom;
     }
 
     /**

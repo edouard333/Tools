@@ -38,6 +38,11 @@ public class Timeline {
     private int largeur;
 
     /**
+     * PAR (Pixel Aspect Ratio) de la timeline.
+     */
+    private double par;
+
+    /**
      *
      */
     private static int clipitem = 0;
@@ -165,6 +170,7 @@ public class Timeline {
         this.nom = nom;
         this.framerate = framerate;
         this.start_tc = start_tc;
+        this.par = 1;
 
         this.nombre_canaux = 2;
 
@@ -415,11 +421,15 @@ public class Timeline {
                             + "\t\t\t\t\t\t\t\t<rate>\n"
                             + "\t\t\t\t\t\t\t\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
                             + "\t\t\t\t\t\t\t\t\t<ntsc>false</ntsc>\n"
-                            + "\t\t\t\t\t\t\t\t</rate>\n"
-                            + "\t\t\t\t\t\t\t\t<reel>\n"
-                            + "\t\t\t\t\t\t\t\t\t<name>" + m.getNomBobine() + "</name>\n"
-                            + "\t\t\t\t\t\t\t\t</reel>\n"
-                            + "\t\t\t\t\t\t\t</timecode>\n"
+                            + "\t\t\t\t\t\t\t\t</rate>\n";
+
+                    if (m.getNomBobine() != null) {
+                        xml += "\t\t\t\t\t\t\t\t<reel>\n"
+                                + "\t\t\t\t\t\t\t\t\t<name>" + m.getNomBobine() + "</name>\n"
+                                + "\t\t\t\t\t\t\t\t</reel>\n";
+                    }
+
+                    xml += "\t\t\t\t\t\t\t</timecode>\n"
                             + "\t\t\t\t\t\t\t<media>\n"
                             + "\t\t\t\t\t\t\t\t<video>\n"
                             + "\t\t\t\t\t\t\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
@@ -534,9 +544,9 @@ public class Timeline {
                     + "\t\t\t\t\t\t\t\t\t<name>Center</name>\n"
                     + "\t\t\t\t\t\t\t\t\t<value>\n"
                     // Position en X: 0 = centre, max: +/-7.80488
-                    + "\t\t\t\t\t\t\t\t\t\t<horiz>" + m.getPositionHorizontale(this.largeur) + "</horiz>\n"
+                    + "\t\t\t\t\t\t\t\t\t\t<horiz>" + m.getPositionHorizontale(this.largeur, this.hauteur, this.par) + "</horiz>\n"
                     // Position en Y: 0 = centre, max: +/-6.66667
-                    + "\t\t\t\t\t\t\t\t\t\t<vert>" + m.getPositionVerticale(this.hauteur) + "</vert>\n"
+                    + "\t\t\t\t\t\t\t\t\t\t<vert>" + m.getPositionVerticale(this.largeur, this.hauteur, this.par) + "</vert>\n"
                     + "\t\t\t\t\t\t\t\t\t</value>\n"
                     + "\t\t\t\t\t\t\t\t</parameter>\n"
                     + "\t\t\t\t\t\t\t\t<parameter authoringApp=\"PremierePro\">\n"
@@ -772,16 +782,7 @@ public class Timeline {
     }
 
     /**
-     * Retourne le timecode début de la timeline.
-     *
-     * @return Timecode début.
-     */
-    public Timecode getStartTc() {
-        return this.start_tc;
-    }
-
-    /**
-     * Framerate de la timeline.
+     * Retourne le framerate de la timeline.
      *
      * @return Framerate.
      */
@@ -790,7 +791,16 @@ public class Timeline {
     }
 
     /**
-     * Largeur en pixel de la timeline.
+     * Retourne la hauteur en pixel de la timeline.
+     *
+     * @return Hauteur en pixel.
+     */
+    public int getHauteur() {
+        return this.hauteur;
+    }
+
+    /**
+     * Retourne la largeur en pixel de la timeline.
      *
      * @return Largeur en pixel.
      */
@@ -799,12 +809,21 @@ public class Timeline {
     }
 
     /**
-     * Hauteur en pixel de la timeline.
+     * Retourne le PAR de la timeline.
      *
-     * @return Hauteur en pixel.
+     * @return Le PAR.
      */
-    public int getHauteur() {
-        return this.hauteur;
+    public double getPAR() {
+        return this.par;
+    }
+
+    /**
+     * Retourne le timecode début de la timeline.
+     *
+     * @return Timecode début.
+     */
+    public Timecode getStartTc() {
+        return this.start_tc;
     }
 
     /**
@@ -1010,12 +1029,32 @@ public class Timeline {
     }
 
     /**
+     * Définit les dimensions de la timeline.
+     *
+     * @param largeur La largeur.
+     * @param hauteur La hauteur.
+     */
+    public void setDimension(int largeur, int hauteur) {
+        this.largeur = largeur;
+        this.hauteur = hauteur;
+    }
+
+    /**
      * Modifie à quel logiciel est destiné la timeline.
      *
      * @param logiciel_destination Logiciel auquel est destiné la timeline.
      */
     public void setLogicielDestination(byte logiciel_destination) {
         this.logiciel_destination = logiciel_destination;
+    }
+
+    /**
+     * Modifie le PAR.
+     *
+     * @param par PAR.
+     */
+    public void setPAR(float par) {
+        this.par = par;
     }
 
     /**
@@ -1031,17 +1070,6 @@ public class Timeline {
         else {
             this.framerate = (int) this.start_tc.getFramerate();
         }
-    }
-
-    /**
-     * Définit les dimensions de la timeline.
-     *
-     * @param largeur La largeur.
-     * @param hauteur La hauteur.
-     */
-    public void setDimension(int largeur, int hauteur) {
-        this.largeur = largeur;
-        this.hauteur = hauteur;
     }
 
     /**

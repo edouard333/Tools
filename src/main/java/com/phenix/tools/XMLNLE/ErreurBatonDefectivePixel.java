@@ -12,7 +12,7 @@ public class ErreurBatonDefectivePixel extends ErreurBaton {
     /**
      * Liste des positions (x, y) des pixels morts.
      */
-    private ArrayList<Pixel> liste_pixel = new ArrayList<Pixel>();
+    private final ArrayList<Pixel> liste_pixel;
 
     /**
      * Définit une erreur Baton de catégorie "defective pixel".

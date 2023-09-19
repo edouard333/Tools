@@ -10,27 +10,27 @@ public class ErreurBaton {
     /**
      * Description de l'erreur Baton.
      */
-    private String description;
+    private final String description;
 
     /**
      * Durée de l'erreur Baton.
      */
-    private int duree;
+    private final int duree;
 
     /**
      * Timecode début.
      */
-    private String tcStart;
+    private final String tcStart;
 
     /**
      * Timecode de fin.
      */
-    private String tcEnd;
+    private final String tcEnd;
 
     /**
      * Type d'erreur.
      */
-    private String item;
+    private final String item;
 
     /**
      * ID pour le codec "DPX".
@@ -65,7 +65,7 @@ public class ErreurBaton {
     /**
      * Liste des codecs possibles pour les erreurs.
      */
-    private boolean codec[] = new boolean[6];
+    private final boolean codec[] = new boolean[6];
 
     /**
      * Créé un objet <code>ErreurBaton</code>.
@@ -114,11 +114,7 @@ public class ErreurBaton {
      * (voir la méthode <code>toString()</code> définissant les critères).
      */
     public boolean compare(ErreurBaton erreur) {
-        if (toString().equals(erreur.toString())) {
-            return true;
-        } else {
-            return false;
-        }
+        return toString().equals(erreur.toString());
     }
 
     /**
@@ -199,5 +195,4 @@ public class ErreurBaton {
     public String toString() {
         return this.description + " " + this.duree + " " + this.tcStart + " " + this.item;
     }
-
 }

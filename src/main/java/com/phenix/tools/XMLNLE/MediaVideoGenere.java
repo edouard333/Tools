@@ -20,7 +20,7 @@ public class MediaVideoGenere extends MediaVideo {
     /**
      * Qu'est-ce qui est généré.
      */
-    private int element_genere;
+    private final int element_genere;
 
     /**
      * Définit un élément généré via son ID et un framerate.<br>

@@ -19,7 +19,7 @@ public class Pixel {
     private final int y;
 
     /**
-     * .Construit un pixel sur base de ses coordonnées x, y.
+     * Construit un pixel sur base de ses coordonnées x, y.
      *
      * @param x Coordonnée x.
      * @param y Coordonnée y.

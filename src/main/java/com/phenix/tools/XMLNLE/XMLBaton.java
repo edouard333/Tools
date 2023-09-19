@@ -21,22 +21,22 @@ import org.xml.sax.SAXException;
 public class XMLBaton {
 
     /**
-     *
+     * Sert pour décodé l'XML.
      */
     private Document document;
 
     /**
-     *
+     * Sert pour décodé l'XML.
      */
     private Element racine;
 
     /**
-     *
+     * Sert pour décodé l'XML.
      */
     private NodeList racineNoeuds;
 
     /**
-     *
+     * Sert pour décodé l'XML.
      */
     private NodeList streamnode;
 
@@ -91,41 +91,41 @@ public class XMLBaton {
     public XMLBaton(File fichier) throws NotCompatibleFileException {
         try {
             // Le fichier a analyser.
-            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(fichier);
+            this.document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(fichier);
 
             // La racine du document (taskReport).
-            racine = document.getDocumentElement();
+            this.racine = this.document.getDocumentElement();
 
             // On récupère directement les enfants.
-            racineNoeuds = racine.getChildNodes();
+            this.racineNoeuds = this.racine.getChildNodes();
 
             // On parcoure les nodes:
-            for (int i = 0; i < racineNoeuds.getLength(); i++) {
+            for (int i = 0; i < this.racineNoeuds.getLength(); i++) {
 
                 // Si c'est effectivement un node, on regarde:
-                if (racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                if (this.racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
 
                     // En fonction de son nom, on fait un traitement:
-                    switch (racineNoeuds.item(i).getNodeName()) {
+                    switch (this.racineNoeuds.item(i).getNodeName()) {
 
                         // On récupère depuis le node "toplevelinfo" l'information du nom de fichier vidéo analysé:
                         case "toplevelinfo":
-                            this.nom_fichier = ((Element) racineNoeuds.item(i)).getAttribute("Filepath");
+                            this.nom_fichier = ((Element) this.racineNoeuds.item(i)).getAttribute("Filepath");
                             break;
 
                         // Si c'est streamnode (il y a en a 2 dans l'XML).
                         case "streamnode":
-                            NodeList nl = (NodeList) racineNoeuds.item(i).getAttributes().getNamedItem("id");
+                            NodeList nl = (NodeList) this.racineNoeuds.item(i).getAttributes().getNamedItem("id");
 
                             // On ne prend que celui avec les info images:
                             if ((nl + "").equals("id=\"1\"")) {
 
                                 // Récupérer le timecode de début:
-                                int b = (Integer.parseInt(((Element) racineNoeuds.item(i)).getAttribute("StartTimecode")));
+                                int b = (Integer.parseInt(((Element) this.racineNoeuds.item(i)).getAttribute("StartTimecode")));
 
                                 this.tcstart = b + "";
 
-                                streamnode = (NodeList) racineNoeuds.item(i).getChildNodes();
+                                this.streamnode = (NodeList) this.racineNoeuds.item(i).getChildNodes();
                             }
                             break;
                     }
@@ -136,12 +136,12 @@ public class XMLBaton {
         }
 
         // S'il est null c'est qu'on peut pas parser le fichier.
-        if (streamnode == null) {
+        if (this.streamnode == null) {
             throw new NotCompatibleFileException(fichier.getName());
         }
 
         // On cherche le node "info":
-        NodeList field = findNodeListByName(streamnode, "info");
+        NodeList field = findNodeListByName(this.streamnode, "info");
 
         // Ici se trouve la liste des fields!!
         for (int i = 0; i < field.getLength(); i++) {
@@ -168,11 +168,11 @@ public class XMLBaton {
                             // Seulement maintenant on peut définir le TC start (car il faut connaitre le framerate):
                             this.tcstart = new Timecode((int) (Integer.parseInt(this.tcstart) / 1000D * this.framerate), this.framerate).toString();
                         } else if (((Element) field.item(i)).getAttribute("name").equals("Duration")) {
-                            NodeList duree = findNodeListByName(field.item(i).getChildNodes(), "DurationSMPTE");
+                            NodeList nl_duree = findNodeListByName(field.item(i).getChildNodes(), "DurationSMPTE");
 
                             // Vérifie qu'une durée est renseignée:
                             if (!((Element) field.item(i)).getAttribute("desc").equals("Info not found")) {
-                                this.duree = new Timecode(((Element) duree).getAttribute("value"));
+                                this.duree = new Timecode(((Element) nl_duree).getAttribute("value"));
                             } else {
                                 this.duree = new Timecode(1);
                             }
@@ -215,12 +215,13 @@ public class XMLBaton {
     }
 
     /**
-     * Retourne le nom de la vidéo analysé.
+     * Retourne la durée de la vidéo analysé.
      *
-     * @return Retourne le nom du fichier vidéo analysé.
+     * @return Durée.
      */
-    public String getNomFichier() {
-        return this.nom_fichier;
+    public Timecode getDuree() {
+        this.duree.setFramerate(this.framerate);
+        return this.duree;
     }
 
     /**
@@ -260,13 +261,12 @@ public class XMLBaton {
     }
 
     /**
-     * Retourne la durée de la vidéo analysé.
+     * Retourne le nom de la vidéo analysé.
      *
-     * @return Durée.
+     * @return Retourne le nom du fichier vidéo analysé.
      */
-    public Timecode getDuree() {
-        this.duree.setFramerate(this.framerate);
-        return this.duree;
+    public String getNomFichier() {
+        return this.nom_fichier;
     }
 
     /**

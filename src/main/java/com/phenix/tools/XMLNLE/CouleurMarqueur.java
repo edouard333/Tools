@@ -18,6 +18,9 @@ public enum CouleurMarqueur {
      * On ne connait pas la valeur de la couleur Premiere.
      */
     BLEU("4294741314", 0, 0, 0, 255),
+    /**
+     * On ne connait pas la valeur de la couleur Premiere.
+     */
     ORANGE("4280578025", 0, 255, 127, 0);
 
     /**

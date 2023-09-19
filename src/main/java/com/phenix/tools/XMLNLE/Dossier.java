@@ -12,17 +12,17 @@ public class Dossier {
     /**
      * Liste des médias dans le dossier.
      */
-    private ArrayList<Media> listeMedia = new ArrayList<Media>();
+    private ArrayList<Media> liste_media = new ArrayList<Media>();
 
     /**
      * Liste des timelines dans le dossier.
      */
-    private ArrayList<Timeline> listeTimeline = new ArrayList<Timeline>();
+    private ArrayList<Timeline> liste_timeline = new ArrayList<Timeline>();
 
     /**
      * Liste des dossier dans le dossier.
      */
-    private ArrayList<Dossier> listeDossier = new ArrayList<Dossier>();
+    private ArrayList<Dossier> liste_dossier = new ArrayList<Dossier>();
 
     /**
      * Nom du dossier.
@@ -96,6 +96,33 @@ public class Dossier {
     }
 
     /**
+     * Ajoute un sous-dossier au dossier.
+     *
+     * @param dossier Dossier à ajouter.
+     */
+    public void addDossier(Dossier dossier) {
+        this.liste_dossier.add(dossier);
+    }
+
+    /**
+     * Ajoute un média au dossier.
+     *
+     * @param media Média à ajouter.
+     */
+    public void addMedia(Media media) {
+        this.liste_media.add(media);
+    }
+
+    /**
+     * Ajoute une timeline au dossier.
+     *
+     * @param timeline La timeline.
+     */
+    public void addTimeline(Timeline timeline) {
+        this.liste_timeline.add(timeline);
+    }
+
+    /**
      * Retourne le nom du dossier.
      *
      * @return Nom du dossier.
@@ -105,34 +132,25 @@ public class Dossier {
     }
 
     /**
-     * Ajoute un sous-dossier au dossier.
+     * Modifie la couleur du dossier.
      *
-     * @param dossier Dossier a ajouter.
+     * @param couleur La couleur.
      */
-    public void addDossier(Dossier dossier) {
-        this.listeDossier.add(dossier);
+    public void setCouleur(String couleur) {
+        this.couleur = couleur;
     }
 
     /**
-     * Ajoute un média au dossier.
+     * Modifie le nom du dossier.
      *
-     * @param media Média a ajouter.
+     * @param nom Le nom.
      */
-    public void addMedia(Media media) {
-        this.listeMedia.add(media);
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     /**
-     * Ajoute une timeline au dossier.
-     *
-     * @param timeline La timeline.
-     */
-    public void addTimeline(Timeline timeline) {
-        this.listeTimeline.add(timeline);
-    }
-
-    /**
-     * Génère le XML XML pour créer un projet d'un NLE.
+     * Retourne l'XML généré pour créer un projet d'un NLE.
      *
      * @return Code XML.
      */
@@ -147,18 +165,18 @@ public class Dossier {
         xml += "<children>\n";
 
         // Ajout des sous-dossiers:
-        for (int i = 0; i < this.listeDossier.size(); i++) {
-            xml += this.listeDossier.get(i).toString();
+        for (int i = 0; i < this.liste_dossier.size(); i++) {
+            xml += this.liste_dossier.get(i).toString();
         }
 
         // Ajout des médias:
-        for (int i = 0; i < this.listeMedia.size(); i++) {
-            xml += ((Media) this.listeMedia.get(i)).toString();
+        for (int i = 0; i < this.liste_media.size(); i++) {
+            xml += ((Media) this.liste_media.get(i)).toString();
         }
 
         // Ajout des séquences:
-        for (int i = 0; i < this.listeTimeline.size(); i++) {
-            xml += this.listeTimeline.get(i).toString();
+        for (int i = 0; i < this.liste_timeline.size(); i++) {
+            xml += this.liste_timeline.get(i).toString();
         }
 
         xml += "</children>\n"
@@ -166,5 +184,4 @@ public class Dossier {
 
         return xml;
     }
-
 }

@@ -98,21 +98,21 @@ public class XMLFCP7 {
     }
 
     /**
+     * Ajoute un dossier au projet.
+     *
+     * @param dossier Le dossier.
+     */
+    public void addDossier(Dossier dossier) {
+        this.liste_dossier.add(dossier);
+    }
+
+    /**
      * Ajoute un média audio au projet.Si mode écriture (add).
      *
      * @param audio Média audio.
      */
     public void addMediaAudio(MediaAudio audio) {
         this.liste_media.add(audio);
-    }
-
-    /**
-     * Ajoute une vidéo au projet.
-     *
-     * @param video La vidéo à ajouter.
-     */
-    public void addMediaVideo(MediaVideo video) {
-        this.liste_media.add(video);
     }
 
     /**
@@ -125,6 +125,15 @@ public class XMLFCP7 {
     }
 
     /**
+     * Ajoute une vidéo au projet.
+     *
+     * @param video La vidéo à ajouter.
+     */
+    public void addMediaVideo(MediaVideo video) {
+        this.liste_media.add(video);
+    }
+
+    /**
      * Ajoute une timeline au projet.
      *
      * @param timeline La timeline à ajouter.
@@ -132,15 +141,6 @@ public class XMLFCP7 {
     public void addTimeline(Timeline timeline) {
         timeline.setLogicielDestination(this.logiciel_destination);
         this.liste_timeline.add(timeline);
-    }
-
-    /**
-     * Ajoute un dossier au projet.
-     *
-     * @param dossier Le dossier.
-     */
-    public void addDossier(Dossier dossier) {
-        this.liste_dossier.add(dossier);
     }
 
     /**

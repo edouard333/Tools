@@ -18,6 +18,11 @@ public class MediaVideo extends Media {
     private int largeur;
 
     /**
+     * Le PAR (Pixel Aspect Ratio).
+     */
+    private double par;
+
+    /**
      * Position du média en x.
      */
     private int x;
@@ -37,6 +42,9 @@ public class MediaVideo extends Media {
      */
     private int echelle = 100;
 
+    /**
+     * Information si la vidéo est freeze ou non.
+     */
     private boolean est_freeze = false;
 
     /**
@@ -68,8 +76,9 @@ public class MediaVideo extends Media {
      */
     public MediaVideo(String nom_fichier) {
         super(nom_fichier);
-        canaux = 0;
-        type_media = "video";
+        this.canaux = 0;
+        this.type_media = "video";
+        this.par = 1;
     }
 
     /**
@@ -80,8 +89,9 @@ public class MediaVideo extends Media {
      */
     public MediaVideo(String nom_fichier, int framerate) {
         super(nom_fichier, framerate);
-        canaux = 0;
-        type_media = "video";
+        this.canaux = 0;
+        this.type_media = "video";
+        this.par = 1;
     }
 
     /**
@@ -91,6 +101,15 @@ public class MediaVideo extends Media {
      */
     public int getCanaux() {
         return this.canaux;
+    }
+
+    /**
+     * Rapport du zoom.
+     *
+     * @return 100 = 100%
+     */
+    public int getEchelle() {
+        return this.echelle;
     }
 
     /**
@@ -112,6 +131,72 @@ public class MediaVideo extends Media {
     }
 
     /**
+     * Position en X :<br>
+     * 0 = centre, max: +/-7.80488 (1080p).<br>
+     * <br>
+     * Pour Adobe Premiere :<br>
+     * Pour n'importe quelque résolution : /123F<br>
+     * <br>
+     * Pour Resolve: UHD :<br>
+     * Il y a un calcule.<br>
+     *
+     * @param largeur_timeline Largeur de la timeline.
+     * @param hauteur_timeline Hauteur de la timeline.
+     * @param par_timeline PAR de la timeline.
+     *
+     * @return Position X pour Premiere ou Resolve.
+     */
+    public double getPositionHorizontale(double largeur_timeline, double hauteur_timeline, double par_timeline) {
+        //On divise la largeur en 2 pour avoir la partie positive ou négative.
+        if (this.logiciel_destination == XMLFCP7.PREMIERE) {
+            return ((this.x - (largeur_timeline / 2F)) / 123F) * (par_timeline / this.par);
+        } // Pour Resolve: 
+        else {
+            double calcule_x = ((this.x - (largeur_timeline / 2D)) / largeur_timeline);
+
+            if (largeur_timeline / (1.193D / par_timeline) > hauteur_timeline) {
+                double calcule_1 = (largeur_timeline / hauteur_timeline) / ((double) this.largeur / (double) this.hauteur) / this.par;
+                return calcule_x * calcule_1 * par_timeline;
+            } else {
+                return calcule_x;
+            }
+        }
+    }
+
+    /**
+     * Position en Y :<br>
+     * 0 = centre, max: +/-6.66667 (1080p).<br>
+     * <br>
+     * Pour Adobe Premiere :<br>
+     * Pour n'importe quelque résolution : /81F<br>
+     * <br>
+     * Pour Resolve :<br>
+     * Il y a un calcule.<br>
+     *
+     * @param largeur_timeline Largeur de la timeline.
+     * @param hauteur_timeline Hauteur de la timeline.
+     * @param par_timeline PAR de la timeline.
+     *
+     * @return Position Y pour Premiere ou Resolve.
+     */
+    public double getPositionVerticale(double largeur_timeline, double hauteur_timeline, double par_timeline) {
+        //On divise la hauteur en 2 pour avoir la partie positive ou négative.
+        if (logiciel_destination == XMLFCP7.PREMIERE) {
+            return (this.y - (hauteur_timeline / 2F)) / 81F;
+        } // Pour Resolve:
+        else {
+            double calcule_y = ((this.y - (hauteur_timeline / 2D)) / hauteur_timeline);
+
+            if (largeur_timeline / (1.193D / par_timeline) > hauteur_timeline) {
+                return calcule_y;
+            } else {
+                double calcule_3 = ((double) this.largeur / (double) this.hauteur) / (largeur_timeline / hauteur_timeline);
+                return calcule_y * calcule_3;
+            }
+        }
+    }
+
+    /**
      * Position en x du média (en pixel).
      *
      * @return Coordonnée x.
@@ -127,72 +212,6 @@ public class MediaVideo extends Media {
      */
     public int getY() {
         return this.y;
-    }
-
-    /**
-     * Rapport du zoom.
-     *
-     * @return 100 = 100%
-     */
-    public int getEchelle() {
-        return this.echelle;
-    }
-
-    /**
-     * Position en X :<br>
-     * 0 = centre, max: +/-7.80488 (1080p).<br>
-     * <br>
-     * Pour Adobe Premiere :<br>
-     * 2160 : 123F (1920/15.6098)<br>
-     * 1080 : 123F (960/7.80488)<br>
-     * <br>
-     * Pour Resolve: UHD :<br>
-     * +/- 0.585365831851959 (3840) - 1.777<br>
-     * 1920 : +/- 0.585365831851959 - 1.777<br>
-     * 1440 : +/- 0.5<br>
-     * 720 : +/- 0.585544347763062 - 1.777<br>
-     * 576 : +/- 0.585365831851959 (960) - 1.777
-     *
-     * @param largeur_timeline Largeur de la timeline.
-     *
-     * @return Position X pour Premiere ou Resolve.
-     */
-    public float getPositionHorizontale(int largeur_timeline) {
-        //On divise la largeur en 2 pour avoir la partie positive ou négative.
-        if (this.logiciel_destination == XMLFCP7.PREMIERE) {
-            return (this.x - (largeur_timeline / 2F)) / 123F;
-        } else { // Pour Resolve:
-            return (this.x - (largeur_timeline / 2F)) / (((float) largeur_timeline / 2F) / this.horizontal);
-        }
-    }
-
-    /**
-     * Position en Y :<br>
-     * 0 = centre, max: +/-6.66667 (1080p).<br>
-     * <br>
-     * Pour Adobe Premiere :<br>
-     * 2160 : 81F (1080/13.3333)<br>
-     * 1080 : 81F (540/6.6667)<br>
-     * <br>
-     * Pour Resolve :<br>
-     * 2160 : +/- 0.5 - 1.777<br>
-     * 1440 : 0/- 0.569620251655579<br>
-     * 1080 : +/- 0.5 - 1.777<br>
-     * 720p : +/- 0.5 - 1.777<br>
-     * 576 : +/- 0.5 (540) - 1.777
-     *
-     * @param hauteur_timeline Hauteur de la timeline.
-     *
-     * @return Position Y pour Premiere ou Resolve.
-     */
-    public float getPositionVerticale(int hauteur_timeline) {
-        //On divise la hauteur en 2 pour avoir la partie positive ou négative.
-        if (logiciel_destination == XMLFCP7.PREMIERE) {
-            return (this.y - (hauteur_timeline / 2F)) / 81F;
-        } else // Pour Resolve:
-        {
-            return (this.y - (hauteur_timeline / 2F)) / (((float) hauteur_timeline / 2F) / this.vertical);
-        }
     }
 
     /**
@@ -245,21 +264,21 @@ public class MediaVideo extends Media {
     }
 
     /**
-     * Modifie à quel logiciel est destiné cette vidéo.
-     *
-     * @param logiciel_destination Logiciel auquel est destiné la timeline.
-     */
-    public void setLogicielDestination(byte logiciel_destination) {
-        this.logiciel_destination = logiciel_destination;
-    }
-
-    /**
      * Modifie la position horizontale.
      *
      * @param horizontal Position horizontale.
      */
     public void setHorizontal(float horizontal) {
         this.horizontal = horizontal;
+    }
+
+    /**
+     * Modifie à quel logiciel est destiné cette vidéo.
+     *
+     * @param logiciel_destination Logiciel auquel est destiné la timeline.
+     */
+    public void setLogicielDestination(byte logiciel_destination) {
+        this.logiciel_destination = logiciel_destination;
     }
 
     /**
