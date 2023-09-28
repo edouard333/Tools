@@ -131,6 +131,15 @@ public class MediaVideo extends Media {
     }
 
     /**
+     * Retourne le PAR.
+     *
+     * @return Le PAR.
+     */
+    public double getPAR() {
+        return this.par;
+    }
+
+    /**
      * Position en X :<br>
      * 0 = centre, max: +/-7.80488 (1080p).<br>
      * <br>
@@ -154,7 +163,8 @@ public class MediaVideo extends Media {
         else {
             double calcule_x = ((this.x - (largeur_timeline / 2D)) / largeur_timeline);
 
-            if (largeur_timeline / (1.193D / par_timeline) > hauteur_timeline) {
+            // OLD = largeur_timeline / (1.193D / par_timeline) > hauteur_timeline
+            if ((largeur_timeline * par_timeline) / hauteur_timeline >= (this.largeur * this.par) / this.hauteur) {
                 double calcule_1 = (largeur_timeline / hauteur_timeline) / ((double) this.largeur / (double) this.hauteur) / this.par;
                 return calcule_x * calcule_1 * par_timeline;
             } else {
@@ -187,7 +197,8 @@ public class MediaVideo extends Media {
         else {
             double calcule_y = ((this.y - (hauteur_timeline / 2D)) / hauteur_timeline);
 
-            if (largeur_timeline / (1.193D / par_timeline) > hauteur_timeline) {
+            // OLD = largeur_timeline / (1.193D / par_timeline) > hauteur_timeline
+            if ((largeur_timeline * par_timeline) / hauteur_timeline >= (this.largeur * this.par) / this.hauteur) {
                 return calcule_y;
             } else {
                 double calcule_3 = ((double) this.largeur / (double) this.hauteur) / (largeur_timeline / hauteur_timeline);
@@ -279,6 +290,15 @@ public class MediaVideo extends Media {
      */
     public void setLogicielDestination(byte logiciel_destination) {
         this.logiciel_destination = logiciel_destination;
+    }
+
+    /**
+     * Définit le PAR de la vidéo.
+     *
+     * @param par Le PAR.
+     */
+    public void setPAR(double par) {
+        this.par = par;
     }
 
     /**
