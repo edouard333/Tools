@@ -47,6 +47,11 @@ public class ListeErreur {
     public static final String FREEZE_FRAMES_ERROR = "Freeze Frames";
 
     /**
+     * Nom de l'erreur pour les flashs (PSE).
+     */
+    public static final String FLASHY_VIDEO_ERROR = "Flashy Video";
+
+    /**
      * Document XML.
      */
     private Document document;
@@ -101,7 +106,6 @@ public class ListeErreur {
             NodeList customchecks = findNodeListByName(errors, "conformancechecks");
             this.addListConformance(customchecks);
         }
-
     }
 
     /**
@@ -189,17 +193,19 @@ public class ListeErreur {
                     // Quand on tient une des erreurs, on l'ajoute à la liste:
                     case "error":
 
-                        int FrameDuration = Integer.parseInt(((Element) nodeList.item(i)).getAttribute("FrameDuration"));
-                        String description = ((Element) nodeList.item(i)).getAttribute("description");
-                        String smptetimecode = ((Element) nodeList.item(i)).getAttribute("startsmptetimecode"); //smptetimecode
-                        String endsmptetimecode = ((Element) nodeList.item(i)).getAttribute("endsmptetimecode");
-                        String item = ((Element) nodeList.item(i)).getAttribute("item");
+                        Element element = ((Element) nodeList.item(i));
+
+                        int FrameDuration = element.hasAttribute("FrameDuration") ? Integer.parseInt(element.getAttribute("FrameDuration")) : -1;
+                        String description = element.hasAttribute("description") ? element.getAttribute("description") : "";
+                        String smptetimecode = element.hasAttribute("startsmptetimecode") ? element.getAttribute("startsmptetimecode") : ""; //smptetimecode
+                        String endsmptetimecode = element.hasAttribute("endsmptetimecode") ? element.getAttribute("endsmptetimecode") : "";
+                        String item = element.hasAttribute("item") ? element.getAttribute("item") : "";
 
                         if (item.equals("Defective Pixel")) {
                             ArrayList<Pixel> liste_pixel = new ArrayList<Pixel>();
 
                             // Récupère les positions du/des pixels:
-                            Node param = ((Element) ((Element) nodeList.item(i)).getElementsByTagName("Params").item(0)).getElementsByTagName("Param").item(0);
+                            Node param = ((Element) element.getElementsByTagName("Params").item(0)).getElementsByTagName("Param").item(0);
                             String coordonnees = ((Element) param).getAttribute("Value"); // Récupère le 1er car il n'y en a qu'un.
 
                             String liste[] = coordonnees.split("\\D");
@@ -221,7 +227,10 @@ public class ListeErreur {
                             sc.close();
                             this.liste_erreur_baton.add(new ErreurBatonDefectivePixel(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec, liste_pixel));
                         } else {
-                            this.liste_erreur_baton.add(new ErreurBaton(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec));
+                            // On ajoute les erreurs que si elles ont une durée (les remarques générales ne nous intéresse pas).
+                            if (FrameDuration != -1) {
+                                this.liste_erreur_baton.add(new ErreurBaton(description, FrameDuration, smptetimecode, endsmptetimecode, item, this.codec));
+                            }
                         }
 
                         break;
