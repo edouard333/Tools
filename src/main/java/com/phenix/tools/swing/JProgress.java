@@ -34,7 +34,7 @@ public class JProgress extends JFrame {
     private int max;
 
     /**
-     * Si on utilise la rafraichisement thread.
+     * Si on utilise le rafraichissement thread.
      */
     private boolean thread;
 

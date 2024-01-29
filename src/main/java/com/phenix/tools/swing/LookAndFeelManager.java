@@ -27,7 +27,7 @@ public class LookAndFeelManager {
      */
     public static void setByOS(boolean afficher_erreur_fenetre) {
         try {
-            // On parcoure chaque LAF disponible et dès qu'on a Windows ou MacOS on l'utilise :
+            // On parcourt chaque LAF disponible et dès qu'on a Windows ou MacOS on l'utilise :
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 // Si on est sur Windows, on sélectionne cet aspect.
                 if (LAF_WINDOWS.equals(info.getName())) {

@@ -14,7 +14,7 @@ public class XMLBatonException extends Exception {
     }
 
     /**
-     * Erreur averc un message.
+     * Erreur avec un message.
      *
      * @param message Le message.
      */

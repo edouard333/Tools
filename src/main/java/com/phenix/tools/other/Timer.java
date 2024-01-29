@@ -24,13 +24,13 @@ public class Timer {
     private boolean reinitaliser = false;
 
     /**
-     * Construit un <code>Timer</code>.
+     * Construit un {@code Timer}.
      */
     public Timer() {
     }
 
     /**
-     * Construit un <code>Timer</code>.
+     * Construit un {@code Timer}.
      *
      * @param reinitaliser Indique si on réinitialise.
      */
@@ -48,7 +48,7 @@ public class Timer {
     /**
      * Arrête le temps.
      *
-     * @return Temps écoulé en miliseconde.
+     * @return Temps écoulé en milliseconde.
      */
     public double stop() {
         return stop(this.reinitaliser);
@@ -59,7 +59,7 @@ public class Timer {
      *
      * @param reinitaliser Si on réinitialise le temps apès le stop.
      *
-     * @return Temps écoulé en miliseconde.
+     * @return Temps écoulé en milliseconde.
      */
     public double stop(boolean reinitaliser) {
         this.temps_totale = System.currentTimeMillis() - this.temps;

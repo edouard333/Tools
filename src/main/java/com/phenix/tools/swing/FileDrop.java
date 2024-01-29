@@ -430,7 +430,7 @@ public class FileDrop {
     private static File[] createFileArray(BufferedReader bReader, PrintStream out) {
         try {
             List list = new ArrayList();
-            String line = null;
+            String line;
             while ((line = bReader.readLine()) != null) {
                 try {
                     // kde seems to append a 0 char to the end of the reader

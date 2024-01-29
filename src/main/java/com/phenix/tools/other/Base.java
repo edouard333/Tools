@@ -1,8 +1,8 @@
 package com.phenix.tools.other;
 
 /**
- * Faire des conversions de base 2, 3, 4, ... jusque la 10 en base 10 ou autre
- * jusque la base 10.
+ * Faire des conversions de base 2, 3, 4, ... jusqu'à la 10 en base 10 ou autre
+ * jusqu'à la base 10.
  *
  * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 0.1.1
@@ -16,7 +16,7 @@ public class Base {
     private int base_depart = 10;
 
     /**
-     * Base auquel on veut arriver.
+     * Base à laquelle on veut arriver.
      */
     private int base_arrive;
 
@@ -31,19 +31,19 @@ public class Base {
     private String valeur_arrive = "0";
 
     /**
-     * Définit les informations essentiel.
+     * Définit les informations essentielles.
      *
-     * @param valeur_depart Base auquel on veut arriver.
+     * @param valeur_depart Base à laquelle on veut arriver.
      */
     public Base(String valeur_depart) {
         this(valeur_depart, 10);
     }
 
     /**
-     * Définit les informations essentiel.
+     * Définit les informations essentielles.
      *
      * @param base_depart Base de départ.
-     * @param valeur_depart Base auquel on veut arriver.
+     * @param valeur_depart Base à laquelle on veut arriver.
      */
     public Base(String valeur_depart, int base_depart) {
         this.base_depart = base_depart;
@@ -54,8 +54,8 @@ public class Base {
 
     /**
      * Retourne le résultat sur base des 3 informations : base initiale, base
-     * finale et la valeur lié à la base initiale.<br>
-     * Résultat en <code>String</code> pour gérer le hexadécimal.
+     * finale et la valeur liée à la base initiale.<br>
+     * Résultat en {@code String} pour gérer l'hexadécimal.
      *
      * @return Résultat en base finale.
      */
@@ -66,7 +66,7 @@ public class Base {
     /**
      * Définit la base finale.
      *
-     * @param base_arrive Base auquel on veut arriver.
+     * @param base_arrive Base à laquelle on veut arriver.
      */
     public void setConvertirBase(int base_arrive) {
         this.base_arrive = base_arrive;

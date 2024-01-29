@@ -128,7 +128,7 @@ public class ListeErreur {
 
                         case "streamnode":
                             NodeList nl = (NodeList) racineNoeuds.item(i).getAttributes().getNamedItem("id");
-                            // On ne prend que celui avec les info images:
+                            // On ne prend que celui avec les infos images :
                             if ((nl + "").equals("id=\"1\"")) {
                                 streamnode = (NodeList) racineNoeuds.item(i).getChildNodes();
                             }
@@ -142,12 +142,12 @@ public class ListeErreur {
     }
 
     /**
-     * Récupére le node enfant via son nom.
+     * Retourne le node enfant via son nom.
      *
      * @param list Le node où on doit chercher.
      * @param name Nom du node à trouver.
      *
-     * @return Retourne le node demandé, sinon retourne <code>null</code> s'il
+     * @return Retourne le node demandé, sinon retourne {@code null} s'il
      * ne trouve pas.
      */
     private NodeList findNodeListByName(NodeList list, String name) {
@@ -164,7 +164,7 @@ public class ListeErreur {
      * Ajouter les erreurs se trouvant dans ce node (du rapport XML Baton) à la
      * liste d'erreur.
      *
-     * @param nodeList Le node contenant la liste des erreurs à ajoute aux
+     * @param nodeList Le node contenant la liste des erreurs à ajouter aux
      * erreurs.
      */
     private void addListConformance(NodeList nodeList) {
@@ -181,7 +181,7 @@ public class ListeErreur {
      * Ajouter les erreurs se trouvant dans ce node (du rapport XML Baton) à la
      * liste d'erreur.
      *
-     * @param nodeList Le node contenant la liste des erreurs à ajoute aux
+     * @param nodeList Le node contenant la liste des erreurs à ajouter aux
      * erreurs.
      */
     private void addList(NodeList nodeList) {
@@ -190,7 +190,7 @@ public class ListeErreur {
 
                 switch (nodeList.item(i).getNodeName()) {
 
-                    // Quand on tient une des erreurs, on l'ajoute à la liste:
+                    // Quand on tient une des erreurs, on l'ajoute à la liste :
                     case "error":
 
                         Element element = ((Element) nodeList.item(i));
@@ -204,11 +204,11 @@ public class ListeErreur {
                         if (item.equals("Defective Pixel")) {
                             ArrayList<Pixel> liste_pixel = new ArrayList<Pixel>();
 
-                            // Récupère les positions du/des pixels:
+                            // Récupère les positions du/des pixel(s) :
                             Node param = ((Element) element.getElementsByTagName("Params").item(0)).getElementsByTagName("Param").item(0);
                             String coordonnees = ((Element) param).getAttribute("Value"); // Récupère le 1er car il n'y en a qu'un.
 
-                            String liste[] = coordonnees.split("\\D");
+                            String[] liste = coordonnees.split("\\D");
 
                             String liste_nombre = "";
 
@@ -258,7 +258,7 @@ public class ListeErreur {
     }
 
     /**
-     * Retourne la liste d'erreur avec un seule type d'erreur, reçu en
+     * Retourne la liste d'erreur avec un seul type d'erreur, reçu en
      * paramètre.
      *
      * @param type_erreur Type d'erreur qu'on veut.

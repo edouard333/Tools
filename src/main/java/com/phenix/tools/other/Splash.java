@@ -7,10 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 
 /**
- * Fichier: Splash Version: 2.7 Info: Il sert à montrer une image au milieu de
+ * Permet de faire un splash : montrer une image au milieu de
  * l'écran.<br>
- * Attention: Les fichiers '.gif' ne marche pas.<br>
- * Fichiers compatibles: 'jpg'.
+ * Attention : Les fichiers '.gif' ne marchent pas.<br>
+ * Fichiers compatibles : 'jpg'.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
@@ -57,10 +57,10 @@ public class Splash extends JWindow {
             }
         });
 
-        //Largeur, hauteur:
+        // Largeur, hauteur :
         super.setSize(this.image.getIconWidth(), this.image.getIconHeight());
 
-        //Lieu de la fenêtre: Au centre.
+        // Lieu de la fenêtre : Au centre.
         super.setLocationRelativeTo(null);
 
         super.setVisible(true);
@@ -82,7 +82,7 @@ public class Splash extends JWindow {
      * Affiche une image pendant un certain temps.
      *
      * @param nom_fichier_image Nom du fichier image.
-     * @param temps Temps en miliseconde.
+     * @param temps Temps en milliseconde.
      */
     public Splash(String nom_fichier_image, int temps) {
         this(nom_fichier_image);
@@ -95,9 +95,9 @@ public class Splash extends JWindow {
     }
 
     /**
-     * Définit le temps qu'est affiché l'image.
+     * Définit le temps pendant lequel est affichée l'image.
      *
-     * @param temps Temps en miliseconde.
+     * @param temps Temps en milliseconde.
      */
     public void setTemps(int temps) {
         this.temps = temps;

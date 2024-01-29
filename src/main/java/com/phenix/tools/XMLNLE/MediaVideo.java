@@ -38,6 +38,22 @@ public class MediaVideo extends Media {
     private int canaux;
 
     /**
+     * Si canal alpha.
+     */
+    private String alpha;
+
+    /**
+     * Valeur de la couche alpha : aucune.
+     */
+    public final static String ALPHA_NONE = "none";
+
+    /**
+     * Valeur de la couche alpha : oui, valeur utilisée pour
+     * classique/infographie.
+     */
+    public final static String ALPHA_STRAIGHT = "straight";
+
+    /**
      * Rapport de zoom du média. 100% = normal, par défaut.
      */
     private int echelle = 100;
@@ -48,7 +64,7 @@ public class MediaVideo extends Media {
     private boolean est_freeze = false;
 
     /**
-     * A quel logiciel est destiné ce média vidéo.<br>
+     * À quel logiciel est destiné ce média vidéo.<br>
      * Par défaut c'est Adobe Premiere.
      */
     private byte logiciel_destination = XMLFCP7.PREMIERE;
@@ -79,6 +95,7 @@ public class MediaVideo extends Media {
         this.canaux = 0;
         this.type_media = "video";
         this.par = 1;
+        this.alpha = ALPHA_NONE;
     }
 
     /**
@@ -92,6 +109,16 @@ public class MediaVideo extends Media {
         this.canaux = 0;
         this.type_media = "video";
         this.par = 1;
+        this.alpha = ALPHA_NONE;
+    }
+
+    /**
+     * Retourne la couche alpha.
+     *
+     * @return La couche alpha.
+     */
+    public String getAlpha() {
+        return this.alpha;
     }
 
     /**
@@ -141,13 +168,13 @@ public class MediaVideo extends Media {
 
     /**
      * Position en X :<br>
-     * 0 = centre, max: +/-7.80488 (1080p).<br>
+     * 0 = centre, max : +/-7.80488 (1080p).<br>
      * <br>
      * Pour Adobe Premiere :<br>
      * Pour n'importe quelque résolution : /123F<br>
      * <br>
-     * Pour Resolve: UHD :<br>
-     * Il y a un calcule.<br>
+     * Pour Resolve : UHD :<br>
+     * Il y a un calcul.<br>
      *
      * @param largeur_timeline Largeur de la timeline.
      * @param hauteur_timeline Hauteur de la timeline.
@@ -156,7 +183,7 @@ public class MediaVideo extends Media {
      * @return Position X pour Premiere ou Resolve.
      */
     public double getPositionHorizontale(double largeur_timeline, double hauteur_timeline, double par_timeline) {
-        //On divise la largeur en 2 pour avoir la partie positive ou négative.
+        // On divise la largeur en 2 pour avoir la partie positive ou négative.
         if (this.logiciel_destination == XMLFCP7.PREMIERE) {
             return ((this.x - (largeur_timeline / 2F)) / 123F) * (par_timeline / this.par);
         } // Pour Resolve: 
@@ -175,13 +202,13 @@ public class MediaVideo extends Media {
 
     /**
      * Position en Y :<br>
-     * 0 = centre, max: +/-6.66667 (1080p).<br>
+     * 0 = centre, max : +/-6.66667 (1080p).<br>
      * <br>
      * Pour Adobe Premiere :<br>
      * Pour n'importe quelque résolution : /81F<br>
      * <br>
      * Pour Resolve :<br>
-     * Il y a un calcule.<br>
+     * Il y a un calcul.<br>
      *
      * @param largeur_timeline Largeur de la timeline.
      * @param hauteur_timeline Hauteur de la timeline.
@@ -190,7 +217,7 @@ public class MediaVideo extends Media {
      * @return Position Y pour Premiere ou Resolve.
      */
     public double getPositionVerticale(double largeur_timeline, double hauteur_timeline, double par_timeline) {
-        //On divise la hauteur en 2 pour avoir la partie positive ou négative.
+        // On divise la hauteur en 2 pour avoir la partie positive ou négative.
         if (logiciel_destination == XMLFCP7.PREMIERE) {
             return (this.y - (hauteur_timeline / 2F)) / 81F;
         } // Pour Resolve:
@@ -228,14 +255,23 @@ public class MediaVideo extends Media {
     /**
      * Retourne si l'image est freeze ou non.
      *
-     * @return <code>true</code> si l'image est freezé sinon <code>false</code>.
+     * @return {@code true} si l'image est freezé sinon {@code false}.
      */
     public boolean isFreeze() {
         return this.est_freeze;
     }
 
     /**
-     * Définit le nombre de canaux audio qu'à le média vidéo.
+     * Définit la couche alpha (ou non) du fichier.
+     *
+     * @param alpha La couche alpha.
+     */
+    public void setAlpha(String alpha) {
+        this.alpha = alpha;
+    }
+
+    /**
+     * Définit le nombre de canaux audio qu'a le média vidéo.
      *
      * @param canaux Nombre de canaux audio.
      */
@@ -268,7 +304,7 @@ public class MediaVideo extends Media {
     /**
      * Définit si l'image est freezé.
      *
-     * @param est_freeze <code>true</code> si l'image est freezé.
+     * @param est_freeze {@code true} si l'image est freezé.
      */
     public void setFreeze(boolean est_freeze) {
         this.est_freeze = est_freeze;

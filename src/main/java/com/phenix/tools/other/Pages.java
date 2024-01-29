@@ -55,13 +55,13 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
     public Pages(String page) throws IOException {
         this.page = page;
 
-        //Caractéristiques de la fenêtre:
+        // Caractéristiques de la fenêtre :
         super.setTitle("Page web:");
 
-        //Largeur, hauteur:
+        // Largeur, hauteur :
         super.setSize(600, 600);
 
-        //Modifiable: non
+        // Modifiable : non
         super.setResizable(false);
         super.setLocationRelativeTo(null);
 
@@ -71,7 +71,7 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
         super.add(barre = new JScrollPane(txt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
         barre.setAutoscrolls(true);
 
-        // Page par défaut:
+        // Page par défaut :
         chargerHTML(page);
     }
 

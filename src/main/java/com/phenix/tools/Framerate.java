@@ -12,7 +12,7 @@ public enum Framerate {
      */
     F23976(23976D, false),
     /**
-     * Framerate 24is (cinéma/Bluray).
+     * Framerate 24is (cinéma/Blu-ray).
      */
     F24(24D, false),
     /**
@@ -32,7 +32,7 @@ public enum Framerate {
     /**
      * Si drop frame ou non.
      */
-    private boolean drop_frame;
+    private final boolean drop_frame;
 
     /**
      * Définit un frame rate.

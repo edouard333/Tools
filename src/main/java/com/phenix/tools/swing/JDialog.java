@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Fenêtre premettant de choisir un fichier et renvoie le nom du fichier (sans
- * l'extension et ou le chemin) sélectionné.
+ * Fenêtre permettant de choisir un fichier et renvoie le nom du fichier (sans
+ * l'extension et/ou le chemin) sélectionné.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 3.9.0
@@ -16,13 +16,12 @@ import javax.swing.filechooser.FileFilter;
 public class JDialog extends JPanel {
 
     /**
-     * Si on séléctionne un fichier ou un dossier ou encore les 2.
+     * Si on sélectionne un fichier ou un dossier ou encore les 2.
      */
     public static int selectionner_dossier = JFileChooser.FILES_ONLY;
 
     /**
-     * Cette classe se base sur un
-     * <code>{@link javax.swing.JFileChooser}</code>.
+     * Cette classe se base sur un {@code JFileChooser}.
      */
     private JFileChooser fc = new JFileChooser();
 
@@ -111,14 +110,14 @@ public class JDialog extends JPanel {
     /**
      * Indique si l'extension du fichier doit être gardé ou non.
      *
-     * @return <code>true</code> si on conserve l'extension de fichier.
+     * @return {@code true} si on conserve l'extension de fichier.
      */
     public boolean Extension() {
         return extension;
     }
 
     /**
-     * Renvoie la valeur:
+     * Renvoie la valeur.
      *
      * @return La valeur.
      */
@@ -142,7 +141,7 @@ public class JDialog extends JPanel {
      */
     private void voidJDialog() {
 
-        //On met un try parce que parfois il y a des erreurs bizarres.
+        // On met un try parce que parfois il y a des erreurs bizarres.
         try {
             if (fc.showDialog(JDialog.this, "OK") == JFileChooser.APPROVE_OPTION) {
                 fichier = fc.getSelectedFile();
@@ -176,12 +175,11 @@ public class JDialog extends JPanel {
         return valeur;
     }
 
-    //-- Il y a la même chose dans le fichier repertoire: --
+    // -- Il y a la même chose dans le fichier repertoire : --
     /**
-     * Enleve l'extension.
+     * Enlève l'extension.
      *
      * @param nom Nom du fichier.
-     *
      * @return Nom du fichier sans l'extension.
      */
     public String getExtension(String nom) {
@@ -191,7 +189,7 @@ public class JDialog extends JPanel {
                 return nom.substring(0, nom.length() - 1);
             }
 
-            //On remet le mot 'nom' dans un String mais sans son dernier caractère.
+            // On remet le mot 'nom' dans un String mais sans son dernier caractère.
             nom = nom.substring(0, nom.length() - 1);
 
         }
@@ -227,7 +225,7 @@ public class JDialog extends JPanel {
     }
 
     /**
-     * Définit l'extension de fichier..
+     * Définit l'extension de fichier.
      *
      * @param extension L'extension.
      */
@@ -245,7 +243,7 @@ public class JDialog extends JPanel {
     }
 
     /**
-     * Réinisalise la valeur.
+     * Réinitialise la valeur.
      *
      * @param t Sert que pour faire la différence avec l'autre méthode.
      */
@@ -275,12 +273,12 @@ class Filtre extends FileFilter {
     private String extension;
 
     /**
-     * Constructeur à partir de la description et de l'extension acceptée.
+     * Construit un filtre sur base d'une description et de l'extension acceptée.
      *
      * @param description Description.
      * @param extension Extension.
      */
-    Filtre(String description, String extension) {
+    public Filtre(String description, String extension) {
         if (description == null || extension == null) {
             throw new NullPointerException("La description (ou extension) ne peut être null.");
         }

@@ -1,7 +1,7 @@
 package com.phenix.tools.other;
 
 /**
- * Objet servant a générer une "attente" dans un programme.
+ * Objet servant à générer une "attente" dans un programme.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.18.0
@@ -9,17 +9,15 @@ package com.phenix.tools.other;
  */
 public class Attend extends Thread {
 
-    /* -- Constructors -- */
     /**
-     * Constructeur qui demande comme paramètre un nombre de miliseconde pour
-     * générer l'attente.
+     * Construit une {@code Attend} pour générer une attente reçu en paramètre.
      *
-     * @param temps Temps en milisconde.
+     * @param temps Temps en milliseconde.
      */
     public Attend(int temps) {
-        //On doit mettre un 'try' quand on veut utiliser le 'sleep'.
+        // On doit mettre un 'try' quand on veut utiliser le 'sleep'.
         try {
-            //Ici, il y a un temps d'attende, le temps d'attende est en milliseconde:
+            // Ici, il y a un temps d'attente, le temps d'attente est en milliseconde :
             sleep(temps);
         } catch (InterruptedException exception) {
             exception.printStackTrace();

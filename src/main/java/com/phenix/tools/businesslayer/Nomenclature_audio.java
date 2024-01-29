@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * valeur en FR, voir pour une version en anglais. Note 1: Voir pour qu'une API
- * pour avoir les données! Note 2: est lié au projet "Name Convention".
+ * Valeur en FR, voir pour une version en anglais.<br>
+ * Note 1 : Voir pour qu'une API pour avoir les données !<br>
+ * Note 2 : est lié au projet "Name Convention".
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 0.1.0

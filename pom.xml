@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>tools</artifactId>
     <name>Tools</name>
-    <version>1.2.2</version>
+    <version>1.3.0</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Tools</url>
     
@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.3</version>
                 <executions>
                     <execution>
                         <id>attach-javadoc</id>
@@ -57,17 +57,17 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.16.1</version>
+            <version>1.17.2</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
-            <version>RELEASE190</version>
+            <version>RELEASE200</version>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>5.8</version>
+            <version>5.9</version>
         </dependency>
     </dependencies>
     

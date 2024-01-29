@@ -1,7 +1,7 @@
 package com.phenix.tools.XMLNLE;
 
 /**
- * Classe utilisé pour connaitre la position des pixels defecteux ou mort dans
+ * Classe utilisée pour connaitre la position des pixels défectueux ou mort dans
  * l'image.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>

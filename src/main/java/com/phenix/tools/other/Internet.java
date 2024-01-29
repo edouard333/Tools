@@ -30,7 +30,7 @@ public class Internet {
                try {
                 bureau.browse(new URI(url));
             } catch (IOException exception) {
-                throw new IOException("L'url n'est pas correcte.");
+                throw new IOException("L'URL n'est pas correcte.");
             } catch (Exception exception) {
                 throw new IOException(exception);
             } else {

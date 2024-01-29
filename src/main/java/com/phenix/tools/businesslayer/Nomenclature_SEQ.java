@@ -8,8 +8,8 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 
 /**
- * Note 1: Voir pour qu'une API pour avoir les données! Note 2: est lié au
- * projet "Name Convention".
+ * Note 1 : Voir pour qu'une API pour avoir les données !<br>
+ * Note 2 : est lié au projet "Name Convention".
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
@@ -94,7 +94,7 @@ public class Nomenclature_SEQ {
     }
 
     /**
-     * Plutot destiné pour le décodage des noms de fichier.
+     * Plutôt destiné pour le décodage des noms de fichier.
      *
      * @param nom_fichier Nom du fichier.
      */
@@ -232,7 +232,7 @@ public class Nomenclature_SEQ {
      *
      * @param map La map.
      * @param value La valeur.
-     * @return La clef ou <code>null</code> si aucune valeur trouvée.
+     * @return La clef ou {@code null} si aucune valeur trouvée.
      */
     private String getKey(Map<String, String> map, String value) {
         for (Entry<String, String> entry : map.entrySet()) {
@@ -256,7 +256,7 @@ public class Nomenclature_SEQ {
     }
 
     /**
-     * Récupère la liste d'une propriété selon son nom.
+     * Retourne la liste d'une propriété selon son nom.
      *
      * @param propriete Nom de la propriété.
      * @return Liste.

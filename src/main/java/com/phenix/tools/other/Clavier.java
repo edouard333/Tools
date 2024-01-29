@@ -33,15 +33,15 @@ public class Clavier {
 
     /* -- Constructors -- */
     /**
-     * Null besoin d'instancer l'objet "Clavier", chaque fonction sont "static".
+     * Null besoin d'instancier l'objet "Clavier", chaque fonction sont "static".
      */
     private Clavier() {
     }
 
     /**
-     * Retourne en <code>byte</code> ce qui a été saisi au clavier.
+     * Retourne en {@code byte} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>byte</code>.
+     * @return La valeur en {@code byte}.
      */
     public static byte lireByte() {
 
@@ -69,9 +69,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en "short" ce qui a été saisi au clavier.
+     * Retourne en {@code short} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>short</code>.
+     * @return La valeur en {@code short}.
      */
     public static short lireShort() {
 
@@ -99,9 +99,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en <code>int</code> ce qui a été saisi au clavier.
+     * Retourne en {@code int} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>int</code>.
+     * @return La valeur en {@code int}.
      */
     public static int lireInt() {
 
@@ -129,9 +129,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en <code>long</code> ce qui a été saisi au clavier.
+     * Retourne en {@code long} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>long</code>.
+     * @return La valeur en {@code long}.
      */
     public static long lireLong() {
 
@@ -159,9 +159,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en <code>float</code> ce qui a été saisi au clavier.
+     * Retourne en {@code float} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>float</code>.
+     * @return La valeur en {@code float}.
      */
     public static float lireFloat() {
 
@@ -189,9 +189,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en <code>double</code> ce qui a été saisi au clavier.
+     * Retourne en {@code double} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>double</code>.
+     * @return La valeur en {@code double}.
      */
     public static double lireDouble() {
 
@@ -219,9 +219,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en <code>char</code> ce qui a été saisi au clavier.
+     * Retourne en {@code char} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>char</code>.
+     * @return La valeur en {@code char}.
      */
     public static char lireChar() {
 
@@ -229,7 +229,7 @@ public class Clavier {
 
         try {
             myLine = br.readLine();
-            if (myLine.length() == 0) {
+            if (myLine.isEmpty()) {
                 System.out.println("Erreur lors de la saisie au clavier. Vous avez uniquement tap\351 sur 'enter'.\nVeuillez recommencer.");
                 char0 = lireChar();
             }
@@ -249,9 +249,9 @@ public class Clavier {
     }
 
     /**
-     * Retourne en <code>String</code> ce qui a été saisi au clavier.
+     * Retourne en {@code String} ce qui a été saisi au clavier.
      *
-     * @return La valeur en <code>String</code>.
+     * @return La valeur en {@code String}.
      */
     public static String lireString() {
 

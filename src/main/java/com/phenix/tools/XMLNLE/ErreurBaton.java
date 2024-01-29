@@ -65,10 +65,10 @@ public class ErreurBaton {
     /**
      * Liste des codecs possibles pour les erreurs.
      */
-    private final boolean codec[] = new boolean[6];
+    private final boolean[] codec = new boolean[6];
 
     /**
-     * Créé un objet <code>ErreurBaton</code>.
+     * Construit une {@code ErreurBaton}.
      *
      * @param description Description.
      * @param duree Durée.
@@ -106,12 +106,13 @@ public class ErreurBaton {
     }
 
     /**
-     * Compare deux erreurs entre-elle.
+     * Compare deux erreurs entre elle.
      *
-     * @param erreur L'erreur a comparer avec celle actuelle.
+     * @param erreur L'erreur à comparer avec celle actuelle.
      *
-     * @return Retourne <code>true</code> si les deux erreurs sont identiques
-     * (voir la méthode <code>toString()</code> définissant les critères).
+     * @return Retourne {@code true} si les deux erreurs sont identiques (voir
+     * la méthode {@link ErreurBaton#toString() toString()} définissant les
+     * critères).
      */
     public boolean compare(ErreurBaton erreur) {
         return toString().equals(erreur.toString());
@@ -129,12 +130,12 @@ public class ErreurBaton {
     }
 
     /**
-     * Retourne un <code>boolean</code> disant si le codec est présent dans
-     * l'erreur ou non.
+     * Retourne un {@code boolean} disant si le codec est présent dans l'erreur
+     * ou non.
      *
      * @param id_codec ID du codec dans la liste des codecs.
      *
-     * @return <code>true</code> si le codec est dans l'erreur.
+     * @return {@code true} si le codec est dans l'erreur.
      */
     public boolean getCodecB(int id_codec) {
         return this.codec[id_codec];
@@ -150,7 +151,7 @@ public class ErreurBaton {
     }
 
     /**
-     * Retourne la durée en nombre d'image de l'erreur.
+     * Retourne la durée en nombre d'images de l'erreur.
      *
      * @return Durée.
      */
@@ -188,8 +189,7 @@ public class ErreurBaton {
     /**
      * Représentation de l'Erreur Baton.
      *
-     * @return Représentation de l'objet '<code>ErreurBaton</code>' en
-     * <code>String</code>.
+     * @return Représentation de l'objet {@code ErreurBaton} en {@code String}.
      */
     @Override
     public String toString() {

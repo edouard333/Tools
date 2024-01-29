@@ -70,7 +70,7 @@ public enum CouleurMarqueur {
      *
      * @return Valeur du canal alpha;
      */
-    public int getCanalApha() {
+    public int getCanalAlpha() {
         return this.canal_alpha;
     }
 

@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +37,7 @@ public class XMLFCP7 {
     public static final byte RESOLVE = 1;
 
     /**
-     * Le fichier XML a créer ou lire.
+     * Le fichier XML à créer ou lire.
      */
     private File fichier;
 
@@ -72,7 +72,7 @@ public class XMLFCP7 {
     private byte logiciel_destination;
 
     /**
-     * Construit un <code>XMLFCP7</code>.
+     * Construit un {@code XMLFCP7}.
      *
      * @param fichier Le chemin et nom du fichier.
      * @param mode Si on lit ou écrit l'XML.
@@ -82,7 +82,7 @@ public class XMLFCP7 {
     }
 
     /**
-     * Construit un <code>XMLStandard</code>.
+     * Construit un {@code XMLFCP7}.
      *
      * @param fichier Le chemin et nom du fichier.
      * @param mode Si on lit ou écrit l'XML.
@@ -93,7 +93,7 @@ public class XMLFCP7 {
         this.mode = mode;
         this.logiciel_destination = logiciel_destination;
 
-        // Si on créé un nouvel XML FCP7, alors le nombre de timeline est de 0.
+        // Si on crée un nouvel XML FCP7, alors le nombre de timeline est de 0.
         Timeline.nombre_timeline = 0;
     }
 
@@ -107,7 +107,7 @@ public class XMLFCP7 {
     }
 
     /**
-     * Ajoute un média audio au projet.Si mode écriture (add).
+     * Ajoute un média audio au projet. Si mode écriture (add).
      *
      * @param audio Média audio.
      */
@@ -144,15 +144,15 @@ public class XMLFCP7 {
     }
 
     /**
-     * On clot le fichier dans soit sa lecture soit dans son écriture.
+     * On clôt le fichier dans soit sa lecture soit dans son écriture.
      */
     public void close() {
         // En écriture, on écrit tout.
         if (this.mode.equals(ECRITURE)) {
             try {
-                // Si on veut faire de l'UTF8 mais alors on doit vérifier que les String reçu sont en UTF8.
+                // Si on veut faire de l'UTF8 mais alors on doit vérifier que les Strings reçus sont en UTF8.
                 OutputStream os = new FileOutputStream(this.fichier);
-                PrintWriter file = new PrintWriter(new OutputStreamWriter(os, "UTF-8"));
+                PrintWriter file = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
                 //PrintWriter file = new PrintWriter(this.fichier);
                 file.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
                 file.append("<!DOCTYPE xmeml>\n");
@@ -182,7 +182,7 @@ public class XMLFCP7 {
 
                 file.append("</xmeml>");
                 file.close();
-            } catch (UnsupportedEncodingException | FileNotFoundException exception) {
+            } catch (FileNotFoundException exception) {
                 exception.printStackTrace();
             }
         } // En lecture, on ne fait que lire.

@@ -15,7 +15,7 @@ public class Marqueur {
     private String nom;
 
     /**
-     * La description lié au marqueur.
+     * La description liée au marqueur.
      */
     private String note;
 

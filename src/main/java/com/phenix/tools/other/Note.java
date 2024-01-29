@@ -24,9 +24,9 @@ public class Note extends Thread {
     private final int frequence;
 
     /**
-     * Constructeur prenant en paramètres la fréquence à jouer.
+     * Construit une {@code Note} à l'aide d'une fréquence.
      *
-     * @param frequence Définit la fréquence en Hz qu'on veut jouer.
+     * @param frequence Définit la fréquence en Hz.
      */
     public Note(int frequence) {
         this.frequence = frequence;
@@ -36,7 +36,7 @@ public class Note extends Thread {
      * Fonction interne à la classe Note.
      *
      * @param freq Fréquence du son qui sera lu.
-     * @param ms Miliseconde du temps de lecture du son.
+     * @param ms Milliseconde du temps de lecture du son.
      */
     private byte[] createSinWaveBuffer(double freq, int ms) {
         int samples = (int) ((ms * SAMPLE_RATE) / 1000);
@@ -52,7 +52,7 @@ public class Note extends Thread {
     }
 
     /**
-     * Lit la note de manière àpouvoir en lire d'autres en parallèle.
+     * Lit la note de manière à pouvoir en lire d'autres en parallèle.
      */
     @Override
     public void run() {

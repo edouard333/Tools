@@ -20,7 +20,7 @@ public class Dossier {
     private ArrayList<Timeline> liste_timeline = new ArrayList<Timeline>();
 
     /**
-     * Liste des dossier dans le dossier.
+     * Liste des dossiers dans le dossier.
      */
     private ArrayList<Dossier> liste_dossier = new ArrayList<Dossier>();
 
@@ -50,7 +50,7 @@ public class Dossier {
     public static final String COULEUR_FORET = "Forest";
 
     /**
-     * Couleur bleu pour Adobe.
+     * Couleur bleue pour Adobe.
      */
     public static final String COULEUR_CERULEEN = "Cerulean";
 
@@ -164,17 +164,17 @@ public class Dossier {
 
         xml += "<children>\n";
 
-        // Ajout des sous-dossiers:
+        // Ajout des sous-dossiers :
         for (int i = 0; i < this.liste_dossier.size(); i++) {
             xml += this.liste_dossier.get(i).toString();
         }
 
-        // Ajout des médias:
+        // Ajout des médias :
         for (int i = 0; i < this.liste_media.size(); i++) {
             xml += ((Media) this.liste_media.get(i)).toString();
         }
 
-        // Ajout des séquences:
+        // Ajout des séquences :
         for (int i = 0; i < this.liste_timeline.size(); i++) {
             xml += this.liste_timeline.get(i).toString();
         }

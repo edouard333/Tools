@@ -3,7 +3,7 @@ package com.phenix.tools.XMLNLE;
 import com.phenix.tools.Timecode;
 
 /**
- * Media dans une projet.
+ * Media dans un projet.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
@@ -60,7 +60,7 @@ public class Media {
     private int balayage;
 
     /**
-     * Si trame supérieur ou inférieur ou aucune dans le cas progressif.
+     * Si trame supérieure ou inférieure ou aucune dans le cas progressif.
      */
     private String trame;
 
@@ -107,14 +107,14 @@ public class Media {
     private boolean utiliser;
 
     /**
-     * Savoir ce qu'est le fichier: un fichier audio, vidéo, image, etc élément
+     * Savoir ce qu'est le fichier : un fichier audio, vidéo, image, etc élément
      * qui existe (png, mov, wav, etc) ou un élément généré (mire, décompte,
      * etc).
      */
     protected String type_media = "media";
 
     /**
-     * La couleur du média: bleu par défaut.
+     * La couleur du média : bleu par défaut.
      */
     private CouleurMedia couleur = CouleurMedia.BLEU;
 
@@ -147,7 +147,7 @@ public class Media {
         // Par défaut, balayage progressig (donc aucune trame).
         this.balayage = BALAYAGE_PROGRESSIF;
         this.trame = TRAME_AUCUNE;
-
+        
         id = id_actuelle;
         id_actuelle++;
     }
@@ -155,7 +155,7 @@ public class Media {
     /**
      * Savoir si le média a déjà été utilisé.
      *
-     * @return <code>true</code> si le média a été été utilisé dans la timeline.
+     * @return {@code true} si le média a été utilisé dans la timeline.
      */
     public boolean dejaUtilise() {
         return this.utiliser;
@@ -297,7 +297,7 @@ public class Media {
      *
      * @param balayage Le balayage.
      * @param trame Si entrelacé, on indique la trame, sinon utiliser
-     * <code>TRAME_AUCUNE</code>.
+     * {@link Media#TRAME_AUCUNE TRAME_AUCUNE}.
      */
     public void setBalayage(int balayage, String trame) {
         this.balayage = balayage;

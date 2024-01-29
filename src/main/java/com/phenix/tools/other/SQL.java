@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Objet permettant de faire une connexion entre une base de donnée
- * <code>SQL</code> et Java.<br>
+ * Objet permettant de faire une connexion entre une base de donnée <em>SQL</em>
+ * et Java.<br>
  * On peut créer la base de donnée via cette interface.<br>
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
@@ -23,13 +23,13 @@ public class SQL {
     private Connection connexion;
 
     /**
-     * Objet permettant d'executer les instructions <code>SQL</code>.
+     * Objet permettant d'exécuter les instructions <em>SQL</em>.
      */
     private Statement instruction;
 
     /**
-     * Objet conservant les dernière résultats d'une requête
-     * <code>select</code>.
+     * Objet conservant les derniers résultats d'une requête
+     * <code>SELECT</code>.
      */
     private ResultSet resultat;
 
@@ -49,7 +49,7 @@ public class SQL {
     private String mdp = "naruto";
 
     /**
-     * Créé un nouveau <code>SQL</code> à partir du nom de la base de données.
+     * Construit un objet {@code SQL} à partir du nom de la base de données.
      *
      * @param nom_bdd Nom de la base de données.
      */
@@ -59,8 +59,8 @@ public class SQL {
     }
 
     /**
-     * Créé un nouveau <code>SQL</code> à partir du nom de la base de données,
-     * d'un nom d'utilisateur et d'un mot de passe.
+     * Construit un nouveau {@code SQL} à partir du nom de la base de données, d'un
+     * nom d'utilisateur et d'un mot de passe.
      *
      * @param nom_bdd Nom de la base de données
      * @param nom Nom de l'utilisateur
@@ -73,12 +73,12 @@ public class SQL {
         Connexion();
     }
 
-// == Fonction interne à la classe: ==
+// == Fonction interne à la classe : ==
     /**
      * Se connecte à une base de données.
      *
      * @throws SQLException S'il y a une erreur avec
-     * <code>createStatement()</code>.
+     * {@link Connection#createStatement() createStatement()}.
      */
     private void Connexion() {
         try {
@@ -107,7 +107,7 @@ public class SQL {
     /**
      * Permet de faire un select.
      *
-     * @param instruction Instruction <code>select</code> a réaliser.
+     * @param instruction Instruction {@code SELECT} à réaliser.
      */
     public void select(String instruction) {
         try {
@@ -122,7 +122,7 @@ public class SQL {
     /**
      * Permet de faire un insert.
      *
-     * @param instruction Instruction <code>insert</code> a réaliser.
+     * @param instruction Instruction {@code INSERT} à réaliser.
      */
     public void insert(String instruction) {
 
@@ -139,7 +139,7 @@ public class SQL {
     /**
      * Permet de faire un delete.
      *
-     * @param instruction Instruction <code>delete</code> a réaliser.
+     * @param instruction Instruction {@code DELETE} à réaliser.
      */
     public void delete(String instruction) {
         try {
@@ -154,7 +154,7 @@ public class SQL {
     /**
      * Permet de faire un update.
      *
-     * @param instruction Instruction <code>update</code> a réaliser.
+     * @param instruction Instruction {@code UPDATE} à réaliser.
      */
     public void update(String instruction) {
 
@@ -195,10 +195,9 @@ public class SQL {
 
 // == Getter: ==
     /**
-     * Va a l'entrée suivante.
+     * Va à l'entrée suivante.
      *
-     * @return <code>true</code> s'il y a encore une entrée, sinon
-     * <code>false</code>.
+     * @return {@code true} s'il y a encore une entrée, sinon {@code false}.
      */
     public boolean fetch() {
         try {
@@ -231,9 +230,9 @@ public class SQL {
     }
 
     /**
-     * Retourne le nombre d'entrée.
+     * Retourne le nombre d'entrées.
      *
-     * @return Nombre d'entrée. Retourne <code>-1</code> en cas d'erreur.
+     * @return Nombre d'entrées. Retourne {@code -1} en cas d'erreur.
      */
     public int rowCount() {
         try {
@@ -258,9 +257,9 @@ public class SQL {
     }
 
     /**
-     * Retourne le nombre de colonne.
+     * Retourne le nombre de colonnes.
      *
-     * @return Nombre de colonne. Retourne <code>-1</code> en cas d'erreur.
+     * @return Nombre de colonnes. Retourne {@code -1} en cas d'erreur.
      */
     public int getColumnCount() {
         try {

@@ -41,7 +41,7 @@ public class ErreurBatonDefectivePixel extends ErreurBaton {
     }
 
     /**
-     * Retourne le nombre de pixel défectueux dans l'image (erreur).
+     * Retourne le nombre de pixels défectueux dans l'image (erreur).
      *
      * @return Nombre de defective pixel.
      */
@@ -50,11 +50,10 @@ public class ErreurBatonDefectivePixel extends ErreurBaton {
     }
 
     /**
-     * Retourne <code>{@link com.phenix.tools.XMLNLE.Pixel}</code> de l'index
-     * renseigné.
+     * Retourne un {@code Pixel} à l'index renseigné.
      *
-     * @param index Index dans la liste.
-     * @return <code>{@link com.phenix.tools.XMLNLE.Pixel}</code> à l'index.
+     * @param index L'index.
+     * @return Le {@code Pixel}.
      */
     public Pixel getPixel(int index) {
         return this.liste_pixel.get(index);
