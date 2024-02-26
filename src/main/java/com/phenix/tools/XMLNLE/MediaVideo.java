@@ -185,10 +185,11 @@ public class MediaVideo extends Media {
     public double getPositionHorizontale(double largeur_timeline, double hauteur_timeline, double par_timeline) {
         // On divise la largeur en 2 pour avoir la partie positive ou négative.
         if (this.logiciel_destination == XMLFCP7.PREMIERE) {
-            return ((this.x - (largeur_timeline / 2F)) / 123F) * (par_timeline / this.par);
+            return ((this.x - (largeur_timeline / 2F)) / this.largeur) * (par_timeline / this.par);
+            // return (this.x / largeur_timeline) - 0.5D;
         } // Pour Resolve: 
         else {
-            double calcule_x = ((this.x - (largeur_timeline / 2D)) / largeur_timeline);
+            double calcule_x = (this.x / largeur_timeline) - 0.5D;
 
             // OLD = largeur_timeline / (1.193D / par_timeline) > hauteur_timeline
             if ((largeur_timeline * par_timeline) / hauteur_timeline >= (this.largeur * this.par) / this.hauteur) {
@@ -219,10 +220,11 @@ public class MediaVideo extends Media {
     public double getPositionVerticale(double largeur_timeline, double hauteur_timeline, double par_timeline) {
         // On divise la hauteur en 2 pour avoir la partie positive ou négative.
         if (logiciel_destination == XMLFCP7.PREMIERE) {
-            return (this.y - (hauteur_timeline / 2F)) / 81F;
+            return (this.y - (hauteur_timeline / 2F)) / this.hauteur;
+            //return ((this.y / hauteur_timeline) - (0.5D)) * (((double) this.largeur / (double) this.hauteur) / (largeur_timeline / hauteur_timeline));
         } // Pour Resolve:
         else {
-            double calcule_y = ((this.y - (hauteur_timeline / 2D)) / hauteur_timeline);
+            double calcule_y = (this.y / hauteur_timeline) - 0.5D;
 
             // OLD = largeur_timeline / (1.193D / par_timeline) > hauteur_timeline
             if ((largeur_timeline * par_timeline) / hauteur_timeline >= (this.largeur * this.par) / this.hauteur) {

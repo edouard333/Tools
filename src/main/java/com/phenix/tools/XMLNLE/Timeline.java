@@ -2,8 +2,11 @@ package com.phenix.tools.XMLNLE;
 
 import com.phenix.tools.Timecode;
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -650,12 +653,17 @@ public class Timeline {
                     + "\t\t\t\t\t\t\t\t<parameter authoringApp=\"PremierePro\">\n"
                     + "\t\t\t\t\t\t\t\t\t<parameterid>center</parameterid>\n"
                     + "\t\t\t\t\t\t\t\t\t<name>Center</name>\n"
-                    + "\t\t\t\t\t\t\t\t\t<value>\n"
-                    // Position en X : 0 = centre, max : +/-7.80488
-                    + "\t\t\t\t\t\t\t\t\t\t<horiz>" + m.getPositionHorizontale(this.largeur, this.hauteur, this.par) + "</horiz>\n"
-                    // Position en Y : 0 = centre, max : +/-6.66667
-                    + "\t\t\t\t\t\t\t\t\t\t<vert>" + m.getPositionVerticale(this.largeur, this.hauteur, this.par) + "</vert>\n"
-                    + "\t\t\t\t\t\t\t\t\t</value>\n"
+                    + "\t\t\t\t\t\t\t\t\t<value>\n";
+            // Position en X : 0 = centre.
+            if (this.logiciel_destination == XMLFCP7.PREMIERE) {
+                xml += "\t\t\t\t\t\t\t\t\t\t<horiz>" + new DecimalFormat("#.#########", new DecimalFormatSymbols(Locale.ENGLISH)).format(m.getPositionHorizontale(this.largeur, this.hauteur, this.par)) + "</horiz>\n";
+                xml += "\t\t\t\t\t\t\t\t\t\t<vert>" + new DecimalFormat("#.#########", new DecimalFormatSymbols(Locale.ENGLISH)).format(m.getPositionVerticale(this.largeur, this.hauteur, this.par)) + "</vert>\n";
+            } else {
+                xml += "\t\t\t\t\t\t\t\t\t\t<horiz>" + m.getPositionHorizontale(this.largeur, this.hauteur, this.par) + "</horiz>\n";
+                xml += "\t\t\t\t\t\t\t\t\t\t<vert>" + m.getPositionVerticale(this.largeur, this.hauteur, this.par) + "</vert>\n";
+            }
+            // Position en Y : 0 = centre.
+            xml += "\t\t\t\t\t\t\t\t\t</value>\n"
                     + "\t\t\t\t\t\t\t\t</parameter>\n"
                     + "\t\t\t\t\t\t\t\t<parameter authoringApp=\"PremierePro\">\n"
                     + "\t\t\t\t\t\t\t\t\t<parameterid>centerOffset</parameterid>\n"
@@ -1359,8 +1367,12 @@ public class Timeline {
             }
         }
 
+        if (max_audio < this.nombre_canaux) {
+            max_audio = this.nombre_canaux;
+        }
+
         // Crée chaque piste audio :
-        for (int i = 1; i <= max; i++) {
+        for (int i = 1; i <= max_audio; i++) {
             System.out.println("Numéro de piste audio : " + i);
 
             if (i % 2 == 1) {
