@@ -1,6 +1,8 @@
 package com.phenix.tools.XMLNLE;
 
 import com.phenix.tools.Timecode;
+import com.phenix.tools.XMLNLE.effect.Effect;
+import java.util.ArrayList;
 
 /**
  * Media dans un projet.
@@ -118,6 +120,8 @@ public class Media {
      */
     private CouleurMedia couleur = CouleurMedia.BLEU;
 
+    private ArrayList<Effect> liste_effet = new ArrayList<Effect>();
+
     /**
      * Définit un média sur base de son nom de fichier.
      *
@@ -147,9 +151,18 @@ public class Media {
         // Par défaut, balayage progressig (donc aucune trame).
         this.balayage = BALAYAGE_PROGRESSIF;
         this.trame = TRAME_AUCUNE;
-        
+
         id = id_actuelle;
         id_actuelle++;
+    }
+
+    /**
+     * Ajoute un effet sur le média.
+     *
+     * @param effect L'effet.
+     */
+    public void addEffect(Effect effect) {
+        this.liste_effet.add(effect);
     }
 
     /**
@@ -345,6 +358,15 @@ public class Media {
         else {
             this.framerate = (int) this.in.getFramerate();
         }
+    }
+
+    /**
+     * Retourne la liste des effets du média.
+     *
+     * @return
+     */
+    public ArrayList<Effect> getListeEffect() {
+        return this.liste_effet;
     }
 
     /**

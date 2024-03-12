@@ -1,6 +1,7 @@
 package com.phenix.tools.XMLNLE;
 
 import com.phenix.tools.Timecode;
+import com.phenix.tools.XMLNLE.effect.Effect;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -616,6 +617,13 @@ public class Timeline {
             // DaVinci Resolve indique le mode composition.
             if (this.logiciel_destination == XMLFCP7.RESOLVE) {
                 xml += "\t\t\t\t\t\t<compositemode>normal</compositemode>\n";
+            }
+
+            // Ajoute les effets sur le média :
+            ArrayList<Effect> liste_effet = m.getListeEffect();
+
+            for (int i = 0; i < liste_effet.size(); i++) {
+                xml += liste_effet.get(i).toString();
             }
 
             // Cas quand il y a un déplacement :
