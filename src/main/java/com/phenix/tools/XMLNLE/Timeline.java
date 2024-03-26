@@ -1063,7 +1063,7 @@ public class Timeline {
                 + "\t\t\t\t\t\t\t</rate>\n"
                 + "\t\t\t\t\t\t\t<duration>" + m.getDureeFichier().toImage() + "</duration>\n"
                 + "\t\t\t\t\t\t\t<timecode>\n"
-                + "\t\t\t\t\t\t\t<rate>\n"
+                + "\t\t\t\t\t\t\t\t<rate>\n"
                 + "\t\t\t\t\t\t\t\t\t<timebase>" + m.getFramerate() + "</timebase>\n"
                 + "\t\t\t\t\t\t\t\t\t<ntsc>FALSE</ntsc>\n"
                 + "\t\t\t\t\t\t\t\t</rate>\n"
@@ -1071,18 +1071,22 @@ public class Timeline {
                 + "\t\t\t\t\t\t\t\t<frame>" + m.getStart().toImage() + "</frame>\n"
                 + "\t\t\t\t\t\t\t\t<displayformat>NDF</displayformat>\n"
                 + "\t\t\t\t\t\t\t</timecode>\n"
-                + "\t\t\t\t\t\t\t<media>\n"
-                + "\t\t\t\t\t\t\t\t<audio>\n"
-                + "\t\t\t\t\t\t\t\t\t<samplecharacteristics>\n"
-                + "\t\t\t\t\t\t\t\t\t\t<depth>16</depth>\n"
-                + "\t\t\t\t\t\t\t\t\t\t<samplerate>48000</samplerate>\n"
-                + "\t\t\t\t\t\t\t\t\t</samplecharacteristics>\n"
-                + "\t\t\t\t\t\t\t\t\t<channelcount>" + m.getNombreCanaux() + "</channelcount>\n"
-                + "\t\t\t\t\t\t\t\t\t<audiochannel>\n"
-                + "\t\t\t\t\t\t\t\t\t\t<sourcechannel>" + m.getNumeroSourceCanal() + "</sourcechannel>\n"
-                + "\t\t\t\t\t\t\t\t\t</audiochannel>\n"
-                + "\t\t\t\t\t\t\t\t</audio>\n"
-                + "\t\t\t\t\t\t\t</media>\n"
+                + "\t\t\t\t\t\t\t<media>\n";
+
+        for (int i = 0; i < m.getNombreCanaux(); i++) {
+            xml += "\t\t\t\t\t\t\t\t<audio>\n"
+                    + "\t\t\t\t\t\t\t\t\t<samplecharacteristics>\n"
+                    + "\t\t\t\t\t\t\t\t\t\t<depth>16</depth>\n"
+                    + "\t\t\t\t\t\t\t\t\t\t<samplerate>48000</samplerate>\n"
+                    + "\t\t\t\t\t\t\t\t\t</samplecharacteristics>\n"
+                    + "\t\t\t\t\t\t\t\t\t<channelcount>1</channelcount>\n"
+                    + "\t\t\t\t\t\t\t\t\t<audiochannel>\n"
+                    + "\t\t\t\t\t\t\t\t\t\t<sourcechannel>" + (i + 1) + "</sourcechannel>\n"
+                    + "\t\t\t\t\t\t\t\t\t</audiochannel>\n"
+                    + "\t\t\t\t\t\t\t\t</audio>\n";
+        }
+
+        xml += "\t\t\t\t\t\t\t</media>\n"
                 + "\t\t\t\t\t\t</file>\n"
                 + "\t\t\t\t\t\t<sourcetrack>\n"
                 + "\t\t\t\t\t\t\t<mediatype>audio</mediatype>\n"
@@ -1381,8 +1385,6 @@ public class Timeline {
 
         // Crée chaque piste audio :
         for (int i = 1; i <= max_audio; i++) {
-            System.out.println("Numéro de piste audio : " + i);
-
             if (i % 2 == 1) {
                 xml += "\t\t\t\t<track monotrack=\"TRUE\" TL.SQTrackAudioKeyframeStyle=\"0\" TL.SQTrackShy=\"0\" TL.SQTrackExpandedHeight=\"25\" TL.SQTrackExpanded=\"0\" MZ.TrackTargeted=\"1\" PannerCurrentValue=\"0\" PannerIsInverted=\"true\" PannerStartKeyframe=\"-91445760000000000,0.,0,0,0,0,0,0\" PannerName=\"Pan\" currentExplodedTrackIndex=\"0\" totalExplodedTrackCount=\"1\" premiereTrackType=\"Mono\">\n";
 

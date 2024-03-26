@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>tools</artifactId>
     <name>Tools</name>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Tools</url>
     
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
-            <version>RELEASE200</version>
+            <version>RELEASE210</version>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
