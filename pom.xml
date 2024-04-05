@@ -16,7 +16,7 @@
     </developers>
     
     <build>
-        <!-- Nom du Jar par défaut. -->
+        <!-- Nom du JAR par défaut. -->
         <finalName>${project.name}-${project.version}</finalName>
         
         <plugins>
@@ -50,8 +50,53 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <!-- Pour le coverage mode. -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version>
+                <configuration>
+                    <skip>${skipTests}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Pour permettre d'utiliser vraiment JUnit ... en tout cas l'annotation "@BeforeEach". -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    
+    <dependencies>
+        <!-- Avoir les options d'annotation JUnit. -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -63,5 +108,7 @@
         <appName>Tools</appName>
         <!-- Pour l'instant comme ça pour indiquer la version. -->
         <appVersion>${project.version}</appVersion>
+        <!-- Indique si on saute ou non les tests (et du coup le coverage mode). -->
+        <skipTests>true</skipTests>
     </properties>
 </project>
