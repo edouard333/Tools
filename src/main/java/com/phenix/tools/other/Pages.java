@@ -1,6 +1,5 @@
 package com.phenix.tools.other;
 
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,7 +14,6 @@ import javax.swing.text.html.HTMLEditorKit;
 /**
  * Sert à montrer des pages web.
  *
- * @version 2.5.0
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 public class Pages extends JFrame implements ActionListener, HyperlinkListener {
@@ -28,22 +26,17 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
     /**
      *
      */
-    private Container contenu;
+    private final JEditorPane txt = new JEditorPane();
 
     /**
      *
      */
-    private JEditorPane txt = new JEditorPane();
+    private final JScrollPane barre;
 
     /**
-     *
+     * La page web à charger.
      */
-    private JScrollPane barre;
-
-    /**
-     * La page web a charger.
-     */
-    private String page;
+    private final String page;
 
     /**
      * Construit une page web.
@@ -114,5 +107,4 @@ public class Pages extends JFrame implements ActionListener, HyperlinkListener {
         this.txt.setEditorKit(new HTMLEditorKit());
         this.txt.setPage(file.toURL());
     }
-
 }
