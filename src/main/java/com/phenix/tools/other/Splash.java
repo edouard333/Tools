@@ -58,12 +58,12 @@ public class Splash extends JWindow {
         });
 
         // Largeur, hauteur :
-        super.setSize(this.image.getIconWidth(), this.image.getIconHeight());
+        this.setSize(this.image.getIconWidth(), this.image.getIconHeight());
 
         // Lieu de la fenêtre : Au centre.
-        super.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
 
-        super.setVisible(true);
+        this.setVisible(true);
     }
 
     /**
@@ -89,7 +89,7 @@ public class Splash extends JWindow {
 
         try {
             new Attend(temps);
-            super.setVisible(false);
+            this.dispose();
         } catch (Exception exception) {
         }
     }
