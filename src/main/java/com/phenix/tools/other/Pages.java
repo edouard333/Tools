@@ -16,7 +16,7 @@ import javax.swing.text.html.HTMLEditorKit;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class Pages extends JFrame implements ActionListener, HyperlinkListener {
+public final class Pages extends JFrame implements ActionListener, HyperlinkListener {
 
     /**
      * Le fichier HTML de travail.

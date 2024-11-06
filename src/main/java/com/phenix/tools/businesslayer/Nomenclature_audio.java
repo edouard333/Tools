@@ -11,7 +11,7 @@ import java.util.Map;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 0.1.0
  */
-public class Nomenclature_audio {
+public final class Nomenclature_audio {
 
     /**
      * Original, VF, etc.
@@ -47,7 +47,7 @@ public class Nomenclature_audio {
      * Définit les valeurs d'une piste audio.
      *
      * @param version Version : V(O)F, VO, etc
-     * @param mixe Mixe: BR, TV, etc
+     * @param mixe Mixe : BR, TV, etc
      * @param canaux Système de reproduction : 20, 51, 71, LtRt, etc.
      */
     public Nomenclature_audio(String version, String mixe, String canaux) {
@@ -88,5 +88,4 @@ public class Nomenclature_audio {
     public String toString() {
         return get();
     }
-
 }

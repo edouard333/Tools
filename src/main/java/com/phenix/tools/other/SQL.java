@@ -15,7 +15,7 @@ import java.sql.Statement;
  * @version 1.1.0
  * @since 1.0
  */
-public class SQL {
+public final class SQL {
 
     /**
      * Conserve la connexion à la base de donnée.
@@ -59,8 +59,8 @@ public class SQL {
     }
 
     /**
-     * Construit un nouveau {@code SQL} à partir du nom de la base de données, d'un
-     * nom d'utilisateur et d'un mot de passe.
+     * Construit un nouveau {@code SQL} à partir du nom de la base de données,
+     * d'un nom d'utilisateur et d'un mot de passe.
      *
      * @param nom_bdd Nom de la base de données
      * @param nom Nom de l'utilisateur
@@ -73,7 +73,6 @@ public class SQL {
         Connexion();
     }
 
-// == Fonction interne à la classe : ==
     /**
      * Se connecte à une base de données.
      *
@@ -125,7 +124,6 @@ public class SQL {
      * @param instruction Instruction {@code INSERT} à réaliser.
      */
     public void insert(String instruction) {
-
         try {
             this.instruction.executeUpdate(instruction);
         } catch (SQLException exception) {
@@ -133,7 +131,6 @@ public class SQL {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     /**
@@ -157,7 +154,6 @@ public class SQL {
      * @param instruction Instruction {@code UPDATE} à réaliser.
      */
     public void update(String instruction) {
-
         try {
             this.instruction.executeUpdate(instruction);
         } catch (SQLException exception) {
@@ -165,7 +161,6 @@ public class SQL {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     /**
@@ -181,7 +176,6 @@ public class SQL {
         }
     }
 
-// == Setter: ==
     /**
      * Force le nom de la base de donnée.
      *
@@ -193,7 +187,6 @@ public class SQL {
         this.mdp = mdp;
     }
 
-// == Getter: ==
     /**
      * Va à l'entrée suivante.
      *
@@ -271,5 +264,4 @@ public class SQL {
         }
         return -1; // Erreur.
     }
-
 }

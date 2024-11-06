@@ -6,7 +6,7 @@ package com.phenix.tools.other;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.11.0
  */
-public class Timer {
+public final class Timer {
 
     /**
      * Heure de début.
@@ -70,5 +70,4 @@ public class Timer {
 
         return this.temps_totale;
     }
-
 }

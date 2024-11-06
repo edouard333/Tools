@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class Nomenclature_SEQ {
+public final class Nomenclature_SEQ {
 
     /**
      * Codec.
@@ -108,7 +108,6 @@ public class Nomenclature_SEQ {
      * Initiale les valeurs.
      */
     private void initValeur() {
-
         Map<String, String> liste_type = new HashMap<String, String>();
         Map<String, String> liste_codec = new HashMap<String, String>();
         Map<String, String> liste_resolution = new HashMap<String, String>();
@@ -176,7 +175,7 @@ public class Nomenclature_SEQ {
 
             sc.close();
         } catch (Exception exception) {
-            System.out.println("Une erreur est survenue: " + exception.getMessage());
+            System.out.println("Une erreur est survenue : " + exception.getMessage());
         }
     }
 

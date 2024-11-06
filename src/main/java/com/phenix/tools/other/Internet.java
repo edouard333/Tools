@@ -10,7 +10,7 @@ import java.net.URI;
  * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 2.5.0
  */
-public class Internet {
+public final class Internet {
 
     /**
      * L'outil pour accéder à internet.
@@ -23,7 +23,6 @@ public class Internet {
      * @param url URL de la page web.
      */
     public Internet(String url) {
-
         try {
             // On vérifie que l'objet est supporté.
             if (bureau.isSupported(Desktop.Action.BROWSE))
@@ -38,6 +37,5 @@ public class Internet {
             }
         } catch (Exception exception) {
         }
-
     }
 }

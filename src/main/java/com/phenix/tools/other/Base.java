@@ -7,7 +7,7 @@ package com.phenix.tools.other;
  * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 0.1.1
  */
-public class Base {
+public final class Base {
 
     /**
      * Base de départ.<br>
@@ -71,5 +71,4 @@ public class Base {
     public void setConvertirBase(int base_arrive) {
         this.base_arrive = base_arrive;
     }
-
 }

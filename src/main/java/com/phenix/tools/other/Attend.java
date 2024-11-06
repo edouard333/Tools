@@ -7,14 +7,21 @@ package com.phenix.tools.other;
  * @version 1.18.0
  * @since Kit objet V1
  */
-public class Attend extends Thread {
+public final class Attend extends Thread {
+
+    /**
+     * Pour ne pas instancier la classe.
+     */
+    private Attend() throws Exception {
+        throw new Exception("Cette classe ne peut pas être instanciée.");
+    }
 
     /**
      * Construit une {@code Attend} pour générer une attente reçu en paramètre.
      *
      * @param temps Temps en milliseconde.
      */
-    public Attend(int temps) {
+    public static void delais(int temps) {
         // On doit mettre un 'try' quand on veut utiliser le 'sleep'.
         try {
             // Ici, il y a un temps d'attente, le temps d'attente est en milliseconde :
@@ -23,5 +30,4 @@ public class Attend extends Thread {
             exception.printStackTrace();
         }
     }
-
 }

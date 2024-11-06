@@ -7,15 +7,14 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 
 /**
- * Permet de faire un splash : montrer une image au milieu de
- * l'écran.<br>
+ * Permet de faire un splash : montrer une image au milieu de l'écran.<br>
  * Attention : Les fichiers '.gif' ne marchent pas.<br>
  * Fichiers compatibles : 'jpg'.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 1.0.0
  */
-public class Splash extends JWindow {
+public final class Splash extends JWindow {
 
     /**
      * Image affiché.
@@ -88,7 +87,7 @@ public class Splash extends JWindow {
         this(nom_fichier_image);
 
         try {
-            new Attend(temps);
+            Attend.delais(temps);
             this.dispose();
         } catch (Exception exception) {
         }

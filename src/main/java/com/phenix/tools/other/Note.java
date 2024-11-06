@@ -11,7 +11,7 @@ import javax.sound.sampled.SourceDataLine;
  * @version 0.8.0
  * @since Kit objet V2
  */
-public class Note extends Thread {
+public final class Note extends Thread {
 
     /**
      * ???
@@ -71,5 +71,4 @@ public class Note extends Thread {
             exception.printStackTrace();
         }
     }
-
 }
