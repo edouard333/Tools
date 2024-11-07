@@ -9,9 +9,7 @@ import java.util.StringTokenizer;
 /**
  * Sert à "écrire" quelque chose avec le clavier.
  *
- * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
- * @since Kit objet V1
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 public final class Clavier {
 
@@ -32,7 +30,8 @@ public final class Clavier {
     private static StringTokenizer st;
 
     /**
-     * Null besoin d'instancier l'objet "Clavier", chaque fonction sont "static".
+     * Null besoin d'instancier l'objet "Clavier", chaque fonction sont
+     * "static".
      */
     private Clavier() {
     }

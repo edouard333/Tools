@@ -4,8 +4,7 @@ package com.phenix.tools.other;
  * Faire des conversions de base 2, 3, 4, ... jusqu'à la 10 en base 10 ou autre
  * jusqu'à la base 10.
  *
- * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 0.1.1
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 public final class Base {
 

@@ -8,8 +8,6 @@ import javax.sound.sampled.SourceDataLine;
  * Classe jouant une note en fonction d'une fréquence.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 0.8.0
- * @since Kit objet V2
  */
 public final class Note extends Thread {
 

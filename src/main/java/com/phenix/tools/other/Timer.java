@@ -4,7 +4,6 @@ package com.phenix.tools.other;
  * Chronomètre la durée que prend l'exécution d'un bout de code.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.11.0
  */
 public final class Timer {
 

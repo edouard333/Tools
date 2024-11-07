@@ -4,8 +4,6 @@ package com.phenix.tools.other;
  * Objet servant à générer une "attente" dans un programme.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.18.0
- * @since Kit objet V1
  */
 public final class Attend extends Thread {
 

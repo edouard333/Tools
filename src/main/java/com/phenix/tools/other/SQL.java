@@ -12,8 +12,6 @@ import java.sql.Statement;
  * On peut créer la base de donnée via cette interface.<br>
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.1.0
- * @since 1.0
  */
 public final class SQL {
 

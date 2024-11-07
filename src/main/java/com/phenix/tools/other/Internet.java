@@ -7,8 +7,7 @@ import java.net.URI;
 /**
  * Il sert à aller sur le navigateur par défaut aller sur un site.
  *
- * @author  <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 2.5.0
+ * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 public final class Internet {
 

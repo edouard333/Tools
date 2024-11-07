@@ -12,7 +12,6 @@ import javax.swing.JWindow;
  * Fichiers compatibles : 'jpg'.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
- * @version 1.0.0
  */
 public final class Splash extends JWindow {
 

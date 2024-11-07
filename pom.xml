@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>tools</artifactId>
     <name>Tools</name>
-    <version>1.4.5</version>
+    <version>1.4.6</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Tools</url>
     
@@ -100,10 +100,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <!-- Type d'application : "graphic", "console" ou "library". -->
         <appType>library</appType>
-        <!-- Nom de l'application. -->
-        <appTitle>Tools</appTitle>
-        <!-- Pour l'instant comme ça pour indiquer la version. -->
-        <appVersion>${project.version}</appVersion>
         <!-- Indique si on saute ou non les tests (et du coup le coverage mode). -->
         <skipTests>true</skipTests>
     </properties>
