@@ -261,12 +261,12 @@ public final class Nomenclature_SEQ {
      * @return Liste.
      */
     public Map<String, String> getListe(String propriete) {
-        switch (propriete) {
-            case "codec":
-                return this.proprietes.get(propriete);
-            default:
-                return null;
-        }
+        return switch (propriete) {
+            case "codec" ->
+                this.proprietes.get(propriete);
+            default ->
+                null;
+        };
     }
 
     /**
