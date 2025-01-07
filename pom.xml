@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>tools</artifactId>
     <name>Tools</name>
-    <version>1.4.6</version>
+    <version>1.4.7</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Tools</url>
     
@@ -37,7 +37,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.1</version>
+                <version>3.11.2</version>
                 <executions>
                     <execution>
                         <id>attach-javadoc</id>
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.11.3</version>
+            <version>5.11.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
