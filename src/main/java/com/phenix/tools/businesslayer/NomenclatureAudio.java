@@ -11,7 +11,7 @@ import java.util.Map;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 0.1.0
  */
-public final class Nomenclature_audio {
+public final class NomenclatureAudio {
 
     /**
      * Original, VF, etc.
@@ -50,7 +50,7 @@ public final class Nomenclature_audio {
      * @param mixe Mixe : BR, TV, etc
      * @param canaux Système de reproduction : 20, 51, 71, LtRt, etc.
      */
-    public Nomenclature_audio(String version, String mixe, String canaux) {
+    public NomenclatureAudio(String version, String mixe, String canaux) {
         this.version = version;
         this.mixe = mixe;
         this.canaux = canaux;

@@ -1,7 +1,9 @@
 package com.phenix.tools.other;
 
+import jakarta.validation.constraints.NotNull;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
@@ -21,11 +23,6 @@ public final class Splash extends JWindow {
     private ImageIcon image;
 
     /**
-     * Fichier image.
-     */
-    private String nom_fichier_image;
-
-    /**
      * Temps d'affichage de l'image.
      */
     private int temps;
@@ -38,12 +35,12 @@ public final class Splash extends JWindow {
     /**
      * Affiche une image au centre de l'écran.
      *
-     * @param nom_fichier_image Nom du fichier image.
+     * @param fichier_image Fichier image.
      */
-    public Splash(String nom_fichier_image) {
+    public Splash(@NotNull File fichier_image) {
         JLabel jlabel;
 
-        add(jlabel = new JLabel(this.image = new ImageIcon(nom_fichier_image)));
+        add(jlabel = new JLabel(this.image = new ImageIcon(fichier_image.getAbsolutePath())));
 
         jlabel.addMouseListener(
                 new MouseAdapter() {
@@ -68,22 +65,22 @@ public final class Splash extends JWindow {
      * Si l'option clickKill est true, c'est que quand on clique sur l'image,
      * cela la ferme.
      *
-     * @param nom_fichier_image Nom du fichier image.
+     * @param fichier_image Fichier image.
      * @param clickKill Indique si on ferme l'image en cliquant dessus.
      */
-    public Splash(String nom_fichier_image, boolean clickKill) {
-        this(nom_fichier_image);
+    public Splash(File fichier_image, boolean clickKill) {
+        this(fichier_image);
         this.clickKill = clickKill;
     }
 
     /**
      * Affiche une image pendant un certain temps.
      *
-     * @param nom_fichier_image Nom du fichier image.
+     * @param fichier_image Fichier image.
      * @param temps Temps en milliseconde.
      */
-    public Splash(String nom_fichier_image, int temps) {
-        this(nom_fichier_image);
+    public Splash(File fichier_image, int temps) {
+        this(fichier_image);
 
         try {
             Attend.delais(temps);

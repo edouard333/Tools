@@ -240,9 +240,9 @@ public final class Clavier {
     }
 
     /**
-     * Retourne en {@code String} ce qui a été saisi au clavier.
+     * Retourne en {@link String} ce qui a été saisi au clavier.
      *
-     * @return La valeur en {@code String}.
+     * @return La valeur en {@link String}.
      */
     public static String lireString() {
         try {

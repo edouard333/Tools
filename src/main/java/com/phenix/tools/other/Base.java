@@ -1,5 +1,8 @@
 package com.phenix.tools.other;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * Faire des conversions de base 2, 3, 4, ... jusqu'à la 10 en base 10 ou autre
  * jusqu'à la base 10.
@@ -34,7 +37,7 @@ public final class Base {
      *
      * @param valeur_depart Base à laquelle on veut arriver.
      */
-    public Base(String valeur_depart) {
+    public Base(@NotNull @NotBlank String valeur_depart) {
         this(valeur_depart, 10);
     }
 
@@ -44,7 +47,7 @@ public final class Base {
      * @param base_depart Base de départ.
      * @param valeur_depart Base à laquelle on veut arriver.
      */
-    public Base(String valeur_depart, int base_depart) {
+    public Base(@NotNull @NotBlank String valeur_depart, int base_depart) {
         this.base_depart = base_depart;
         this.base_arrive = this.base_depart;
 
@@ -54,10 +57,11 @@ public final class Base {
     /**
      * Retourne le résultat sur base des 3 informations : base initiale, base
      * finale et la valeur liée à la base initiale.<br>
-     * Résultat en {@code String} pour gérer l'hexadécimal.
+     * Résultat en {@link String} pour gérer l'hexadécimal.
      *
      * @return Résultat en base finale.
      */
+    @NotNull
     public String getValeur() {
         return Integer.toString(this.valeur_depart_decimal, this.base_arrive);
     }

@@ -1,5 +1,6 @@
 package com.phenix.tools.other;
 
+import jakarta.validation.constraints.NotNull;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +15,8 @@ public final class Internet {
     /**
      * L'outil pour accéder à internet.
      */
-    private Desktop bureau = Desktop.getDesktop();
+    @NotNull
+    private final Desktop bureau = Desktop.getDesktop();
 
     /**
      * Accès à internet avec une URL.
@@ -24,9 +26,9 @@ public final class Internet {
     public Internet(String url) {
         try {
             // On vérifie que l'objet est supporté.
-            if (bureau.isSupported(Desktop.Action.BROWSE))
+            if (this.bureau.isSupported(Desktop.Action.BROWSE))
                try {
-                bureau.browse(new URI(url));
+                this.bureau.browse(new URI(url));
             } catch (IOException exception) {
                 throw new IOException("L'URL n'est pas correcte.");
             } catch (Exception exception) {

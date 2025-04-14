@@ -22,7 +22,7 @@ public final class Note extends Thread {
     private final int frequence;
 
     /**
-     * Construit une {@code Note} à l'aide d'une fréquence.
+     * Construit une {@link Note} à l'aide d'une fréquence.
      *
      * @param frequence Définit la fréquence en Hz.
      */

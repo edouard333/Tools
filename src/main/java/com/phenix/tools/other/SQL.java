@@ -1,5 +1,8 @@
 package com.phenix.tools.other;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -34,6 +37,8 @@ public final class SQL {
     /**
      * Variable contenant le nom de la base de donnée à laquelle se connecté.
      */
+    @NotNull
+    @NotBlank
     private String nom_bdd;
 
     /**
@@ -47,28 +52,28 @@ public final class SQL {
     private String mdp = "naruto";
 
     /**
-     * Construit un objet {@code SQL} à partir du nom de la base de données.
+     * Construit un objet {@link SQL} à partir du nom de la base de données.
      *
      * @param nom_bdd Nom de la base de données.
      */
-    public SQL(String nom_bdd) {
+    public SQL(@NotNull @NotBlank String nom_bdd) {
         this.nom_bdd = nom_bdd;
-        Connexion();
+        this.connexion();
     }
 
     /**
-     * Construit un nouveau {@code SQL} à partir du nom de la base de données,
+     * Construit un nouveau {@link SQL} à partir du nom de la base de données,
      * d'un nom d'utilisateur et d'un mot de passe.
      *
      * @param nom_bdd Nom de la base de données
      * @param nom Nom de l'utilisateur
      * @param mdp Mot de passe de l'utilisateur
      */
-    public SQL(String nom_bdd, String nom, String mdp) {
+    public SQL(@NotNull @NotBlank String nom_bdd, String nom, String mdp) {
         this.nom_bdd = nom_bdd;
         this.nom = nom;
         this.mdp = mdp;
-        Connexion();
+        this.connexion();
     }
 
     /**
@@ -77,13 +82,13 @@ public final class SQL {
      * @throws SQLException S'il y a une erreur avec
      * {@link Connection#createStatement() createStatement()}.
      */
-    private void Connexion() {
+    private void connexion() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
             this.connexion = DriverManager.getConnection("jdbc:mysql://localhost/" + this.nom_bdd, this.nom, this.mdp);
 
-            instruction = connexion.createStatement();
+            this.instruction = this.connexion.createStatement();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (Exception exception) {
@@ -94,19 +99,19 @@ public final class SQL {
     /**
      * Force le nom de la base de données.
      *
-     * @param bdd nom de la base de données.
+     * @param nom_bdd nom de la base de données.
      */
-    public void BDD(String bdd) {
-        nom_bdd = bdd;
-        Connexion();
+    public void BDD(@NotNull @NotBlank String nom_bdd) {
+        this.nom_bdd = nom_bdd;
+        this.connexion();
     }
 
     /**
      * Permet de faire un select.
      *
-     * @param instruction Instruction {@code SELECT} à réaliser.
+     * @param instruction Instruction <em>SELECT</em> à réaliser.
      */
-    public void select(String instruction) {
+    public void select(@NotNull @NotBlank String instruction) {
         try {
             this.resultat = this.instruction.executeQuery(instruction);
         } catch (SQLException exception) {
@@ -119,9 +124,9 @@ public final class SQL {
     /**
      * Permet de faire un insert.
      *
-     * @param instruction Instruction {@code INSERT} à réaliser.
+     * @param instruction Instruction <em>INSERT</em> à réaliser.
      */
-    public void insert(String instruction) {
+    public void insert(@NotNull @NotBlank String instruction) {
         try {
             this.instruction.executeUpdate(instruction);
         } catch (SQLException exception) {
@@ -134,9 +139,9 @@ public final class SQL {
     /**
      * Permet de faire un delete.
      *
-     * @param instruction Instruction {@code DELETE} à réaliser.
+     * @param instruction Instruction <em>DELETE</em> à réaliser.
      */
-    public void delete(String instruction) {
+    public void delete(@NotNull @NotBlank String instruction) {
         try {
             this.instruction.executeUpdate(instruction);
         } catch (SQLException exception) {
@@ -149,9 +154,9 @@ public final class SQL {
     /**
      * Permet de faire un update.
      *
-     * @param instruction Instruction {@code UPDATE} à réaliser.
+     * @param instruction Instruction <em>UPDATE</em> à réaliser.
      */
-    public void update(String instruction) {
+    public void update(@NotNull @NotBlank String instruction) {
         try {
             this.instruction.executeUpdate(instruction);
         } catch (SQLException exception) {
@@ -199,6 +204,7 @@ public final class SQL {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+
         return false;
     }
 
@@ -209,7 +215,8 @@ public final class SQL {
      *
      * @return Une chaine de caractère contenant la valeur de la colonne.
      */
-    public String getEntree(String colonne) {
+    @Null
+    public String getEntree(@NotNull @NotBlank String colonne) {
         try {
             return resultat.getString(colonne);
         } catch (SQLException exception) {
@@ -217,25 +224,26 @@ public final class SQL {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+
         return null;
     }
 
     /**
      * Retourne le nombre d'entrées.
      *
-     * @return Nombre d'entrées. Retourne {@code -1} en cas d'erreur.
+     * @return Nombre d'entrées ou {@code -1} en cas d'erreur.
      */
     public int rowCount() {
         try {
-            int lignecurseur = resultat.getRow(); // Position du curseur.
+            int ligne_curseur = this.resultat.getRow(); // Position du curseur.
 
-            resultat.last(); // On le place à la fin.
-            int nombreLignes = resultat.getRow();
+            this.resultat.last(); // On le place à la fin.
+            int nombreLignes = this.resultat.getRow();
 
-            if (lignecurseur == 0) {
-                resultat.beforeFirst();
+            if (ligne_curseur == 0) {
+                this.resultat.beforeFirst();
             } else {
-                resultat.absolute(lignecurseur);
+                this.resultat.absolute(ligne_curseur);
             }
 
             return nombreLignes;
@@ -244,13 +252,14 @@ public final class SQL {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+
         return -1; // Erreur.
     }
 
     /**
      * Retourne le nombre de colonnes.
      *
-     * @return Nombre de colonnes. Retourne {@code -1} en cas d'erreur.
+     * @return Nombre de colonnes ou {@code -1} en cas d'erreur.
      */
     public int getColumnCount() {
         try {
@@ -260,6 +269,7 @@ public final class SQL {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+
         return -1; // Erreur.
     }
 }

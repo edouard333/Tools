@@ -1,5 +1,7 @@
 package com.phenix.tools.businesslayer;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,36 +15,48 @@ import java.util.Scanner;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public final class Nomenclature_SEQ {
+public final class NomenclatureSEQ {
 
     /**
      * Codec.
      */
+    @NotNull
+    @NotBlank
     public static final String CODEC = "codec";
 
     /**
      * Type.
      */
+    @NotNull
+    @NotBlank
     public static final String TYPE = "type";
 
     /**
      * Résolution.
      */
+    @NotNull
+    @NotBlank
     public static final String RESOLUTION = "resolution";
 
     /**
      * Ratio.
      */
+    @NotNull
+    @NotBlank
     public static final String RATIO = "ratio";
 
     /**
      * Cadence.
      */
+    @NotNull
+    @NotBlank
     public static final String CADENCE = "cadence";
 
     /**
      * Studio.
      */
+    @NotNull
+    @NotBlank
     public static final String STUDIO = "studio";
 
     /**
@@ -78,7 +92,7 @@ public final class Nomenclature_SEQ {
     /**
      * Liste des audios.
      */
-    private List<Nomenclature_audio> audio = new ArrayList<Nomenclature_audio>();
+    private List<NomenclatureAudio> audio = new ArrayList<NomenclatureAudio>();
 
     /**
      * Liste de propriétés.
@@ -88,7 +102,7 @@ public final class Nomenclature_SEQ {
     /**
      * Initialise la nomenclature.
      */
-    public Nomenclature_SEQ() {
+    public NomenclatureSEQ() {
         this.nom_fichier = null;
         this.initValeur();
     }
@@ -98,7 +112,7 @@ public final class Nomenclature_SEQ {
      *
      * @param nom_fichier Nom du fichier.
      */
-    public Nomenclature_SEQ(String nom_fichier) {
+    public NomenclatureSEQ(String nom_fichier) {
         this.nom_fichier = nom_fichier;
         this.initValeur();
         this.DecodeNomFichier();
@@ -156,7 +170,7 @@ public final class Nomenclature_SEQ {
      *
      * @param audio L'audio à ajouter.
      */
-    public void addAudio(Nomenclature_audio audio) {
+    public void addAudio(NomenclatureAudio audio) {
         this.audio.add(audio);
     }
 
@@ -241,6 +255,7 @@ public final class Nomenclature_SEQ {
                 return cle;
             }
         }
+
         return null;
     }
 

@@ -20,16 +20,17 @@ public final class Timer {
     /**
      * Options.
      */
-    private boolean reinitaliser = false;
+    private boolean reinitaliser;
 
     /**
-     * Construit un {@code Timer}.
+     * Construit un {@link Timer}.
      */
     public Timer() {
+        this(false);
     }
 
     /**
-     * Construit un {@code Timer}.
+     * Construit un {@link Timer}.
      *
      * @param reinitaliser Indique si on réinitialise.
      */

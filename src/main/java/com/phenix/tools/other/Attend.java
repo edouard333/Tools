@@ -15,7 +15,7 @@ public final class Attend extends Thread {
     }
 
     /**
-     * Construit une {@code Attend} pour générer une attente reçu en paramètre.
+     * Construit une {@link Attend} pour générer une attente reçu en paramètre.
      *
      * @param temps Temps en milliseconde.
      */

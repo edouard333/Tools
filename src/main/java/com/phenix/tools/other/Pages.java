@@ -1,5 +1,6 @@
 package com.phenix.tools.other;
 
+import jakarta.validation.constraints.NotNull;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -26,11 +27,13 @@ public final class Pages extends JFrame implements ActionListener, HyperlinkList
     /**
      *
      */
+    @NotNull
     private final JEditorPane txt = new JEditorPane();
 
     /**
      *
      */
+    @NotNull
     private final JScrollPane barre;
 
     /**
@@ -58,11 +61,11 @@ public final class Pages extends JFrame implements ActionListener, HyperlinkList
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        txt.setEditable(false);
-        txt.addHyperlinkListener(this);
+        this.txt.setEditable(false);
+        this.txt.addHyperlinkListener(this);
 
-        this.add(barre = new JScrollPane(txt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-        barre.setAutoscrolls(true);
+        this.add(this.barre = new JScrollPane(txt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+        this.barre.setAutoscrolls(true);
 
         // Page par défaut :
         chargerHTML(page);
@@ -87,7 +90,7 @@ public final class Pages extends JFrame implements ActionListener, HyperlinkList
         if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             try {
                 chargerHTML(evt.getDescription());
-                setTitle(page + ": " + evt.getDescription());
+                setTitle(this.page + ": " + evt.getDescription());
             } catch (IOException exception) {
                 System.out.println("Erreur[hyperlien]:\n" + exception.getMessage());
             }
@@ -101,10 +104,10 @@ public final class Pages extends JFrame implements ActionListener, HyperlinkList
      *
      * @throws IOException Erreur lors de la définition de la page.
      */
-    private void chargerHTML(String nom) throws IOException {
+    private void chargerHTML(@NotNull String nom) throws IOException {
         this.file = new File(nom);
 
         this.txt.setEditorKit(new HTMLEditorKit());
-        this.txt.setPage(file.toURL());
+        this.txt.setPage(this.file.toURL());
     }
 }
