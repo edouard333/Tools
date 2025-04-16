@@ -12,7 +12,7 @@ import java.sql.Statement;
 /**
  * Objet permettant de faire une connexion entre une base de donnée <em>SQL</em>
  * et Java.<br>
- * On peut créer la base de donnée via cette interface.<br>
+ * On peut créer la base de donnée via cette interface.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
