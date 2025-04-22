@@ -6,6 +6,5 @@ module com.phenix.tools {
     requires java.desktop;
     requires java.sql;
 
-    exports com.phenix.tools.businesslayer;
-    exports com.phenix.tools.other;
+    exports com.phenix.tools;
 }

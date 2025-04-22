@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 /**
  * Objet servant à générer une "attente" dans un programme.
@@ -8,7 +8,9 @@ package com.phenix.tools.other;
 public final class Attend extends Thread {
 
     /**
-     * Pour ne pas instancier la classe.
+     * On ne peut pas instancier cette classe.
+     *
+     * @throws Exception On ne peut pas instancier cette classe.
      */
     private Attend() throws Exception {
         throw new Exception("Cette classe ne peut pas être instanciée.");

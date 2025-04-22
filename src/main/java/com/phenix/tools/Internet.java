@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 import jakarta.validation.constraints.NotNull;
 import java.awt.Desktop;
@@ -30,13 +30,14 @@ public final class Internet {
                try {
                 this.bureau.browse(new URI(url));
             } catch (IOException exception) {
-                throw new IOException("L'URL n'est pas correcte.");
+                throw new IOException("L'URL n'est pas correcte.", exception);
             } catch (Exception exception) {
                 throw new IOException(exception);
             } else {
                 throw new IOException("L'utilisation d' 'internet' n'est pas supporte.");
             }
         } catch (Exception exception) {
+            throw new RuntimeException(exception);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 /**
  * Chronomètre la durée que prend l'exécution d'un bout de code.

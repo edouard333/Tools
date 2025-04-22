@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 import jakarta.validation.constraints.NotNull;
 import java.awt.event.ActionEvent;
@@ -68,7 +68,7 @@ public final class Pages extends JFrame implements ActionListener, HyperlinkList
         this.barre.setAutoscrolls(true);
 
         // Page par défaut :
-        chargerHTML(page);
+        this.chargerHTML(page);
     }
 
     /**

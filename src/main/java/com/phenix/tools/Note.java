@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;

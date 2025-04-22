@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 import jakarta.validation.constraints.NotNull;
 import java.awt.event.MouseAdapter;
@@ -86,6 +86,7 @@ public final class Splash extends JWindow {
             Attend.delais(temps);
             this.dispose();
         } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 

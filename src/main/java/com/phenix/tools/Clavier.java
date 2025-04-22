@@ -1,4 +1,4 @@
-package com.phenix.tools.other;
+package com.phenix.tools;
 
 import java.io.BufferedReader;
 import java.io.IOException;
