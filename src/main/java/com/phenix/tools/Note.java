@@ -41,6 +41,7 @@ public final class Note extends Thread {
         byte[] output = new byte[samples];
 
         double period = (double) SAMPLE_RATE / freq;
+
         for (int i = 0; i < output.length; i++) {
             double angle = 2.0 * Math.PI * i / period;
             output[i] = (byte) (Math.sin(angle) * 127f);
