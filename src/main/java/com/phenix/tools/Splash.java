@@ -35,17 +35,16 @@ public final class Splash extends JWindow {
     /**
      * Affiche une image au centre de l'écran.
      *
-     * @param fichier_image Fichier image.
+     * @param fichierImage Fichier image.
      */
-    public Splash(@NotNull File fichier_image) {
+    public Splash(@NotNull File fichierImage) {
         JLabel jlabel;
 
-        add(jlabel = new JLabel(this.image = new ImageIcon(fichier_image.getAbsolutePath())));
+        add(jlabel = new JLabel(this.image = new ImageIcon(fichierImage.getAbsolutePath())));
 
-        jlabel.addMouseListener(
-                new MouseAdapter() {
+        jlabel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt) {
+            public void mouseClicked(MouseEvent event) {
                 if (clickKill) {
                     dispose();
                 }
@@ -65,22 +64,22 @@ public final class Splash extends JWindow {
      * Si l'option clickKill est true, c'est que quand on clique sur l'image,
      * cela la ferme.
      *
-     * @param fichier_image Fichier image.
+     * @param fichierImage Fichier image.
      * @param clickKill Indique si on ferme l'image en cliquant dessus.
      */
-    public Splash(File fichier_image, boolean clickKill) {
-        this(fichier_image);
+    public Splash(File fichierImage, boolean clickKill) {
+        this(fichierImage);
         this.clickKill = clickKill;
     }
 
     /**
      * Affiche une image pendant un certain temps.
      *
-     * @param fichier_image Fichier image.
+     * @param fichierImage Fichier image.
      * @param temps Temps en milliseconde.
      */
-    public Splash(File fichier_image, int temps) {
-        this(fichier_image);
+    public Splash(File fichierImage, int temps) {
+        this(fichierImage);
 
         try {
             Attend.delais(temps);

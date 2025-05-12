@@ -15,7 +15,7 @@ public final class Timer {
     /**
      * Temps entre le start et le stop.
      */
-    private double temps_totale;
+    private double tempsTotale;
 
     /**
      * Options.
@@ -62,12 +62,12 @@ public final class Timer {
      * @return Temps écoulé en milliseconde.
      */
     public double stop(boolean reinitaliser) {
-        this.temps_totale = System.currentTimeMillis() - this.temps;
+        this.tempsTotale = System.currentTimeMillis() - this.temps;
 
         if (reinitaliser) {
             this.temps = System.currentTimeMillis();
         }
 
-        return this.temps_totale;
+        return this.tempsTotale;
     }
 }
